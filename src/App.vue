@@ -12,13 +12,13 @@
   </div>
 </template>
 <script>
-import { db, repairsCollection } from '@/db'
-import SideMenu from '@/components/layout/SideMenu.vue'
-import HeaderTop from '@/components/layout/Header.vue'
-import BreadCrumb from '@/components/layout/BreadCrumbs.vue'
+import { db, repairsCollection } from "@/db";
+import SideMenu from "@/components/layout/SideMenu.vue";
+import HeaderTop from "@/components/layout/Header.vue";
+import BreadCrumb from "@/components/layout/BreadCrumbs.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     SideMenu,
     HeaderTop,
@@ -28,14 +28,14 @@ export default {
     return {
       // data: [],
       sideLeft: false,
-    }
+    };
   },
   methods: {
     closeMenu() {
-      this.sideLeft = !this.sideLeft
+      this.sideLeft = !this.sideLeft;
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

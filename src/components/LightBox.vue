@@ -37,7 +37,9 @@
 
 <script>
 import { db, repairsCollection, storageRef } from '@/db'
+
 import firebase from 'firebase'
+
 import MessagePlugin from '@/assets/js/element.js'
 
 import Editor from '@/components/Editor.vue'

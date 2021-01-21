@@ -13,7 +13,12 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
+// 上傳、修改
 const db = firebase.firestore()
 const storageRef = firebase.storage().ref()
 const repairsCollection = db.collection('article')
-export { db, repairsCollection, storageRef }
+// 登入
+const login = firebase.auth()
+
+
+export { db, repairsCollection, storageRef, login }

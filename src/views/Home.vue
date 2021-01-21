@@ -161,7 +161,7 @@ export default {
   watch: {
     articleData(newValue, oldValue) {
       this.matchAry = [...newValue]
-      console.log('篩選', this.matchAry)
+      // console.log('篩選', this.matchAry)
     },
   },
   mixins: [MessagePlugin],
