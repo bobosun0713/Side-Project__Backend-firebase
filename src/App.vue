@@ -1,32 +1,49 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <side-menu @close-side="closeMenu"></side-menu>
+    <div
+      class="backend-wrapper"
+      :class="{ 'backend-wrapper--active': sideLeft }"
+    >
+      <header-top></header-top>
+      <bread-crumb></bread-crumb>
+      <router-view />
     </div>
-    <router-view/>
   </div>
 </template>
+<script>
+import { db, repairsCollection } from '@/db'
+import SideMenu from '@/components/layout/SideMenu.vue'
+import HeaderTop from '@/components/layout/Header.vue'
+import BreadCrumb from '@/components/layout/BreadCrumbs.vue'
+
+export default {
+  name: 'App',
+  components: {
+    SideMenu,
+    HeaderTop,
+    BreadCrumb,
+  },
+  data() {
+    return {
+      // data: [],
+      sideLeft: false,
+    }
+  },
+  methods: {
+    closeMenu() {
+      this.sideLeft = !this.sideLeft
+    },
+  },
+}
+</script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.backend-wrapper {
+  margin-left: 330px;
+  transition: all 0.5s;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.backend-wrapper--active {
+  margin-left: 0;
 }
 </style>
