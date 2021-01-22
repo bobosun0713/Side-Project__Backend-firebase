@@ -4,40 +4,25 @@ import router from './router'
 // 引入共用sass
 import '@/assets/scss/main.scss'
 
-// firebase
+// firebase // 資料庫
 import { firestorePlugin } from 'vuefire'
 Vue.use(firestorePlugin)
 
 // 引用element ui
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import Main from '@/assets/js/element.js'
+import '@/assets/js/element.js'
 
-Vue.use(ElementUI)
+// editor 編輯器
+import '@/assets/js/editor.js'
 
 // fontawesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(fas, far, fab)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+import '@/assets/js/fontawesome.js'
 
-// editor
-import VueQuillEditor from 'vue-quill-editor'
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-// 引入工具設定
-// import editTool from '@/assets/js/edit.js'
-// Vue.use(VueQuillEditor, { ...editTool })
-Vue.use(VueQuillEditor)
+// veeValidate 驗證表單
+import '@/assets/js/vee-vealidation.js'
 
 Vue.config.productionTip = false
 
 new Vue({
-  Main,
   router,
   render: (h) => h(App),
 }).$mount('#app')

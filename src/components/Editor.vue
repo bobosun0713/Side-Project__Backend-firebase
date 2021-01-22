@@ -24,12 +24,6 @@ export default {
   data() {
     return {
       editorOption: {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-            ['blockquote', 'code-block'],
-          ],
-        },
         placeholder: '請輸入內容...',
         theme: 'snow',
       },

@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-// base設定值
+// firebase設定值
 const firebaseConfig = {
   apiKey: 'AIzaSyAX7SvJDkzdvxkOQF9QHHhDV32WF1Dd2Ho',
   authDomain: 'bobo-backend.firebaseapp.com',
@@ -13,12 +13,20 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
-// 上傳、修改
+/*
+ ########### firestore(上傳資料) ###########
+ */
 const db = firebase.firestore()
-const storageRef = firebase.storage().ref()
 const repairsCollection = db.collection('article')
-// 登入
-const login = firebase.auth()
 
+/*
+ ########### firestore(上傳檔案) ###########
+ */
+const storageRef = firebase.storage().ref()
+
+/* 
+ ########### 登入 ###########
+*/
+const login = firebase.auth()
 
 export { db, repairsCollection, storageRef, login }

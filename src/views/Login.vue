@@ -1,6 +1,8 @@
 <template>
   <div class="login">
     <div class="login-form">
+      <button @click="test">測試轉址</button>
+      <button @click="test1">登出</button>
       <div class="login-form__header login-form--margin">
         <img
           class="login-form__header__img"
@@ -8,85 +10,109 @@
           alt=""
         />
       </div>
-      <div class="login-form__body login-form--margin">
+      <validation-observer
+        class="login-form__body login-form--margin"
+        tag="form"
+        ref="form"
+        @submit.prevent="SubmitAction()"
+      >
+        <login-input
+          v-model="email"
+          :type="{ type: 'text', name: '帳號', rules: 'required|email' }"
+        ></login-input>
+        <login-input
+          v-model="password"
+          :type="{ type: 'password', name: '密碼', rules: 'required|password' }"
+        ></login-input>
         <div class="login-form__body-group">
-          <label class="login-form__body-group__title" for="">帳號: </label>
-          <input
-            class="login-form__body-group__input"
-            type="text"
-            v-model="email"
-            placeholder="請輸入email"
-          />
+          <button type="submit" class="login-form__footer__button">
+            登入
+          </button>
         </div>
-        <div class="login-form__body-group">
-          <label class="login-form__body-group__title" for="">密碼: </label>
-          <input
-            class="login-form__body-group__input"
-            type="text"
-            v-model="password"
-            placeholder="請輸入密碼"
-          />
-        </div>
-      </div>
-      <div class="login-form__footer login-form--margin">
-        <button class="login-form__footer__button" @click="singIn">登入</button>
-      </div>
+      </validation-observer>
     </div>
   </div>
 </template>
 
 <script>
-import MessagePlugin from "@/assets/js/element.js";
-import VueRouter from "vue-router";
+import MessagePlugin from '@/assets/js/element.js'
+import LoginInput from '@/components/login/LoginInput.vue'
 
-import { login } from "@/db";
+import '@/assets/js/vee-vealidation.js'
+
+import { login } from '@/db'
 export default {
-  name: "Login",
-  datr() {
+  name: 'Login',
+  components: {
+    LoginInput,
+  },
+  data() {
     return {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: '',
+    }
   },
   methods: {
-    singIn() {
+    // 送出
+    SubmitAction() {
+      this.$refs.form.validate().then((success) => {
+        if (!success) {
+          this.email = this.password = ''
+          return this.MessageDialog('error', '請輸入帳號或密碼！', true)
+        }
+        this.SingIn()
+      })
+    },
+
+    // 登入函式
+    SingIn() {
       login
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          console.log("登入成功");
-          $route.push({ path: "/" });
-          this.MessageDialog("success", "登入成功", true);
+          this.$router.push({ path: '/' })
+          this.MessageDialog('success', '登入成功', true)
         })
         .catch(() => {
-          this.MessageDialog("error", "登入失敗", true);
-
-          // this.$router.push({ path: "home" });
-
-          console.log("登入失敗");
-        });
+          this.email = this.password = ''
+          this.MessageDialog('error', '登入失敗，再試一次！', true)
+        })
     },
+
+    test() {
+      this.$router.push({ path: '/' })
+    },
+    test1() {
+      login.signOut().then(() => {
+        console.log('登出')
+        this.checkUser()
+      })
+    },
+
+    // 判斷使用者
     checkUser() {
-      let a = login.currentUser;
-      if (a) {
+      let UserInfo = login.currentUser
+      if (UserInfo) {
         // User is signed in.
-        console.log(a);
+        console.log(UserInfo)
       } else {
         // No user is signed in.
-        console.log(a);
+        console.log(UserInfo)
       }
     },
+
+    // 登出函示
     SignOut() {
       login.signOut().then(() => {
-        console.log("登出");
-        this.checkUser();
-      });
+        console.log('登出')
+        this.checkUser()
+      })
     },
   },
   mixins: [MessagePlugin],
-};
+}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .login {
   top: 0;
   left: 0;
@@ -135,8 +161,8 @@ export default {
       &-group {
         width: 100%;
         text-align: center;
-        &:first-child {
-          margin-bottom: 10px;
+        &:not(:last-child) {
+          margin-bottom: 15px;
         }
 
         &__title {
@@ -150,6 +176,15 @@ export default {
           border-radius: 20px;
           border: 1px solid #888;
           font-size: 1rem;
+        }
+
+        &__error {
+          text-align: left;
+          margin-top: 5px;
+          width: 180px;
+          margin: 5px auto 0;
+          // margin-left: -40px;
+          color: rgb(228, 15, 15);
         }
       }
     }

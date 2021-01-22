@@ -1,5 +1,9 @@
-import { storageRef, repairsCollection } from '@/db.js'
+import Vue from 'vue'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 
+import { storageRef, repairsCollection } from '@/db.js'
 export default {
   methods: {
     /*

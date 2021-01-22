@@ -3,31 +3,37 @@ import VueRouter from 'vue-router'
 
 // 分頁
 import Home from '@/views/Home.vue'
+import Article from '@/views/Article.vue'
 import Login from '@/views/Login.vue'
 
 // firebase
-import { db, repairsCollection, storageRef } from '@/db'
-
+import { db, repairsCollection, storageRef, login } from '@/db'
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '*',
-  //   redirect: 'Login',
-  // },
   {
-    path: '/',
-    name: 'Home',
-    component: Home,
+    path: '*',
+    redirect: '/Login',
   },
   {
-    path: '/Login',
+    path: '/',
     name: 'Login',
     component: Login,
   },
+  {
+    path: '/Home',
+    name: 'Home',
+    component: Home,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/Article',
+    name: 'Article',
+    component: Article,
+    meta: { requiresAuth: true },
+  },
 ]
-
 
 const router = new VueRouter({
   mode: 'history',
@@ -36,12 +42,18 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  // 看看 to 和 from 兩個 arguments 會吐回什麼訊息
-  console.log('to: ', to)
-  console.log('from: ', from)
-
-  next()
-
+  if (to.meta.requiresAuth) {
+    console.log()
+    if (!login.currentUser) {
+      console.log('沒登入 不可以進入')
+      next('*')
+      // next({ name: 'Login' })
+    } else {
+      // next({ name: 'Home' })
+      next()
+      console.log('有登入 可以進入')
+    }
+  }
 })
 
 export default router

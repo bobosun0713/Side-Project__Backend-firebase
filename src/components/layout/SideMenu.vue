@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import SideMenuList from "@/components/layout/SideMenuItem.vue";
+import SideMenuList from '@/components/layout/SideMenuItem.vue'
 export default {
-  name: "SideMenu",
+  name: 'SideMenu',
   components: {
     SideMenuList,
   },
@@ -36,28 +36,28 @@ export default {
     return {
       SideMenu: false,
       SideMenuList: [
-        { name: "首頁", icon: "house-damage", path: "/" },
+        { name: '首頁', icon: 'house-damage', path: '/' },
         {
-          name: "文章管理",
-          icon: "scroll",
-          path: "",
+          name: '文章管理',
+          icon: 'scroll',
+          path: '',
           children: [
-            { name: "文章列表", icon: "list", path: "/" },
-            { name: "新增文章", icon: "list", path: "/" },
+            { name: '文章列表', icon: 'list', path: '/Article' },
+            { name: '新增文章', icon: 'list', path: '/Article' },
           ],
         },
-        { name: "登入", icon: "user-alt", path: "/Login" },
-        { name: "GitHub", icon: "scroll", path: "/" },
+        { name: '登入', icon: 'user-alt', path: '/Login' },
+        { name: 'GitHub', icon: 'scroll', path: '' },
       ],
-    };
+    }
   },
   methods: {
     closeSideMenu() {
-      this.SideMenu = !this.SideMenu;
-      this.$emit("close-side");
+      this.SideMenu = !this.SideMenu
+      this.$emit('close-side')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
@@ -99,7 +99,7 @@ export default {
       height: 200px;
       border-radius: 100%;
       box-shadow: 0 0 7px #888;
-      background: url("~@/assets/logo.png") no-repeat center bottom;
+      background: url('~@/assets/logo.png') no-repeat center bottom;
       background-size: 80%;
     }
 
