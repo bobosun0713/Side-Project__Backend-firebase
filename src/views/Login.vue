@@ -3,6 +3,7 @@
     <div class="login-form">
       <button @click="test">測試轉址</button>
       <button @click="test1">登出</button>
+      <button @click="checkUser">登入資訊</button>
       <div class="login-form__header login-form--margin">
         <img
           class="login-form__header__img"
@@ -40,7 +41,7 @@ import LoginInput from '@/components/login/LoginInput.vue'
 
 import '@/assets/js/vee-vealidation.js'
 
-import { login } from '@/db'
+import { User } from '@/db'
 export default {
   name: 'Login',
   components: {
@@ -66,10 +67,9 @@ export default {
 
     // 登入函式
     SingIn() {
-      login
-        .signInWithEmailAndPassword(this.email, this.password)
+      User.signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.push({ path: '/' })
+          this.$router.push({ path: '/home' })
           this.MessageDialog('success', '登入成功', true)
         })
         .catch(() => {
@@ -79,10 +79,10 @@ export default {
     },
 
     test() {
-      this.$router.push({ path: '/' })
+      this.$router.push({ path: '/home' })
     },
     test1() {
-      login.signOut().then(() => {
+      User.signOut().then(() => {
         console.log('登出')
         this.checkUser()
       })
@@ -90,7 +90,7 @@ export default {
 
     // 判斷使用者
     checkUser() {
-      let UserInfo = login.currentUser
+      let UserInfo = User.currentUser
       if (UserInfo) {
         // User is signed in.
         console.log(UserInfo)
@@ -102,7 +102,7 @@ export default {
 
     // 登出函示
     SignOut() {
-      login.signOut().then(() => {
+      User.signOut().then(() => {
         console.log('登出')
         this.checkUser()
       })

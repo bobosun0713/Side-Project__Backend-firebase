@@ -7,31 +7,31 @@ import Article from '@/views/Article.vue'
 import Login from '@/views/Login.vue'
 
 // firebase
-import { db, repairsCollection, storageRef, login } from '@/db'
+import { db, repairsCollection, storageRef, User } from '@/db'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '*',
-    redirect: '/Login',
-  },
-  {
-    path: '/',
-    name: 'Login',
+    path: '/login',
+    name: 'login',
     component: Login,
   },
   {
-    path: '/Home',
-    name: 'Home',
+    path: '/home',
+    name: 'home',
     component: Home,
     meta: { requiresAuth: true },
   },
   {
-    path: '/Article',
-    name: 'Article',
+    path: '/article',
+    name: 'article',
     component: Article,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '*',
+    redirect: '/login',
   },
 ]
 
@@ -41,18 +41,17 @@ const router = new VueRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    console.log()
-    if (!login.currentUser) {
+    if (!User.currentUser) {
+      console.log(User.currentUser)
       console.log('沒登入 不可以進入')
-      next('*')
-      // next({ name: 'Login' })
+      next('/login')
     } else {
-      // next({ name: 'Home' })
       next()
-      console.log('有登入 可以進入')
     }
+  } else {
+    next()
   }
 })
 

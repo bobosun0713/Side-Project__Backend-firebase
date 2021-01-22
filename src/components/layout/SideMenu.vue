@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar" :class="{ 'sidebar--close': SideMenu }">
-    <!-- 操作 -->
     <button for="sidebar-btn" class="sidebar-control" @click="closeSideMenu">
       <font-awesome-icon
         icon="chevron-circle-left"
@@ -9,7 +8,6 @@
       />
       <font-awesome-icon icon="chevron-circle-right" class="icon-side" v-else />
     </button>
-    <!-- bar -->
     <div class="sidebar-content">
       <!-- Logo -->
       <div class="sidebar-content__logo"></div>
@@ -36,18 +34,18 @@ export default {
     return {
       SideMenu: false,
       SideMenuList: [
-        { name: '首頁', icon: 'house-damage', path: '/' },
+        { name: '首頁', icon: 'house-damage', path: '/home' },
         {
           name: '文章管理',
           icon: 'scroll',
           path: '',
           children: [
-            { name: '文章列表', icon: 'list', path: '/Article' },
-            { name: '新增文章', icon: 'list', path: '/Article' },
+            { name: '文章列表', icon: 'list', path: '/article' },
+            { name: '新增文章', icon: 'list', path: '/article' },
           ],
         },
-        { name: '登入', icon: 'user-alt', path: '/Login' },
-        { name: 'GitHub', icon: 'scroll', path: '' },
+        { name: '登入', icon: 'user-alt', path: '/login' },
+        { name: 'GitHub', icon: 'scroll', path: '/login' },
       ],
     }
   },

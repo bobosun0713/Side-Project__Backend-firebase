@@ -1,6 +1,9 @@
 <template>
-  <li class="sidebar-content__nav__item" >
-    <router-link @click.native="toggleOpen" :to="item.path">
+  <li class="sidebar-content__nav__item">
+    <a href="javascript:;" v-if="!item.path" @click="toggleOpen">
+      {{ item.name }}</a
+    >
+    <router-link v-else :to="item.path">
       <font-awesome-icon :icon="item.icon" class="icon" />
       {{ item.name }}
     </router-link>
@@ -18,31 +21,31 @@
 
 <script>
 export default {
-  name: "SideMenuItem",
+  name: 'SideMenuItem',
   props: {
     item: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
     },
   },
   data() {
     return {
       isListOpen: false,
-    };
+    }
   },
   methods: {
     toggleOpen() {
-      this.isListOpen = !this.isListOpen;
+      this.isListOpen = !this.isListOpen
     },
   },
   computed: {
     menuChild() {
-      return this.item.children && this.item.children.length ? true : false;
+      return this.item.children && this.item.children.length ? true : false
     },
   },
-};
+}
 </script>
 
 <style></style>

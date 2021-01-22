@@ -27,6 +27,6 @@ const storageRef = firebase.storage().ref()
 /* 
  ########### 登入 ###########
 */
-const login = firebase.auth()
+const User = firebase.auth()
 
-export { db, repairsCollection, storageRef, login }
+export { db, repairsCollection, storageRef, User }
