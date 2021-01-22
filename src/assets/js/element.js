@@ -3,8 +3,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 
-import { storageRef, repairsCollection } from '@/db.js'
-export default {
+import { storageRef, collection } from '@/db.js'
+export const GlobalMixin = {
   methods: {
     /*
       type: 'success' / 'warning' /'error'
@@ -25,7 +25,7 @@ export default {
       })
         .then(() => {
           storageRef.child(`image/${imgName}`).delete()
-          repairsCollection.doc(id).delete()
+          collection.doc(id).delete()
           this.$message({
             type: 'success',
             message: '刪除成功!',
@@ -40,3 +40,4 @@ export default {
     },
   },
 }
+Vue.mixin(GlobalMixin)

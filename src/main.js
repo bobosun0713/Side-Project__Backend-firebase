@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+
 // 引入共用sass
 import '@/assets/scss/main.scss'
 

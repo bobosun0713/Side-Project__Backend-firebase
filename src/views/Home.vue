@@ -17,6 +17,8 @@ export default {
     backLogin() {
       User.signOut().then(() => {
         console.log('登出')
+        this.MessageDialog('success', '已登出成功！', true)
+        this.$router.push('/login')
       })
     },
   },

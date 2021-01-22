@@ -1,6 +1,7 @@
 <template>
   <li class="sidebar-content__nav__item">
     <a href="javascript:;" v-if="!item.path" @click="toggleOpen">
+      <font-awesome-icon :icon="item.icon" class="icon" />
       {{ item.name }}</a
     >
     <router-link v-else :to="item.path">
@@ -21,31 +22,31 @@
 
 <script>
 export default {
-  name: 'SideMenuItem',
+  name: "SideMenuItem",
   props: {
     item: {
       type: Object,
       default() {
-        return {}
+        return {};
       },
     },
   },
   data() {
     return {
       isListOpen: false,
-    }
+    };
   },
   methods: {
     toggleOpen() {
-      this.isListOpen = !this.isListOpen
+      this.isListOpen = !this.isListOpen;
     },
   },
   computed: {
     menuChild() {
-      return this.item.children && this.item.children.length ? true : false
+      return this.item.children && this.item.children.length ? true : false;
     },
   },
-}
+};
 </script>
 
 <style></style>

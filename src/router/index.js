@@ -9,16 +9,12 @@ import Login from '@/views/Login.vue'
 // firebase
 import { db, repairsCollection, storageRef, User } from '@/db'
 
+
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/login',
-    name: 'login',
-    component: Login,
-  },
-  {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: Home,
     meta: { requiresAuth: true },
@@ -28,6 +24,11 @@ const routes = [
     name: 'article',
     component: Article,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
   },
   {
     path: '*',
@@ -44,8 +45,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     if (!User.currentUser) {
-      console.log(User.currentUser)
-      console.log('沒登入 不可以進入')
+      console.log('導入登入頁');
       next('/login')
     } else {
       next()

@@ -34,17 +34,16 @@ export default {
     return {
       SideMenu: false,
       SideMenuList: [
-        { name: '首頁', icon: 'house-damage', path: '/home' },
+        { name: '首頁', icon: 'house-damage', path: '/' },
         {
           name: '文章管理',
           icon: 'scroll',
-          path: '',
           children: [
             { name: '文章列表', icon: 'list', path: '/article' },
-            { name: '新增文章', icon: 'list', path: '/article' },
+            { name: '新增文章', icon: 'list', path: '/ss' },
           ],
         },
-        { name: '登入', icon: 'user-alt', path: '/login' },
+        { name: '管理員', icon: 'user-alt', path: '/login' },
         { name: 'GitHub', icon: 'scroll', path: '/login' },
       ],
     }
@@ -137,5 +136,9 @@ export default {
     height: 50px;
     padding-left: 15px;
   }
+}
+
+.router-link-exact-active{
+  background-color: burlywood;
 }
 </style>

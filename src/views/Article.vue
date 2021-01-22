@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="article">
     <transition name="opacity">
       <light-box
         @close-dialog="switchDialog"
@@ -8,7 +8,7 @@
         :boxDate="boxDate"
       ></light-box>
     </transition>
-    <div class="article">
+    <div class="article-content">
       <div class="article-header">
         <h2 class="article-header__title">文章列表</h2>
         <button class="article-header__upload" @click="switchDialog">
@@ -53,7 +53,7 @@
               <img
                 class="table-id__img"
                 alt=""
-                style="width:100px"
+                style="width: 100px"
                 :src="item.imgUrl"
               />
             </td>
@@ -77,12 +77,11 @@
 </template>
 
 <script>
-import { db, repairsCollection, storageRef } from '@/db'
-import LightBox from '@/components/LightBox.vue'
-import MessagePlugin from '@/assets/js/element.js'
+import { db, collection, storageRef } from "@/db";
+import LightBox from "@/components/LightBox.vue";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
     LightBox,
   },
@@ -93,65 +92,65 @@ export default {
       isOpenDialog: false,
 
       // 搜尋
-      matchTitle: '',
+      matchTitle: "",
       matchAry: [],
-    }
+    };
   },
   methods: {
     //dialog 開關
     switchDialog() {
-      this.boxDate = {}
+      this.boxDate = {};
       // console.log('執行關閉')
-      this.isOpenDialog = !this.isOpenDialog
+      this.isOpenDialog = !this.isOpenDialog;
     },
 
     // 修改 --- 待詢問（無法解構ID)
     editAction(idx) {
       // 用id 抓取修改資料，放到暫存修改資料的物件裡。
-      this.boxDate = { ...this.articleData.find((val) => val.id === idx) }
+      this.boxDate = { ...this.articleData.find((val) => val.id === idx) };
       // id為唯獨 無法解構, 手動把id加回去。
-      this.boxDate.id = idx
-      this.isOpenDialog = !this.isOpenDialog
+      this.boxDate.id = idx;
+      this.isOpenDialog = !this.isOpenDialog;
     },
 
     // 刪除  ---- 第一版
     deleteAction(id, img) {
-      let Msg = confirm('確認刪除嗎？')
+      let Msg = confirm("確認刪除嗎？");
       if (Msg) {
-        storageRef.child(`image/${img}`).delete()
-        repairsCollection.doc(id).delete()
-        this.MessageDialog('success', '刪除成功', true)
+        storageRef.child(`image/${img}`).delete();
+        collection.doc(id).delete();
+        this.MessageDialog("success", "刪除成功", true);
       } else {
-        this.MessageDialog('error', '取消刪除', true)
+        this.MessageDialog("error", "取消刪除", true);
       }
     },
 
     // 搜尋
     searchAry() {
-      console.log('搜尋')
+      console.log("搜尋");
       this.matchAry = this.articleData.filter((val) =>
         val.title.match(this.matchTitle)
-      )
+      );
     },
   },
   computed: {
     //取得時間
     getDate() {
       return (time) => {
-        let year = new Date(time).getUTCFullYear()
-        let Month = new Date(time).getMonth() + 1
-        let date = new Date(time).getDate()
-        let Hours = new Date(time).getHours()
-        let Min = new Date(time).getMinutes()
-        let scs = new Date(time).getSeconds()
+        let year = new Date(time).getUTCFullYear();
+        let Month = new Date(time).getMonth() + 1;
+        let date = new Date(time).getDate();
+        let Hours = new Date(time).getHours();
+        let Min = new Date(time).getMinutes();
+        let scs = new Date(time).getSeconds();
 
-        return `${year}-${Month}-${date} | ${Hours}:${Min}:${scs}`
-      }
+        return `${year}-${Month}-${date} | ${Hours}:${Min}:${scs}`;
+      };
     },
   },
   mounted() {
     // 取得資料
-    this.$bind('articleData', repairsCollection)
+    this.$bind("articleData", collection);
     // .then((res) => {
     //   // 每筆資料存在搜尋用的陣列
     //   this.matchAry.push(...res)
@@ -160,12 +159,11 @@ export default {
   },
   watch: {
     articleData(newValue, oldValue) {
-      this.matchAry = [...newValue]
-      // console.log('篩選', this.matchAry)
+      this.matchAry = [...newValue];
+      console.log("篩選", this.matchAry);
     },
   },
-  mixins: [MessagePlugin],
-}
+};
 </script>
 
 <style lang="scss" scoped>

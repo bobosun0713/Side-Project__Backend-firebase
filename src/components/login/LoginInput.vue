@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import '@/assets/js/vee-vealidation.js'
 export default {
   name: 'LoginInput',
   props: {

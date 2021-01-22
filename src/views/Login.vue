@@ -36,10 +36,7 @@
 </template>
 
 <script>
-import MessagePlugin from '@/assets/js/element.js'
 import LoginInput from '@/components/login/LoginInput.vue'
-
-import '@/assets/js/vee-vealidation.js'
 
 import { User } from '@/db'
 export default {
@@ -69,7 +66,7 @@ export default {
     SingIn() {
       User.signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.push({ path: '/home' })
+          this.$router.push({ path: '/' })
           this.MessageDialog('success', '登入成功', true)
         })
         .catch(() => {
@@ -79,7 +76,7 @@ export default {
     },
 
     test() {
-      this.$router.push({ path: '/home' })
+      this.$router.push({ path: '/' })
     },
     test1() {
       User.signOut().then(() => {
@@ -108,7 +105,6 @@ export default {
       })
     },
   },
-  mixins: [MessagePlugin],
 }
 </script>
 

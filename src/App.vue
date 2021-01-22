@@ -2,8 +2,8 @@
   <div id="app">
     <side-menu @close-side="closeMenu"></side-menu>
     <div
-      class="backend-wrapper"
-      :class="{ 'backend-wrapper--active': sideLeft }"
+      class="backend"
+      :class="{ 'backend--active': sideLeft }"
     >
       <header-top></header-top>
       <bread-crumb></bread-crumb>
@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { db, repairsCollection } from "@/db";
+import { db, collection } from "@/db";
 import SideMenu from "@/components/layout/SideMenu.vue";
 import HeaderTop from "@/components/layout/Header.vue";
 import BreadCrumb from "@/components/layout/BreadCrumbs.vue";
@@ -26,7 +26,6 @@ export default {
   },
   data() {
     return {
-      // data: [],
       sideLeft: false,
     };
   },
@@ -39,11 +38,15 @@ export default {
 </script>
 
 <style lang="scss">
-.backend-wrapper {
+#app{
+  height: 100%;
+}
+.backend {
   margin-left: 330px;
   transition: all 0.5s;
+  height: 100%;
 }
-.backend-wrapper--active {
+.backend--active {
   margin-left: 0;
 }
 </style>

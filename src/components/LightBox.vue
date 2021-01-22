@@ -36,12 +36,7 @@
 </template>
 
 <script>
-import { db, repairsCollection, storageRef } from '@/db'
-
-import firebase from 'firebase'
-
-import MessagePlugin from '@/assets/js/element.js'
-
+import { db, collection, storageRef } from '@/db'
 import Editor from '@/components/Editor.vue'
 
 export default {
@@ -105,7 +100,7 @@ export default {
       await this.upLoadImage()
 
       // 取得完圖片網址，並新增這筆資料
-      repairsCollection.doc(this.getMaxId).set(this.propsChoose)
+      collection.doc(this.getMaxId).set(this.propsChoose)
       this.MessageDialog('success', '新增成功', true)
       this.closeDialog()
     },
@@ -120,7 +115,7 @@ export default {
 
       // 用上層傳來的props，IDKey來修改值
       console.log('上傳')
-      repairsCollection.doc(this.propsChoose.id).update(this.propsChoose)
+      collection.doc(this.propsChoose.id).update(this.propsChoose)
       this.MessageDialog('success', '修改成功', true)
       this.closeDialog()
     },
@@ -163,7 +158,7 @@ export default {
       return maxId <= 0 ? '1' : String(maxId + 1)
     },
   },
-  mixins: [MessagePlugin],
+  // mixins: [MessagePlugin],
 }
 </script>
 
