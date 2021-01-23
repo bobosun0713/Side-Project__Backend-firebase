@@ -3,8 +3,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 
-import { storageRef, collection } from '@/db.js'
-export const GlobalMixin = {
+import { storageRef, collection, User } from '@/db.js'
+export const GlobalElement = {
   methods: {
     /*
       type: 'success' / 'warning' /'error'
@@ -14,6 +14,8 @@ export const GlobalMixin = {
         showClose: action,
         message: Meg,
         type: type,
+        customClass: "test"
+
       })
     },
 
@@ -24,20 +26,31 @@ export const GlobalMixin = {
         type: 'warning',
       })
         .then(() => {
-          storageRef.child(`image/${imgName}`).delete()
-          collection.doc(id).delete()
-          this.$message({
-            type: 'success',
-            message: '刪除成功!',
-          })
+          storageRef.child(`image/${imgName}`).delete();
+          collection.doc(id).delete();
+          this.MessageDialog('success', '刪除成功!', false);
+        })
+        .catch(() => this.MessageDialog('info', '取消刪除!', false))
+    },
+
+
+    SignOut() {
+      this.$confirm(`確定登出?`, '登出', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          User.signOut().then(() => {
+            this.$store.dispatch("removeUid");
+            this.MessageDialog('success', '已登出', false)
+            this.$router.push({ path: "/" });
+          });
         })
         .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消刪除',
-          })
+          this.MessageDialog('error', '無預期錯誤，再試一次!', false);
         })
-    },
+    }
   },
 }
-Vue.mixin(GlobalMixin)
+Vue.mixin(GlobalElement)

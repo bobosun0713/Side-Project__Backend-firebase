@@ -9,7 +9,7 @@
 
 .opacity-enter-active,
 .opacity-leave-active {
-  transition: all 0.5s;
+  transition: all 0.1s;
 }
 
 .opacity-leave {
@@ -19,3 +19,4 @@
 .opacity-leave-to {
   opacity: 0;
 }
+

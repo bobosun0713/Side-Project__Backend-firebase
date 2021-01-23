@@ -16,13 +16,15 @@ firebase.initializeApp(firebaseConfig)
 //########### firestore(上傳資料) ###########
 const db = firebase.firestore()
 const collection = db.collection('article')
+const UserCollection = db.collection('user')
+
 
 
 //########### firestore(上傳檔案) ###########
 const storageRef = firebase.storage().ref()
 
- 
+
 //########### 登入 ###########
 const User = firebase.auth()
 
-export { db, collection, storageRef, User }
+export { db, collection, UserCollection, storageRef, User }

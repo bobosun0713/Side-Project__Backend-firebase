@@ -2,12 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // 分頁
-import Home from '@/views/Home.vue'
-import Article from '@/views/Article.vue'
-import Login from '@/views/Login.vue'
+import Home from '@/views/Home'
+import Article from '@/views/Article'
+import Welcome from '@/views/Welcome'
+import Login from '@/views/Login'
+import Admin from '@/views/Admin'
+
 
 // firebase
-import { db, repairsCollection, storageRef, User } from '@/db'
+import store from '@/store'
+import Cookies from 'js-cookie'
 
 
 Vue.use(VueRouter)
@@ -17,17 +21,30 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: '/article',
-    name: 'article',
-    component: Article,
-    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '',
+        name: 'welcome',
+        component: Welcome,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'article',
+        name: 'article',
+        component: Article,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'admin',
+        name: 'admin',
+        component: Admin,
+        meta: { requiresAuth: true },
+      },
+    ]
   },
   {
     path: '/login',
-    name: 'login',
+    name: "login",
     component: Login,
   },
   {
@@ -43,8 +60,9 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  let User = store.state.UserUid || Cookies.get('UID');
   if (to.meta.requiresAuth) {
-    if (!User.currentUser) {
+    if (!User.length) {
       console.log('導入登入頁');
       next('/login')
     } else {

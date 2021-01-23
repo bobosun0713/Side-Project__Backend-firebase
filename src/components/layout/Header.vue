@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header-nav">
-      <div class="header-nav__search" style="display:none">
+      <div class="header-nav__search" style="display: none">
         <font-awesome-icon icon="search" class="icon" />
         <input
           type="text"
@@ -14,7 +14,7 @@
       <div class="header-nav__title">BOBO-SUN</div>
       <div class="header-nav__user">
         <div class="header-nav__user__path"></div>
-        <button class="header-nav__user__login">
+        <button class="header-nav__user__login" @click="logout">
           Sign out
         </button>
       </div>
@@ -23,7 +23,16 @@
 </template>
 
 <script>
-export default {}
+import { User } from "@/db";
+
+export default {
+  name: "Header",
+  methods: {
+    logout() {
+      this.SignOut();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -84,7 +93,7 @@ export default {}
         height: 50px;
         width: 50px;
         border-radius: 100%;
-        background: url('https://picsum.photos/id/1058/600/400') no-repeat
+        background: url("https://picsum.photos/id/1058/600/400") no-repeat
           center center;
 
         background-size: cover;

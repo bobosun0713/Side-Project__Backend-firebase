@@ -1,52 +1,22 @@
 <template>
   <div id="app">
-    <side-menu @close-side="closeMenu"></side-menu>
-    <div
-      class="backend"
-      :class="{ 'backend--active': sideLeft }"
-    >
-      <header-top></header-top>
-      <bread-crumb></bread-crumb>
-      <router-view />
-    </div>
+    <router-view></router-view>
+    <router-view name="home"></router-view>
   </div>
 </template>
 <script>
-import { db, collection } from "@/db";
-import SideMenu from "@/components/layout/SideMenu.vue";
-import HeaderTop from "@/components/layout/Header.vue";
-import BreadCrumb from "@/components/layout/BreadCrumbs.vue";
-
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "App",
-  components: {
-    SideMenu,
-    HeaderTop,
-    BreadCrumb,
-  },
-  data() {
-    return {
-      sideLeft: false,
-    };
-  },
-  methods: {
-    closeMenu() {
-      this.sideLeft = !this.sideLeft;
-    },
-  },
 };
 </script>
-
 <style lang="scss">
-#app{
+#app {
   height: 100%;
 }
-.backend {
-  margin-left: 330px;
-  transition: all 0.5s;
-  height: 100%;
-}
-.backend--active {
-  margin-left: 0;
+.test {
+  width: 80px;
+  height: 80px;
+  font-size: 1.5rem !important;
 }
 </style>

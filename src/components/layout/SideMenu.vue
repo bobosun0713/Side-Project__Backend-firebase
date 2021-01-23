@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar" :class="{ 'sidebar--close': SideMenu }">
-    <button for="sidebar-btn" class="sidebar-control" @click="closeSideMenu">
+    <button class="sidebar-control" @click="closeSideMenu">
       <font-awesome-icon
         icon="chevron-circle-left"
         class="icon-side"
@@ -10,9 +10,9 @@
     </button>
     <div class="sidebar-content">
       <!-- Logo -->
-      <div class="sidebar-content__logo"></div>
+      <div class="sidebar__logo"></div>
       <!-- 側邊選單 -->
-      <ul class="sidebar-content__nav">
+      <ul class="sidebar__nav">
         <side-menu-list
           :item="item"
           v-for="(item, index) in SideMenuList"
@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import SideMenuList from '@/components/layout/SideMenuItem.vue'
+import SideMenuList from "@/components/layout/SideMenuItem.vue";
 export default {
-  name: 'SideMenu',
+  name: "SideMenu",
   components: {
     SideMenuList,
   },
@@ -34,27 +34,27 @@ export default {
     return {
       SideMenu: false,
       SideMenuList: [
-        { name: '首頁', icon: 'house-damage', path: '/' },
+        { name: "首頁", icon: "house-damage", path: "/" },
         {
-          name: '文章管理',
-          icon: 'scroll',
+          name: "文章管理",
+          icon: "scroll",
           children: [
-            { name: '文章列表', icon: 'list', path: '/article' },
-            { name: '新增文章', icon: 'list', path: '/ss' },
+            { name: "文章列表", icon: "list", path: "/article" },
+            { name: "新增文章", icon: "list", path: "" },
           ],
         },
-        { name: '管理員', icon: 'user-alt', path: '/login' },
-        { name: 'GitHub', icon: 'scroll', path: '/login' },
+        { name: "管理員", icon: "user-alt", path: "/admin" },
+        { name: "GitHub", icon: "scroll", path: "/login" },
       ],
-    }
+    };
   },
   methods: {
     closeSideMenu() {
-      this.SideMenu = !this.SideMenu
-      this.$emit('close-side')
+      this.SideMenu = !this.SideMenu;
+      this.$emit("close-side");
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -90,41 +90,67 @@ export default {
     height: 100%;
 
     //logo
-    &__logo {
+    .sidebar__logo {
       margin: 30px auto;
       width: 200px;
       height: 200px;
       border-radius: 100%;
       box-shadow: 0 0 7px #888;
-      background: url('~@/assets/logo.png') no-repeat center bottom;
+      background: url("~@/assets/image/logo.png") no-repeat center bottom;
       background-size: 80%;
     }
 
     // 導航欄
-    &__nav {
-      //   border: 1px solid blue;
+    .sidebar__nav {
+      // border: 1px solid blue;
       height: 100%;
       display: flex;
       flex-direction: column;
 
       // 項目
       &__item {
-        // padding: 30px 0 30px 95px;
-        // border: 1px solid red;
-        text-align: left;
-
         > a {
           display: block;
-          padding: 30px 0 30px 100px;
+          padding: 31.5px 0 31.5px 100px;
           color: #202836;
-          font-weight: bold;
+          font-weight: 900;
           font-size: 1.25rem;
-          margin-left: 15px;
+          transition: all 0.2s;
+        }
+
+        &:hover > a {
+          color: #3a976d;
+        }
+      }
+    }
+
+    // 選單 複選單
+    .sidebar__nav__child {
+      // height: auto;
+      background-color: #476382;
+      transition: all 0.5s;
+      overflow: hidden;
+
+      // 項目
+      li {
+        > a {
+          font-size: 1rem;
+          color: white;
+
+          .icon {
+            font-size: 1rem;
+            color: white;
+          }
+        }
+
+        &:hover > a {
+          color: black;
         }
       }
     }
   }
 }
+
 .sidebar--close {
   left: -330px;
 
@@ -137,8 +163,7 @@ export default {
     padding-left: 15px;
   }
 }
-
-.router-link-exact-active{
-  background-color: burlywood;
+.router-link-exact-active {
+  background-color: #5bd39f;
 }
 </style>

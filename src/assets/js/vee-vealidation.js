@@ -8,15 +8,18 @@ Object.keys(rules).forEach((rule) => {
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
 
-// 帳號
-extend('email', (value) => {
-  let reg = /[a-zA-Z0-9]+@[a-zA-Z0-9.]+$/
-  console.log(reg.test(value))
-  return reg.test(value) ? true : 'Email格式錯誤'
+
+extend('email', {
+  ...rules.email,
+  message: 'email格式錯誤'
 })
-// 密碼
-extend('password', (value) => {
-  let reg = /^(?![^a-zA-Z] $)(?!\D $)/
-  console.log(reg.test(value))
-  return reg.test(value) ? true : '密碼不能為空'
+
+extend('password', value => {
+  let reg = /^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/
+  return !reg.test(value) ? '密碼格式錯誤' : true
+})
+
+extend('required', {
+  ...rules.required,
+  message: '欄位不能為空'
 })

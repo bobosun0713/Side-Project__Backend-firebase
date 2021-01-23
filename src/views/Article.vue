@@ -8,25 +8,28 @@
         :boxDate="boxDate"
       ></light-box>
     </transition>
-    <div class="article-content">
-      <div class="article-header">
-        <h2 class="article-header__title">文章列表</h2>
-        <button class="article-header__upload" @click="switchDialog">
+    <div class="content">
+      <div class="content-header">
+        <h2 class="content-header__title">文章列表</h2>
+        <button class="content-header__upload" @click="switchDialog">
           上傳文章
         </button>
-        <div class="article-header__search">
+        <div class="content-header__search">
           <input
-            class="article-header__search__input"
+            class="content-header__search__input"
             type="text"
-            v-model="matchTitle"
+            v-model="mixinTitle"
             placeholder="輸入標題搜尋"
           />
-          <button class="article-header__search__button" @click="searchAry">
+          <button
+            class="content-header__search__button"
+            @click="SearchMixin(articleData, 'title')"
+          >
             搜尋
           </button>
         </div>
       </div>
-      <table class="table">
+      <table class="content-table">
         <thead>
           <tr>
             <th class="table-th">文章編號</th>
@@ -38,7 +41,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in matchAry" :key="index">
+          <tr v-for="(item, index) in mixinAry" :key="index">
             <td class="table-td">{{ item.id }}</td>
             <td class="table-td">
               {{ getDate(item.time) }}
@@ -46,9 +49,7 @@
             <td class="table-td">
               {{ item.title }}
             </td>
-            <td class="table-td" v-html="item.content">
-              <!-- {{ item.title }} -->
-            </td>
+            <td class="table-td" v-html="item.content"></td>
             <td class="table-td">
               <img
                 class="table-id__img"
@@ -79,6 +80,7 @@
 <script>
 import { db, collection, storageRef } from "@/db";
 import LightBox from "@/components/LightBox.vue";
+import { SearchMixin, GetTimeMixin } from "@/assets/js/function.js";
 
 export default {
   name: "home",
@@ -90,10 +92,6 @@ export default {
       articleData: [],
       boxDate: {},
       isOpenDialog: false,
-
-      // 搜尋
-      matchTitle: "",
-      matchAry: [],
     };
   },
   methods: {
@@ -124,29 +122,6 @@ export default {
         this.MessageDialog("error", "取消刪除", true);
       }
     },
-
-    // 搜尋
-    searchAry() {
-      console.log("搜尋");
-      this.matchAry = this.articleData.filter((val) =>
-        val.title.match(this.matchTitle)
-      );
-    },
-  },
-  computed: {
-    //取得時間
-    getDate() {
-      return (time) => {
-        let year = new Date(time).getUTCFullYear();
-        let Month = new Date(time).getMonth() + 1;
-        let date = new Date(time).getDate();
-        let Hours = new Date(time).getHours();
-        let Min = new Date(time).getMinutes();
-        let scs = new Date(time).getSeconds();
-
-        return `${year}-${Month}-${date} | ${Hours}:${Min}:${scs}`;
-      };
-    },
   },
   mounted() {
     // 取得資料
@@ -157,128 +132,17 @@ export default {
     // })
     // console.log(this.articleData)
   },
+  mixins: [SearchMixin, GetTimeMixin],
   watch: {
     articleData(newValue, oldValue) {
-      this.matchAry = [...newValue];
-      console.log("篩選", this.matchAry);
+      this.mixinAry = [...newValue];
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.home {
-  height: 100%;
-  padding: 30px 40px;
-
-  .article {
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 0 7px #888;
-    background-color: rgba(255, 255, 255, 0.548);
-
-    // 標題 - 上傳
-    &-header {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-bottom: 20px;
-
-      // 標題
-      &__title {
-        font-size: 1.5rem;
-      }
-
-      // 上傳按鈕
-      &__upload {
-        background-color: #40b983;
-        border: 0;
-        border-radius: 5px;
-        padding: 5px 10px;
-        letter-spacing: 1.5px;
-        color: #fff;
-        text-shadow: 0 0 1px rgb(129, 125, 125);
-        box-shadow: 0 0 3px #888;
-        cursor: pointer;
-      }
-
-      // 搜尋
-      &__search {
-        margin: 10px 0 0;
-        flex-basis: 100%;
-
-        &__input {
-          width: 200px;
-          border-radius: 5px;
-          border: 1px solid #35495e;
-          padding: 5px 10px;
-        }
-
-        &__button {
-          cursor: pointer;
-          box-shadow: 0 0 7px #888;
-          border-radius: 5px;
-          border: 0;
-          padding: 5px 10px;
-          margin-left: 5px;
-          background-color: #35495e;
-          color: white;
-        }
-      }
-    }
-
-    .table {
-      width: 100%;
-      max-width: 100%;
-      border: 1px solid #35495e;
-      border-collapse: collapse;
-      text-align: center;
-
-      //標頭
-      thead {
-        background-color: #35495e;
-        color: #fff;
-        font-size: 1.125rem;
-        th {
-          width: calc(100% / 6);
-        }
-
-        th + th {
-          border-left: 1px solid white;
-        }
-      }
-
-      // 欄位設定
-      &-th,
-      &-td {
-        padding: 16px;
-        max-width: 100px;
-      }
-
-      &-td {
-        border-bottom: 1px solid #354951;
-        border-left: 1px solid #354951;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-      &-td__img {
-        width: 100px;
-        object-fit: cover;
-        height: 100%;
-      }
-
-      // 按鈕
-      &-btns {
-        cursor: pointer;
-        border: 0;
-        background-color: transparent;
-
-        &:nth-of-type(2) {
-          margin-left: 20px;
-        }
-      }
-    }
-  }
+.article {
+  // border: 1px solid;
 }
 </style>

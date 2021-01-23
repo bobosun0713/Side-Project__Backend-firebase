@@ -3,7 +3,7 @@
   padding: 0;
   list-style: none;
   font-size: 1rem;
-  font-family: '微軟正黑體', sans-serif;
+  font-family: "微軟正黑體", sans-serif;
   text-decoration: none;
   outline: none;
   letter-spacing: 1.5px;
@@ -17,6 +17,8 @@ body {
 }
 
 .icon {
+  max-height: 24px;
+  max-width: 24px;
   color: #193152;
   font-size: 1.5rem;
   margin-right: 10px;

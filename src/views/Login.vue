@@ -1,13 +1,13 @@
 <template>
   <div class="login">
     <div class="login-form">
-      <button @click="test">測試轉址</button>
-      <button @click="test1">登出</button>
-      <button @click="checkUser">登入資訊</button>
+      <!-- <button @click="test">測試轉址</button> -->
+      <!-- <button @click="SignOut">登出</button> -->
+      <!-- <button @click="checkUser">登入資訊</button> -->
       <div class="login-form__header login-form--margin">
         <img
           class="login-form__header__img"
-          src="../assets/logo-gif.gif"
+          src="../assets/image/logo-gif.gif"
           alt=""
         />
       </div>
@@ -26,9 +26,7 @@
           :type="{ type: 'password', name: '密碼', rules: 'required|password' }"
         ></login-input>
         <div class="login-form__body-group">
-          <button type="submit" class="login-form__footer__button">
-            登入
-          </button>
+          <button type="submit" class="login-form__footer__button">登入</button>
         </div>
       </validation-observer>
     </div>
@@ -36,76 +34,48 @@
 </template>
 
 <script>
-import LoginInput from '@/components/login/LoginInput.vue'
+import LoginInput from "@/components/login/LoginInput.vue";
+import { User } from "@/db";
 
-import { User } from '@/db'
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
     LoginInput,
   },
   data() {
     return {
-      email: '',
-      password: '',
-    }
+      email: "",
+      password: "",
+    };
   },
   methods: {
     // 送出
     SubmitAction() {
       this.$refs.form.validate().then((success) => {
         if (!success) {
-          this.email = this.password = ''
-          return this.MessageDialog('error', '請輸入帳號或密碼！', true)
+          this.email = this.password = "";
+          return this.MessageDialog("error", "請輸入帳號或密碼！", true);
         }
-        this.SingIn()
-      })
+        this.SingIn();
+      });
     },
-
     // 登入函式
     SingIn() {
       User.signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.push({ path: '/' })
-          this.MessageDialog('success', '登入成功', true)
+          // 成功登入 並傳入至vuex 存UID來當作登入判斷
+          let UID = User.currentUser.uid;
+          this.$store.dispatch("loginAction", UID);
+          this.$router.push({ path: "/" });
+          this.MessageDialog("success", "登入成功", true);
         })
         .catch(() => {
-          this.email = this.password = ''
-          this.MessageDialog('error', '登入失敗，再試一次！', true)
-        })
-    },
-
-    test() {
-      this.$router.push({ path: '/' })
-    },
-    test1() {
-      User.signOut().then(() => {
-        console.log('登出')
-        this.checkUser()
-      })
-    },
-
-    // 判斷使用者
-    checkUser() {
-      let UserInfo = User.currentUser
-      if (UserInfo) {
-        // User is signed in.
-        console.log(UserInfo)
-      } else {
-        // No user is signed in.
-        console.log(UserInfo)
-      }
-    },
-
-    // 登出函示
-    SignOut() {
-      User.signOut().then(() => {
-        console.log('登出')
-        this.checkUser()
-      })
+          this.email = this.password = "";
+          this.MessageDialog("error", "登入失敗，再試一次！", true);
+        });
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -153,7 +123,7 @@ export default {
     &__body {
       width: 100%;
 
-      // 輸入框
+      // 輸入區域
       &-group {
         width: 100%;
         text-align: center;
@@ -161,19 +131,31 @@ export default {
           margin-bottom: 15px;
         }
 
+        // 輸入名稱
         &__title {
           width: 30%;
           font-size: 1.125rem;
           font-weight: bold;
         }
+
+        // 輸入框
         &__input {
           width: 70%;
           padding: 5px 0 5px 15px;
           border-radius: 20px;
-          border: 1px solid #888;
+          border: 0;
+          box-shadow: 0 0 3px rgb(106, 103, 103);
           font-size: 1rem;
+          transform: all 0.5s;
         }
 
+        // 輸入框錯誤題時
+        .error-input {
+          border: 0;
+          box-shadow: 0 0 3px red;
+        }
+
+        // 錯誤訊息
         &__error {
           text-align: left;
           margin-top: 5px;

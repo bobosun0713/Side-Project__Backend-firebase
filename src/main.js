@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 
 // 引入共用sass
 import '@/assets/scss/main.scss'
 
-// firebase // 資料庫
+// 共用method / computed
+import '@/assets/js/function.js'
+
+// firebase 資料庫
 import { firestorePlugin } from 'vuefire'
 Vue.use(firestorePlugin)
 
@@ -24,6 +28,7 @@ import '@/assets/js/vee-vealidation.js'
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   render: (h) => h(App),
 }).$mount('#app')
