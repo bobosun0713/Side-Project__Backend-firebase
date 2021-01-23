@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import { User } from "@/db";
-
 export default {
   name: "Header",
   methods: {

@@ -4,6 +4,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 
 import { storageRef, collection, User } from '@/db.js'
+
+
 export const GlobalElement = {
   methods: {
     /*
@@ -44,7 +46,7 @@ export const GlobalElement = {
           User.signOut().then(() => {
             this.$store.dispatch("removeUid");
             this.MessageDialog('success', '已登出', false)
-            this.$router.push({ path: "/" });
+            this.$router.push({ path: "/login" });
           });
         })
         .catch(() => {

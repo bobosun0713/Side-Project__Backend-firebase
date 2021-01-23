@@ -18,6 +18,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '*',
+    redirect: '/login',
+  },
+  {
     path: '/',
     name: 'home',
     component: Home,
@@ -47,10 +51,7 @@ const routes = [
     name: "login",
     component: Login,
   },
-  {
-    path: '*',
-    redirect: '/login',
-  },
+
 ]
 
 const router = new VueRouter({
@@ -60,9 +61,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let User = store.state.UserUid || Cookies.get('UID');
+  let User = store.state.userUid || Cookies.get('UID');
+
   if (to.meta.requiresAuth) {
-    if (!User.length) {
+    if (!User) {
       console.log('導入登入頁');
       next('/login')
     } else {
