@@ -25,6 +25,8 @@
 
 <script>
 import BreadCrumb from "@/components/layout/BreadCrumbs.vue";
+import { User } from "@/db";
+
 export default {
   name: "Header",
   components: {
@@ -41,7 +43,7 @@ export default {
           User.signOut().then(() => {
             this.$store.dispatch("removeUid");
             this.MessageDialog("success", "已登出", false);
-            this.$router.push({ path: "/login" });
+            this.$router.push("/login");
           });
         })
         .catch(() => {
