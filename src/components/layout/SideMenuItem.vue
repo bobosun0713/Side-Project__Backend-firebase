@@ -13,7 +13,10 @@
       <font-awesome-icon :icon="item.icon" class="icon" />
       {{ item.name }}
     </router-link>
-    <ul class="sidebar__nav sidebar__nav__child" :style="{ height: getHight }">
+    <ul
+      class="sidebar__nav sidebar__nav__child"
+      :style="{ height: ChildrenHight }"
+    >
       <side-menu-item
         v-for="(child, index) in item.children"
         :key="index"
@@ -48,7 +51,7 @@ export default {
   data() {
     return {
       isListOpen: false,
-      itemLen: "",
+      itemLen: this.item.children,
     };
   },
   methods: {
@@ -57,17 +60,15 @@ export default {
     },
   },
   computed: {
+    // 使用這個開關，過渡效果不是特別優化。
     menuChild() {
       return this.item.children && this.item.children.length ? true : false;
     },
-    getHight() {
-      return this.isListOpen ? `${80 * this.itemLen.length}px` : "0px";
+
+    // 動態給高度。
+    ChildrenHight() {
+      return this.isListOpen ? `${84 * this.itemLen.length}px` : "0px";
     },
-  },
-  mounted() {
-    // 每個item 渲染玩，把props的children資料存在變數裡
-    // 在取得length 直接取得會報警告訊息
-    this.itemLen = this.item.children;
   },
 };
 </script>

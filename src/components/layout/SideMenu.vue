@@ -110,8 +110,9 @@ export default {
       // 項目
       &__item {
         > a {
+          // text-align: center;
           display: block;
-          padding: 31.5px 0 31.5px 100px;
+          padding: 31.5px 0 31.5px 70px;
           color: #202836;
           font-weight: 900;
           font-size: 1.25rem;
@@ -134,6 +135,8 @@ export default {
       // 項目
       li {
         > a {
+          text-align: center;
+          padding: 31.5px 0 31.5px 0;
           font-size: 1rem;
           color: white;
 

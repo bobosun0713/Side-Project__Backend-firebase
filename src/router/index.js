@@ -25,24 +25,49 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+    meta: {
+      breadcrumb: [{
+        name: '首頁',
+      }]
+    },
     children: [
       {
         path: '',
         name: 'welcome',
         component: Welcome,
-        meta: { requiresAuth: true },
+        meta: {
+          requiresAuth: true,
+          breadcrumb: [{
+            name: '首頁',
+          }]
+        },
       },
       {
         path: 'article',
         name: 'article',
         component: Article,
-        meta: { requiresAuth: true },
+        meta: {
+          requiresAuth: true,
+          breadcrumb: [{
+            name: '首頁',
+            link: '/'
+          },
+          { name: '文章管理' },
+          { name: '文章列表' }]
+        },
       },
       {
         path: 'admin',
         name: 'admin',
         component: Admin,
-        meta: { requiresAuth: true },
+        meta: {
+          requiresAuth: true,
+          breadcrumb: [{
+            name: '首頁',
+            link: '/'
+          },
+          { name: '管理員' }]
+        },
       },
     ]
   },
@@ -60,19 +85,19 @@ const router = new VueRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  let User = store.state.userUid || Cookies.get('UID');
+// router.beforeEach((to, from, next) => {
 
-  if (to.meta.requiresAuth) {
-    if (!User) {
-      console.log('導入登入頁');
-      next('/login')
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+//   let User = store.state.userUid || Cookies.get('UID');
+//   if (to.meta.requiresAuth) {
+//     if (!User) {
+//       console.log('導入登入頁');
+//       next('/login')
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

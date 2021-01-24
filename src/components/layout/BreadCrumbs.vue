@@ -1,43 +1,88 @@
 <template>
-  <div class="bread">
-    <a
-      v-for="(list, index) in navList"
-      :key="index"
-      href="#"
-      class="bread-list__link"
-      >{{ list }}</a
+  <ul class="breadcrumb">
+    <li
+      v-for="(breadcrumb, idx) in breadCrumbList"
+      :key="idx"
+      @click="routerTo(idx)"
+      class="breadcrumb__links"
     >
-  </div>
+      {{ breadcrumb.name }}
+    </li>
+  </ul>
+
+  <!-- <div class="bread">
+    <a
+      v-for="(breadcrumb, idx) in breadCrumbList"
+      :key="idx"
+      @click="routerTo(idx)"
+      class="bread-list__link"
+      >{{ breadcrumb.name }}</a
+    >
+  </div> -->
 </template>
 
 <script>
 export default {
-  name: 'BreadCrumbs',
+  name: "BreadCrumbs",
   data() {
     return {
-      navList: ['Home'],
-    }
+      breadCrumbList: [],
+    };
   },
-}
+  methods: {
+    routerTo(idx) {
+      if (this.breadCrumbList[idx].link) {
+        this.$router.push(this.breadCrumbList[idx].link);
+      }
+    },
+  },
+  mounted() {
+    // 一開始先把值塞入breadList 陣列裡。
+    this.breadCrumbList = this.$route.meta.breadcrumb;
+  },
+  watch: {
+    // 監聽路由變化，把每個路由meta裡面的breadList值，塞入breadList 陣列裡。
+    $route(newlink) {
+      // console.log(newlink.meta.breadList);
+      this.breadCrumbList = newlink.meta.breadcrumb;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-// 麵包屑
-.bread {
-  position: sticky;
-  top: 100px;
-  height: 50px;
-  background-color: #fff;
-  border-bottom: 0.5px solid rgb(216, 208, 208);
-  border-top: 0.5px solid rgb(216, 208, 208);
-  padding: 0 40px;
-
+.breadcrumb {
+  box-shadow: 0 2px 7px #888;
+  background-color: white;
+  padding: 10px 30px;
   display: flex;
-  align-items: center;
+  width: 100%;
 
-  &-list__link {
-    color: #3223db;
-    font-size: 1rem;
+  &__links {
+    font-size: 1.25rem;
+    font-weight: bold;
+    position: relative;
+
+    &:first-child {
+      cursor: pointer;
+    }
+
+    &:not(:first-child) {
+      margin-left: 30px;
+      color: rgb(167, 160, 160);
+    }
+
+    &:not(:first-child)::before {
+      content: "\2B9E";
+      position: absolute;
+      left: -22px;
+      top: 0;
+      bottom: 0;
+      height: 20px;
+      margin: auto 0;
+      display: inline-block;
+      font-size: 1rem;
+    }
   }
 }
 </style>

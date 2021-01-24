@@ -19,12 +19,17 @@
         </button>
       </div>
     </div>
+    <bread-crumb></bread-crumb>
   </header>
 </template>
 
 <script>
+import BreadCrumb from "@/components/layout/BreadCrumbs.vue";
 export default {
   name: "Header",
+  components: {
+    BreadCrumb,
+  },
   methods: {
     logout() {
       this.SignOut();

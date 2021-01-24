@@ -89,7 +89,14 @@ export default {
   },
   data() {
     return {
+      // 總資料
       articleData: [],
+
+      // 分頁
+      nowPage: 1,
+      perPage: 10,
+
+      // 開啟燈箱 - 修改資料暫存
       boxDate: {},
       isOpenDialog: false,
     };
