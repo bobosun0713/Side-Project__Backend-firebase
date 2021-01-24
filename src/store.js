@@ -25,6 +25,7 @@ const store = new Vuex.Store({
 
 
   },
+  // 登入邏輯之後，更新頁面會員註冊時，再次重構把傳送會來資料由vuex來傳送
   actions: {
     loginAction({ commit }, UID) {
       commit('loginSuccess', UID)
