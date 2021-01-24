@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss" scoped>
 .welcome {
-  height: calc(100% - 180px);
+  margin-top: 150px;
   display: flex;
   align-items: center;
   justify-content: center;

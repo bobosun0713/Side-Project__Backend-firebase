@@ -84,7 +84,8 @@ export default {
   left: 0;
   z-index: 10;
   position: fixed;
-  background: linear-gradient(120deg, #35495e, #41b883);
+  // background: linear-gradient(120deg, #35495e, #41b883);
+  background: url('~@/assets/image/vue.jpg') no-repeat center center;
   width: 100%;
   height: 100%;
 
@@ -93,7 +94,8 @@ export default {
 
   &-form {
     background-color: white;
-    box-shadow: 0 0 10px black;
+    box-shadow: 0 0 17px #527C78;
+    border: 5px solid #527C78;
     border-radius: 20px;
     margin: 0 auto;
     width: 350px;

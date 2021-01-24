@@ -35,9 +35,6 @@ export default {
 </script>
 
 <style lang="scss">
-.home {
-  height: 100%;
-}
 .backend {
   margin-left: 330px;
   transition: all 0.5s;
@@ -46,4 +43,5 @@ export default {
 .backend--active {
   margin-left: 0;
 }
+
 </style>

@@ -62,6 +62,6 @@ export default {
 
 <style lang="scss" scoped>
 .admin {
-  // border: 1px solid;
+  padding: 30px 35px;
 }
 </style>

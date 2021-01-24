@@ -9,16 +9,6 @@
       {{ breadcrumb.name }}
     </li>
   </ul>
-
-  <!-- <div class="bread">
-    <a
-      v-for="(breadcrumb, idx) in breadCrumbList"
-      :key="idx"
-      @click="routerTo(idx)"
-      class="bread-list__link"
-      >{{ breadcrumb.name }}</a
-    >
-  </div> -->
 </template>
 
 <script>
@@ -37,11 +27,11 @@ export default {
     },
   },
   mounted() {
-    // 一開始先把值塞入breadList 陣列裡。
+    // 一開始先把值塞入breadCrumbList 陣列裡。
     this.breadCrumbList = this.$route.meta.breadcrumb;
   },
   watch: {
-    // 監聽路由變化，把每個路由meta裡面的breadList值，塞入breadList 陣列裡。
+    // 監聽路由變化，把每個路由meta裡面的breadcrumb值，塞入breadCrumbList 陣列裡。
     $route(newlink) {
       // console.log(newlink.meta.breadList);
       this.breadCrumbList = newlink.meta.breadcrumb;

@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header-nav">
-      <div class="header-nav__search" style="display: none">
+      <!-- <div class="header-nav__search" style="display: none">
         <font-awesome-icon icon="search" class="icon" />
         <input
           type="text"
@@ -10,11 +10,11 @@
           class="header-nav__search__input"
           placeholder="請輸入關鍵字"
         />
-      </div>
+      </div> -->
       <div class="header-nav__title">BOBO-SUN</div>
       <div class="header-nav__user">
         <div class="header-nav__user__path"></div>
-        <button class="header-nav__user__login" @click="logout">
+        <button class="header-nav__user__login" @click="SignOut">
           Sign out
         </button>
       </div>
@@ -31,8 +31,22 @@ export default {
     BreadCrumb,
   },
   methods: {
-    logout() {
-      this.SignOut();
+    SignOut() {
+      this.$confirm(`確定登出?`, "登出", {
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          User.signOut().then(() => {
+            this.$store.dispatch("removeUid");
+            this.MessageDialog("success", "已登出", false);
+            this.$router.push({ path: "/login" });
+          });
+        })
+        .catch(() => {
+          this.MessageDialog("warning", "已取消登出", false);
+        });
     },
   },
 };
@@ -54,11 +68,11 @@ export default {
     align-items: center;
     height: 100px;
     padding: 0 40px;
+    position: relative;
 
     // 搜尋
     &__search {
       width: 180px;
-      // border: 1px solid red;
       box-shadow: 0 0 5px rgb(168, 166, 166);
       padding: 10px 16px;
       border-radius: 25px;
@@ -69,7 +83,6 @@ export default {
       &__input {
         background-color: transparent;
         border: 0;
-        //   border: 1px solid blue;
       }
     }
 
@@ -80,13 +93,14 @@ export default {
       font-weight: bold;
       margin: 0 auto;
       color: #35495e;
-      // border: 1px solid;
     }
 
     // 登入
     &__user {
       width: 180px;
-      // border: 1px solid red;
+      position: absolute;
+      right: 50px;
+
       display: flex;
 
       // 大頭貼
@@ -98,7 +112,6 @@ export default {
         border-radius: 100%;
         background: url("https://picsum.photos/id/1058/600/400") no-repeat
           center center;
-
         background-size: cover;
       }
 

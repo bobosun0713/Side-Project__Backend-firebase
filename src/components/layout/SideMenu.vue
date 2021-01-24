@@ -135,8 +135,8 @@ export default {
       // 項目
       li {
         > a {
-          text-align: center;
-          padding: 31.5px 0 31.5px 0;
+          
+          padding: 31.5px 0 31.5px 100px;
           font-size: 1rem;
           color: white;
 

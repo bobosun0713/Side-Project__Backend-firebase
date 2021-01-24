@@ -1,9 +1,6 @@
 // table
-
 .content {
-  margin: 30px auto;
-  width: 95%;
-  padding: 20px;
+  padding: 30px;
   background-color: rgba(255, 255, 255, 0.548);
   box-shadow: 0 0 7px rgb(206, 201, 201);
   border-radius: 15px;
@@ -74,13 +71,8 @@
     }
 
     .table-th {
-      width: calc(100% / 6 -120px);
       padding: 16px 0;
-
-      &:first-child {
-        width: 120px;
-        // border: 1px solid red;
-      }
+      width: calc(100% / 6);
 
       &:not(:first-child) {
         border-left: 1px solid white;
@@ -88,13 +80,13 @@
     }
 
     .table-td {
-      padding: 10px 0;
+      padding: 10px 10px;
       border-bottom: 1px solid #354951;
       border-left: 1px solid #354951;
       text-overflow: ellipsis;
       overflow: hidden;
 
-      &:first-child{
+      &:first-child {
         font-weight: bold;
         font-size: 1.125rem;
       }

@@ -6,10 +6,12 @@
         <div class="dialog-form__header__cancel" @click="closeDialog"></div>
       </div>
       <div class="dialog-form__body">
-        <div class="dialog-form__group">
-          <label for="">文章標題</label>
-          <input type="text" name="" id="" v-model="propsChoose.title" />
-        </div>
+        <validation-provider>
+          <div class="dialog-form__group">
+            <label for="">文章標題</label>
+            <input type="text" name="" id="" v-model="propsChoose.title" />
+          </div>
+        </validation-provider>
         <div class="dialog-form__group">
           <editor v-model="propsChoose.content"></editor>
         </div>
@@ -64,7 +66,7 @@ export default {
         imgName: "",
         imgUrl: "",
       },
-      // 修改時暫存照片名稱
+      // 修改照片時時判斷，
       editBeforeImg: false,
     };
   },
@@ -83,15 +85,14 @@ export default {
 
     // 新增
     async addAction() {
-      this.closeDialog();
-
       if (
         this.propsChoose.title === "" ||
         this.propsChoose.content === "" ||
         this.propsChoose.imgName === ""
       ) {
-        return alert("請填寫內容");
+        return this.MessageDialog("error", "請完整填寫內容喔!", true);
       }
+      this.closeDialog();
 
       // 先上傳圖片
       await this.upLoadImage();
@@ -99,19 +100,18 @@ export default {
       // 取得完圖片網址，並新增這筆資料
       collection.doc(this.getMaxId).set(this.propsChoose);
       this.MessageDialog("success", "新增成功", true);
-      this.closeDialog();
     },
 
     // 修改
     async editAction() {
-      // 照片名稱不一樣時，執行
+      // 再次點擊上傳照片時變 ture 所以執行上傳照片。
       if (this.editBeforeImg) {
-        console.log("更新照片");
+        // console.log("更新照片");
         await this.upLoadImage();
       }
 
       // 用上層傳來的props，IDKey來修改值
-      console.log("上傳");
+      // console.log("上傳");
       collection.doc(this.propsChoose.id).update(this.propsChoose);
       this.MessageDialog("success", "修改成功", true);
       this.closeDialog();

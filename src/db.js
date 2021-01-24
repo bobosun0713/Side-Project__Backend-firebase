@@ -18,6 +18,10 @@ const db = firebase.firestore()
 const collection = db.collection('article')
 const UserCollection = db.collection('user')
 
+// 撈取文章排序
+const collectionOrder = db.collection('article').orderBy('time', 'desc');
+
+
 
 
 //########### firestore(上傳檔案) ###########
@@ -27,4 +31,4 @@ const storageRef = firebase.storage().ref()
 //########### 登入 ###########
 const User = firebase.auth()
 
-export { db, collection, UserCollection, storageRef, User }
+export { db, collection, UserCollection, storageRef, User, collectionOrder }

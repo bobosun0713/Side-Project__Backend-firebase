@@ -18,13 +18,10 @@
           <input
             class="content-header__search__input"
             type="text"
-            v-model="mixinTitle"
+            ref="title"
             placeholder="輸入標題搜尋"
           />
-          <button
-            class="content-header__search__button"
-            @click="SearchMixin(articleData, 'title')"
-          >
+          <button class="content-header__search__button" @click="searchBtn">
             搜尋
           </button>
         </div>
@@ -41,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in mixinAry" :key="index">
+          <tr v-for="(item, index) in pageList" :key="index">
             <td class="table-td">{{ item.id }}</td>
             <td class="table-td">
               {{ getDate(item.time) }}
@@ -62,24 +59,43 @@
               <button class="table-btns" @click="editAction(item.id)">
                 <font-awesome-icon icon="pencil-alt" class="article-icon-btn" />
               </button>
-              <el-button
+              <button
                 type="text"
                 class="table-btns"
                 @click="DeleteMsg(item.title, item.id, item.imgName)"
               >
-                <font-awesome-icon icon="trash-alt" class="article-icon-btn"
-              /></el-button>
+                <font-awesome-icon icon="trash-alt" class="article-icon-btn" />
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="pagination">
+        <button class="pagination__button" @click="changeBtn(-1)">
+          <font-awesome-icon
+            icon="chevron-circle-left"
+            class="article-icon-btn"
+          />
+        </button>
+        <div class="pagination__pages" v-show="totalPage !== 0">
+          <span class="pagination__pages__num">{{ nowPage }}</span>
+          <span class="pagination__pages__num"> / {{ totalPage }}</span>
+        </div>
+        <button class="pagination__button" @click="changeBtn(1)">
+          <font-awesome-icon
+            icon="chevron-circle-right"
+            class="article-icon-btn"
+          />
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { db, collection, storageRef } from "@/db";
+import { db, collection, storageRef, collectionOrder } from "@/db";
 import LightBox from "@/components/LightBox.vue";
+// import PagiNation from "@/components/layout/PagiNation.vue";
 import { SearchMixin, GetTimeMixin } from "@/assets/js/function.js";
 
 export default {
@@ -92,12 +108,18 @@ export default {
       // 總資料
       articleData: [],
 
+      // 搜尋
+      searchTitle: "",
+      // 切換搜尋時的功能
+      isSearch: false,
+
       // 分頁
       nowPage: 1,
-      perPage: 10,
+      perPage: 8,
 
-      // 開啟燈箱 - 修改資料暫存
+      // 修改資料暫存
       boxDate: {},
+      // 開啟燈箱
       isOpenDialog: false,
     };
   },
@@ -108,7 +130,6 @@ export default {
       // console.log('執行關閉')
       this.isOpenDialog = !this.isOpenDialog;
     },
-
     // 修改 --- 待詢問（無法解構ID)
     editAction(idx) {
       // 用id 抓取修改資料，放到暫存修改資料的物件裡。
@@ -117,39 +138,95 @@ export default {
       this.boxDate.id = idx;
       this.isOpenDialog = !this.isOpenDialog;
     },
+    // 刪除
+    DeleteMsg(title, id, imgName) {
+      this.$confirm(`刪除這篇『${title}』文章?`, "刪除通知", {
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          storageRef.child(`image/${imgName}`).delete();
+          collection.doc(id).delete();
+          this.MessageDialog("success", "刪除成功!", false);
+        })
+        .catch(() => this.MessageDialog("info", "取消刪除!", false));
+    },
 
-    // 刪除  ---- 第一版
-    deleteAction(id, img) {
-      let Msg = confirm("確認刪除嗎？");
-      if (Msg) {
-        storageRef.child(`image/${img}`).delete();
-        collection.doc(id).delete();
-        this.MessageDialog("success", "刪除成功", true);
+    // 搜尋按鈕
+    searchBtn() {
+      this.searchTitle = this.$refs.title.value;
+      // 判斷按下篩選後，切換 computed totalPage函式調用哪個的陣列
+      this.isSearch = !this.searchTitle ? false : true;
+    },
+
+    // 分頁控制按鈕
+    changeBtn(Num) {
+      let pageNum = this.nowPage + Num;
+      if (pageNum < 1) {
+        this.nowPage = 1;
+      } else if (pageNum > this.totalPage) {
+        this.nowPage = this.totalPage;
       } else {
-        this.MessageDialog("error", "取消刪除", true);
+        this.nowPage = pageNum;
       }
+    },
+  },
+  computed: {
+    // 搜尋
+    pageList() {
+      let start = (this.nowPage - 1) * this.perPage;
+      return this.articleData
+        .slice(start, start + this.perPage)
+        .filter((val) => val.title.match(this.searchTitle));
+    },
+    // 總頁數 (判斷篩選前 或 篩選後 使用哪個陣列)
+    totalPage() {
+      return !this.isSearch
+        ? Math.ceil(this.articleData.length / this.perPage)
+        : Math.ceil(this.pageList.length / this.perPage);
     },
   },
   mounted() {
     // 取得資料
-    this.$bind("articleData", collection);
-    // .then((res) => {
-    //   // 每筆資料存在搜尋用的陣列
-    //   this.matchAry.push(...res)
-    // })
-    // console.log(this.articleData)
+    this.$bind("articleData", collectionOrder);
   },
   mixins: [SearchMixin, GetTimeMixin],
-  watch: {
-    articleData(newValue, oldValue) {
-      this.mixinAry = [...newValue];
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
 .article {
-  // border: 1px solid;
+  padding: 30px 35px;
+}
+
+// 分頁
+.pagination {
+  padding: 20px 0 0;
+  display: flex;
+  justify-content: center;
+
+  &__pages {
+    &__num {
+      font-weight: bold;
+      font-size: 1.125rem;
+      color: #41b883;
+
+      &:last-child {
+        color: #193152;
+      }
+    }
+  }
+
+  // 操作鈕
+  &__button {
+    cursor: pointer;
+    border: 0;
+    margin: 0 10px;
+    transition: all 0.5s;
+    &:hover {
+      color: black;
+    }
+  }
 }
 </style>
