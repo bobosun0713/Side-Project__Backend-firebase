@@ -1,0 +1,68 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "微軟正黑體";
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #272A3A;
+  height: 100vh;
+  width: 250px;
+}
+
+.sidebar-logo {
+  text-align: center;
+  margin: 60px 0 30px;
+}
+
+.sidebar-logo__img {
+  height: 60px;
+}
+
+.sidebar .menu__item {
+  overflow: hidden;
+}
+
+.sidebar .menu__item__link {
+  padding: 20px 35px;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.sidebar .menu__item .sub-menu {
+  background-color: #1ca0a7;
+  max-height: 0;
+  transition: all 0.5s;
+}
+
+.sidebar .menu__item .sub-menu__link {
+  display: block;
+  padding: 15px 0 15px 45px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: 0.5px solid white;
+}
+
+.sidebar .menu__item:target .sub-menu {
+  max-height: 100px;
+}
+
+.menu-icon {
+  margin-right: 15px;
+}
+
+.menu-drop-down {
+  float: right;
+  margin-top: 7px;
+  font-size: 12px;
+}
+/*# sourceMappingURL=style.css.map */
