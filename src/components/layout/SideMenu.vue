@@ -10,23 +10,23 @@
         />
       </div>
       <!-- 側邊選單 -->
-      <ul class="sidebar__nav">
-        <div class="menu">
+      <div class="sidebar__nav">
+        <ul class="menu">
           <side-menu-item
             :item="item"
             v-for="(item, index) in SideMenuList"
             :key="index"
           ></side-menu-item>
-        </div>
-      </ul>
+        </ul>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
-import SideMenuItem from '@/components/layout/SideMenuItem.vue'
+import SideMenuItem from "@/components/layout/SideMenuItem.vue";
 export default {
-  name: 'SideMenu',
+  name: "SideMenu",
   components: {
     SideMenuItem,
   },
@@ -34,35 +34,43 @@ export default {
     return {
       SideMenu: false,
       SideMenuList: [
-        { name: '首頁', icon: 'home', path: '/' },
+        { name: "首頁", icon: "home", path: "/" },
         {
-          name: '文章管理',
-          icon: 'sticky-note',
+          name: "文章管理",
+          icon: "sticky-note",
           children: [
-            { name: '文章列表', icon: 'list-alt', path: '/article' },
-            { name: '新增文章', icon: 'edit', path: '/s' },
+            { name: "文章列表", icon: "list-alt", path: "/article" },
+            { name: "新增文章", icon: "edit", path: "/articleadd" },
           ],
         },
         {
-          name: '商品管理',
-          icon: 'box',
+          name: "商品管理",
+          icon: "box",
           children: [
-            { name: '商品列表', icon: 'list-alt', path: '/s' },
-            { name: '新增商品', icon: 'cart-plus', path: '/s' },
+            { name: "商品列表", icon: "list-alt", path: "/article" },
+            { name: "新增商品", icon: "cart-plus", path: "/articleadd" },
           ],
         },
-        { name: '管理員', icon: 'user-alt', path: '/admin' },
-        { name: 'GitHub', icon: 'edit', path: '/login' },
+        { name: "管理員", icon: "user-alt", path: "/admin" },
+        { name: "GitHub", icon: "edit", path: "/search" },
       ],
-    }
+
+      routerLink: "",
+    };
   },
   methods: {
     closeSideMenu() {
-      this.SideMenu = !this.SideMenu
-      this.$emit('close-side')
+      this.SideMenu = !this.SideMenu;
+      this.$emit("close-side");
     },
   },
-}
+  watch: {
+    $route(link) {
+      this.routerLink = this.$route.path.substr(1).split("/");
+      console.log(this.routerLink);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -83,7 +91,7 @@ export default {
   top: 0;
   background-color: #34384e;
   height: 100vh;
-  width: 250px;
+  width: 200px;
   transition: left 0.5s;
 
   &-logo {
@@ -93,8 +101,8 @@ export default {
     &__img {
       border-radius: 100%;
       background-color: white;
-      height: 100px;
-      width: 100px;
+      height: 80px;
+      width: 80px;
       padding: 5px;
     }
   }

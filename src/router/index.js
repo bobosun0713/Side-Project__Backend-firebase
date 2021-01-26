@@ -4,9 +4,11 @@ import VueRouter from 'vue-router'
 // 分頁
 import Home from '@/views/Home'
 import Article from '@/views/Article'
+import ArticleAdd from '@/views/ArticleAdd'
 import Welcome from '@/views/Welcome'
 import Login from '@/views/Login'
 import Admin from '@/views/Admin'
+
 
 
 // firebase
@@ -57,6 +59,20 @@ const routes = [
         },
       },
       {
+        path: 'articleadd',
+        name: 'articleadd',
+        component: ArticleAdd,
+        meta: {
+          requiresAuth: true,
+          breadcrumb: [{
+            name: '首頁',
+            link: '/'
+          },
+          { name: '文章管理' },
+          { name: '新增文章' }]
+        },
+      },
+      {
         path: 'admin',
         name: 'admin',
         component: Admin,
@@ -76,7 +92,6 @@ const routes = [
     name: "login",
     component: Login,
   },
-
 ]
 
 const router = new VueRouter({
@@ -85,18 +100,18 @@ const router = new VueRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  let User = store.state.userUid || Cookies.get('UID');
-  if (to.meta.requiresAuth) {
-    if (!User) {
-      console.log('導入登入頁');
-      next('/login')
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   let User = store.state.userUid || Cookies.get('UID');
+//   if (to.meta.requiresAuth) {
+//     if (!User) {
+//       console.log('導入登入頁');
+//       next('/login')
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

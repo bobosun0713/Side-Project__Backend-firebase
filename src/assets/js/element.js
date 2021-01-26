@@ -5,9 +5,7 @@ Vue.use(ElementUI)
 
 export const GlobalElement = {
   methods: {
-    /*
-      type: 'success' / 'warning' /'error'
-    */
+    // 提次訊息;
     MessageDialog(type, Meg, action) {
       this.$message({
         showClose: action,

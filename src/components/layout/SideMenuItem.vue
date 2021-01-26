@@ -1,15 +1,20 @@
 <template>
-  <div class="menu__item">
+  <li class="menu__item">
     <!-- 一 -->
-    <router-link v-if="!menuChild" :to="item.path" class="menu__item__link">
+    <router-link
+      v-if="!menuChild"
+      :to="item.path"
+      class="menu__item__link"
+    >
       <font-awesome-icon :icon="item.icon" class="menu-icon" />
-      <span class="menu__item__text">{{ item.name }}</span>
+      {{ item.name }}
     </router-link>
+
     <!-- 二 -->
     <template v-else>
-      <a class="menu__item__link" href="#" @click="toggleOpen">
+      <a class="menu__item__link" href="javascript:;" @click="toggleOpen">
         <font-awesome-icon :icon="item.icon" class="menu-icon" />
-        <span class="menu__item__text">{{ item.name }}</span>
+        {{ item.name }}
         <font-awesome-icon
           icon="chevron-right"
           class="menu-drop-down"
@@ -28,17 +33,17 @@
         ></side-menu-item>
       </ul>
     </template>
-  </div>
+  </li>
 </template>
 
 <script>
 export default {
-  name: 'SideMenuItem',
+  name: "SideMenuItem",
   props: {
     item: {
       type: Object,
       default() {
-        return {}
+        return {};
       },
     },
   },
@@ -46,34 +51,29 @@ export default {
     return {
       isListOpen: false,
       itemLen: this.item.children,
-    }
+    };
   },
   methods: {
     toggleOpen() {
-      this.isListOpen = !this.isListOpen
-      console.log(this.$refs.subMenuHeight.getBoundingClientRect().height)
+      this.isListOpen = !this.isListOpen;
     },
   },
   computed: {
     // 使用這個開關，過渡效果不是特別優化。
     menuChild() {
-      return this.item.children && this.item.children.length
+      return this.item.children && this.item.children.length;
     },
+
     iconRotate() {
-      return this.isListOpen ? 'rotate(90deg)' : 'rotate(0)'
+      return this.isListOpen ? "rotate(94deg)" : "rotate(0)";
     },
 
-    // 動態給高度。
+    // 動態給高度
     ChildrenHight() {
-      return this.isListOpen ? `${48 * this.itemLen.length}px` : '0px'
+      return this.isListOpen ? `${45 * this.itemLen.length}px` : "0px";
     },
-
-    // 下次測試
-    // test() {
-    //   return this.$refs.subMenuHeight.style.height.getBoundingClientRect()
-    // },
   },
-}
+};
 </script>
 
 <style></style>

@@ -1,22 +1,9 @@
 <template>
   <div class="admin">
+    <search-form :title="'管理員'"></search-form>
     <div class="content">
       <div class="content-header">
         <h2 class="content-header__title">管理員列表</h2>
-        <div class="content-header__search">
-          <input
-            class="content-header__search__input"
-            type="text"
-            v-model="mixinTitle"
-            placeholder="輸入標題搜尋"
-          />
-          <button
-            class="content-header__search__button"
-            @click="SearchMixin(adminData, 'name')"
-          >
-            搜尋
-          </button>
-        </div>
       </div>
       <table class="content-table">
         <thead>
@@ -27,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in mixinAry" :key="index">
+          <tr v-for="(item, index) in adminData" :key="index">
             <td class="table-td">{{ item.name }}</td>
             <td class="table-td">{{ item.email }}</td>
             <td class="table-td">{{ getDate(item.time) }}</td>
@@ -40,18 +27,26 @@
 
 <script>
 import { db, collection, storageRef, UserCollection } from "@/db";
-import { SearchMixin, GetTimeMixin } from "@/assets/js/function.js";
+import { isLoading, GetTimeMixin } from "@/assets/js/function.js";
+
+import SearchForm from "@/components/SearchFrom.vue";
 export default {
   name: "admin",
+  components: {
+    SearchForm,
+  },
   data() {
     return {
       adminData: [],
     };
   },
   mounted() {
-    this.$bind("adminData", UserCollection);
+    this.isLoading();
+    this.$bind("adminData", UserCollection).then(() => {
+      this.loading.close();
+    });
   },
-  mixins: [SearchMixin, GetTimeMixin],
+  mixins: [isLoading, GetTimeMixin],
   watch: {
     adminData(newValue, oldValue) {
       this.mixinAry = [...newValue];

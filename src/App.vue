@@ -12,11 +12,7 @@ export default {
 </script>
 <style lang="scss">
 #app {
-  height: 100%;
+
 }
-.test {
-  width: 80px;
-  height: 80px;
-  font-size: 1.5rem !important;
-}
+
 </style>

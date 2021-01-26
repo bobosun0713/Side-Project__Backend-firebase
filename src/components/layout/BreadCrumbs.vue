@@ -44,7 +44,7 @@ export default {
 // breadcrumb
 .breadcrumb {
   display: flex;
-  padding: 5px 25px;
+  padding: 10px 25px;
   border-top: 1px solid rgb(226, 220, 220);
   border-bottom: 1px solid rgb(226, 220, 220);
   flex-basis: 100%;
@@ -52,17 +52,18 @@ export default {
   &__links {
     position: relative;
     color: $main-color;
-    font-size: 12px;
+    font-size: 14px;
 
     &:not(:first-child) {
-      margin-left: 15px;
+      margin-left: 20px;
 
       &:before {
         content: '\276F';
         position: absolute;
-        left: -10px;
+        left: -13.5px;
         font-size: 10px;
-        top: 0px;
+        top: 1.5px;
+        color: rgb(180, 176, 176);
       }
     }
   }
