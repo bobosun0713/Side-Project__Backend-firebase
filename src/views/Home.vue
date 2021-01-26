@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <side-menu @close-side="closeMenu"></side-menu>
+    <side-menu :class="{ sideMenu: sideLeft }"></side-menu>
     <div class="backend" :class="{ 'backend--active': sideLeft }">
-      <header-top></header-top>
+      <header-top @switch-btn="switchMenu"></header-top>
       <transition name="opacity">
         <router-view />
       </transition>
@@ -11,12 +11,11 @@
 </template>
 
 <script>
-import { db, collection, User } from "@/db";
-import SideMenu from "@/components/layout/SideMenu.vue";
-import HeaderTop from "@/components/layout/Header.vue";
+import SideMenu from '@/components/layout/SideMenu.vue'
+import HeaderTop from '@/components/layout/Header.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     SideMenu,
     HeaderTop,
@@ -24,24 +23,26 @@ export default {
   data() {
     return {
       sideLeft: false,
-    };
+    }
   },
   methods: {
-    closeMenu() {
-      this.sideLeft = !this.sideLeft;
+    switchMenu() {
+      this.sideLeft = !this.sideLeft
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
 .backend {
-  margin-left: 330px;
+  margin-left: 250px;
   transition: all 0.5s;
   height: 100%;
 }
 .backend--active {
   margin-left: 0;
 }
-
+.sideMenu {
+  left: -250px;
+}
 </style>

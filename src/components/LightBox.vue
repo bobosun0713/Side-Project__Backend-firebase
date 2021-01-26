@@ -1,43 +1,45 @@
 <template>
-  <div class="dialog">
-    <div class="dialog-form">
-      <div class="dialog-form__header">
-        <p class="dialog-form__header__title">上傳文章</p>
-        <div class="dialog-form__header__cancel" @click="closeDialog"></div>
-      </div>
-      <div class="dialog-form__body">
-        <validation-provider>
+  <transition name="opacity">
+    <div class="dialog">
+      <div class="dialog-form">
+        <div class="dialog-form__header">
+          <p class="dialog-form__header__title">上傳文章</p>
+          <div class="dialog-form__header__cancel" @click="closeDialog"></div>
+        </div>
+        <div class="dialog-form__body">
+          <validation-provider>
+            <div class="dialog-form__group">
+              <label for="">文章標題</label>
+              <input type="text" name="" id="" v-model="propsChoose.title" />
+            </div>
+          </validation-provider>
           <div class="dialog-form__group">
-            <label for="">文章標題</label>
-            <input type="text" name="" id="" v-model="propsChoose.title" />
+            <editor v-model="propsChoose.content"></editor>
           </div>
-        </validation-provider>
-        <div class="dialog-form__group">
-          <editor v-model="propsChoose.content"></editor>
+          <div class="dialog-form__group">
+            <label for="">上傳圖片</label>
+            <input type="file" ref="imgFile" @change="getImageFile" />
+          </div>
         </div>
-        <div class="dialog-form__group">
-          <label for="">上傳圖片</label>
-          <input type="file" ref="imgFile" @change="getImageFile" />
+        <div class="dialog-form__footer">
+          <button class="dialog-form__footer__button" @click="TypeAction">
+            送出
+          </button>
+          <button class="dialog-form__footer__button" @click="closeDialog">
+            取消
+          </button>
         </div>
-      </div>
-      <div class="dialog-form__footer">
-        <button class="dialog-form__footer__button" @click="TypeAction">
-          送出
-        </button>
-        <button class="dialog-form__footer__button" @click="closeDialog">
-          取消
-        </button>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-import { db, collection, storageRef } from "@/db";
-import Editor from "@/components/Editor.vue";
+import { db, collection, storageRef } from '@/db'
+import Editor from '@/components/Editor.vue'
 
 export default {
-  name: "LightBox",
+  name: 'LightBox',
   components: {
     Editor,
   },
@@ -46,13 +48,13 @@ export default {
     boxDate: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
     },
     articleData: {
       type: Array,
       default() {
-        return [];
+        return []
       },
     },
   },
@@ -60,46 +62,46 @@ export default {
     return {
       // 新增時使用
       dialogData: {
-        title: "",
+        title: '',
         time: +new Date(),
-        content: "",
-        imgName: "",
-        imgUrl: "",
+        content: '',
+        imgName: '',
+        imgUrl: '',
       },
       // 修改照片時時判斷，
       editBeforeImg: false,
-    };
+    }
   },
   methods: {
     // 關閉跳窗
     closeDialog() {
-      this.$emit("close-dialog");
+      this.$emit('close-dialog')
     },
 
     // 送出動作
     TypeAction() {
       Object.keys(this.boxDate).length === 0
         ? this.addAction()
-        : this.editAction();
+        : this.editAction()
     },
 
     // 新增
     async addAction() {
       if (
-        this.propsChoose.title === "" ||
-        this.propsChoose.content === "" ||
-        this.propsChoose.imgName === ""
+        this.propsChoose.title === '' ||
+        this.propsChoose.content === '' ||
+        this.propsChoose.imgName === ''
       ) {
-        return this.MessageDialog("error", "請完整填寫內容喔!", true);
+        return this.MessageDialog('error', '請完整填寫內容喔!', true)
       }
-      this.closeDialog();
+      this.closeDialog()
 
       // 先上傳圖片
-      await this.upLoadImage();
+      await this.upLoadImage()
 
       // 取得完圖片網址，並新增這筆資料
-      collection.doc(this.getMaxId).set(this.propsChoose);
-      this.MessageDialog("success", "新增成功", true);
+      collection.doc(this.getMaxId).set(this.propsChoose)
+      this.MessageDialog('success', '新增成功', true)
     },
 
     // 修改
@@ -107,38 +109,38 @@ export default {
       // 再次點擊上傳照片時變 ture 所以執行上傳照片。
       if (this.editBeforeImg) {
         // console.log("更新照片");
-        await this.upLoadImage();
+        await this.upLoadImage()
       }
 
       // 用上層傳來的props，IDKey來修改值
       // console.log("上傳");
-      collection.doc(this.propsChoose.id).update(this.propsChoose);
-      this.MessageDialog("success", "修改成功", true);
-      this.closeDialog();
+      collection.doc(this.propsChoose.id).update(this.propsChoose)
+      this.MessageDialog('success', '修改成功', true)
+      this.closeDialog()
     },
 
     // 取得照片資訊
     getImageFile() {
-      let imgFile = this.$refs.imgFile.files[0];
-      this.editBeforeImg = true;
-      this.propsChoose.imgName = this.propsChoose.time;
-      this.propsChoose.imgUrl = imgFile;
+      let imgFile = this.$refs.imgFile.files[0]
+      this.editBeforeImg = true
+      this.propsChoose.imgName = this.propsChoose.time
+      this.propsChoose.imgUrl = imgFile
     },
 
     // 上傳照片處理
     async upLoadImage() {
       // 先上傳圖片
       await storageRef
-        .child("image/" + this.propsChoose.imgName)
-        .put(this.propsChoose.imgUrl);
+        .child('image/' + this.propsChoose.imgName)
+        .put(this.propsChoose.imgUrl)
 
       // 上傳完畢,取得圖片網址
       await storageRef
-        .child("image/" + this.propsChoose.imgName)
+        .child('image/' + this.propsChoose.imgName)
         .getDownloadURL()
         .then((downloadUrl) => {
-          this.propsChoose.imgUrl = downloadUrl;
-        });
+          this.propsChoose.imgUrl = downloadUrl
+        })
     },
   },
   computed: {
@@ -146,17 +148,17 @@ export default {
     propsChoose() {
       return Object.keys(this.boxDate).length === 0
         ? this.dialogData
-        : this.boxDate;
+        : this.boxDate
     },
 
     // 自定義ID
     getMaxId() {
-      let maxId = Math.max(...this.articleData.map((val) => val.id));
-      return maxId <= 0 ? "1" : String(maxId + 1);
+      let maxId = Math.max(...this.articleData.map((val) => val.id))
+      return maxId <= 0 ? '1' : String(maxId + 1)
     },
   },
   // mixins: [MessagePlugin],
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -201,7 +203,7 @@ export default {
 
         &::before,
         &::after {
-          content: "";
+          content: '';
           position: absolute;
           display: block;
           width: 20px;

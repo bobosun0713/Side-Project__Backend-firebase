@@ -7,9 +7,7 @@
     :rules="type.rules"
     mode="lazy"
   >
-    <label class="login-form__body-group__title" for=""
-      >{{ type.name }}
-    </label>
+    <label class="login-form__body-group__title" for="">{{ type.name }} </label>
     <input
       class="login-form__body-group__input"
       :class="{ 'error-input': failed }"
@@ -23,30 +21,30 @@
 
 <script>
 export default {
-  name: "LoginInput",
+  name: 'LoginInput',
   props: {
     value: {
       type: String,
-      default: "",
+      default: '',
     },
     type: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
     },
   },
   computed: {
     getValue: {
       get() {
-        return this.value;
+        return this.value
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit('input', val)
       },
     },
   },
-};
+}
 </script>
 
 <style></style>

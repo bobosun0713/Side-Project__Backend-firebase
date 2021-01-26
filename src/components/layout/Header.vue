@@ -1,134 +1,151 @@
 <template>
   <header class="header">
-    <div class="header-nav">
-      <!-- <div class="header-nav__search" style="display: none">
-        <font-awesome-icon icon="search" class="icon" />
-        <input
-          type="text"
-          name=""
-          id=""
-          class="header-nav__search__input"
-          placeholder="請輸入關鍵字"
-        />
-      </div> -->
-      <div class="header-nav__title">BOBO-SUN</div>
-      <div class="header-nav__user">
-        <div class="header-nav__user__path"></div>
-        <button class="header-nav__user__login" @click="SignOut">
-          Sign out
-        </button>
-      </div>
+    <div class="header-content">
+      <!-- sidebar -->
+      <button class="side-menu-control" @click="switchBtn">
+        <span class="side-menu-control__line"></span>
+      </button>
+      <!-- logout -->
+      <button class="bo-button--logout">
+        Sing Out
+      </button>
     </div>
     <bread-crumb></bread-crumb>
   </header>
 </template>
 
 <script>
-import BreadCrumb from "@/components/layout/BreadCrumbs.vue";
-import { User } from "@/db";
+import BreadCrumb from '@/components/layout/BreadCrumbs.vue'
+import { User } from '@/db'
 
 export default {
-  name: "Header",
+  name: 'Header',
   components: {
     BreadCrumb,
   },
+  data() {
+    return {
+      switchMenu: false,
+    }
+  },
   methods: {
     SignOut() {
-      this.$confirm(`確定登出?`, "登出", {
-        confirmButtonText: "確定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm(`確定登出?`, '登出', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning',
       })
         .then(() => {
           User.signOut().then(() => {
-            this.$store.dispatch("removeUid");
-            this.MessageDialog("success", "已登出", false);
-            this.$router.push("/login");
-          });
+            this.$store.dispatch('removeUid')
+            this.MessageDialog('success', '已登出', false)
+            this.$router.push('/login')
+          })
         })
         .catch(() => {
-          this.MessageDialog("warning", "已取消登出", false);
-        });
+          this.MessageDialog('warning', '已取消登出', false)
+        })
+    },
+    switchBtn() {
+      this.switchMenu = !this.switchMenu
+      this.$emit('switch-btn')
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
 .header {
-  position: sticky;
-  top: 0;
-  background-color: #ffffffff;
   display: flex;
   flex-wrap: wrap;
+  background-color: white;
 
-  // 上導覽
-  &-nav {
-    width: 100%;
+  &-content {
+    padding: 15px 0;
+    flex-basis: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    height: 100px;
-    padding: 0 40px;
-    position: relative;
 
-    // 搜尋
-    &__search {
-      width: 180px;
-      box-shadow: 0 0 5px rgb(168, 166, 166);
-      padding: 10px 16px;
-      border-radius: 25px;
-      background-color: #e5e5e5;
-      display: flex;
-      align-items: center;
+    // button
+    .side-menu-control {
+      margin-left: 25px;
+      padding: 10px 0;
+      height: 30px;
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+      &__line {
+        display: block;
+        height: 3px;
+        width: 30px;
+        background-color: $main-color;
+        border-radius: 10px;
+        position: relative;
 
-      &__input {
-        background-color: transparent;
-        border: 0;
+        &::before,
+        &::after {
+          content: '';
+          display: block;
+          height: 3px;
+          width: 100%;
+          background-color: $main-color;
+          border-radius: 10px;
+          position: absolute;
+        }
+
+        &::before {
+          top: 8px;
+        }
+
+        &::after {
+          top: -8px;
+        }
       }
     }
 
-    // 中間
-    &__title {
-      font-size: 1.25rem;
-      letter-spacing: 2px;
-      font-weight: bold;
-      margin: 0 auto;
-      color: #35495e;
-    }
+    // logout
+    .bo-button--logout {
+      margin-right: 25px;
+      cursor: pointer;
+      background-color: $main-color;
+      border: 0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      font-weight: 600;
+      box-shadow: 1px 1px 2px #5f5e5e;
+      transition: transform, box-shadow 0.3s;
 
-    // 登入
-    &__user {
-      width: 180px;
-      position: absolute;
-      right: 50px;
-
-      display: flex;
-
-      // 大頭貼
-      &__path {
-        //   border: 1px solid;
-        box-shadow: 0 0 7px rgb(105, 101, 101);
-        height: 50px;
-        width: 50px;
-        border-radius: 100%;
-        background: url("https://picsum.photos/id/1058/600/400") no-repeat
-          center center;
-        background-size: cover;
-      }
-
-      // 登入按鈕
-      &__login {
-        border: 0;
-        cursor: pointer;
-        background-color: transparent;
-        font-weight: bold;
-        align-self: center;
-        margin-left: 25px;
-        font-size: 1.25rem;
-        color: #35495e;
+      &:active {
+        transform: translateY(0.5px);
+        box-shadow: 0 0 0;
       }
     }
   }
+
+  // // breadcrumb
+  // .breadcrumb {
+  //   display: flex;
+  //   padding: 5px 25px;
+  //   border-top: 1px solid rgb(226, 220, 220);
+  //   border-bottom: 1px solid rgb(226, 220, 220);
+  //   flex-basis: 100%;
+
+  //   &__links {
+  //     position: relative;
+  //     font-size: 12px;
+
+  //     &:not(:first-child) {
+  //       margin-left: 15px;
+  //       &:before {
+  //         content: '\276F';
+  //         position: absolute;
+  //         left: -10px;
+  //         font-size: 10px;
+  //         top: 0px;
+  //       }
+  //     }
+  //   }
+  // }
 }
 </style>

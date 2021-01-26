@@ -13,8 +13,6 @@ export const GlobalElement = {
         showClose: action,
         message: Meg,
         type: type,
-        customClass: "test"
-
       })
     },
   },

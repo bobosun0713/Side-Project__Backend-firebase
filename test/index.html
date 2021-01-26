@@ -1,74 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <title>Document</title>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css' />
-</head>
-
-<body>
-  <nav class="sidebar">
-    <div class="sidebar-logo">
-      <img class="sidebar-logo__img" src="vue.png" alt="">
-    </div>
-    <div class="menu">
-      <div class="menu__item">
-        <a class="menu__item__link" href="#">
-          <i class="fas fa-home  menu-icon"></i>
-          首頁
-        </a>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <!-- sidebar -->
+        <button class="side-menu-control">
+          <span class="side-menu-control__line"></span>
+        </button>
+        <!-- logout -->
+        <button class="bo-button-logout">
+          Sing Out
+        </button>
       </div>
-      <div class="menu__item" id="article">
-        <a class="menu__item__link" href="#article">
-          <i class="fas fa-sticky-note  menu-icon"></i>
-          文章管理
-          <i class="fas fa-chevron-right menu-drop-down"></i>
-        </a>
-        <div class="sub-menu">
-          <a class="sub-menu__link" href="">
-            <i class="far fa-list-alt menu-icon"></i>
-            文章列表
+      <!-- breadcrumb -->
+      <ul class="breadcrumb">
+        <li class="breadcrumb__links">首頁</li>
+        <li class="breadcrumb__links">文章管理</li>
+      </ul>
+    </header>
+    <nav class="sidebar">
+      <div class="sidebar-logo">
+        <img class="sidebar-logo__img" src="vue.png" alt="" />
+      </div>
+      <div class="menu">
+        <div class="menu__item">
+          <a class="menu__item__link" href="#">
+            <i class="fas fa-home  menu-icon"></i>
+            首頁
           </a>
-          <a class="sub-menu__link" href="">
-            <i class="fas fa-edit menu-icon"></i>
-            新增文章
+        </div>
+        <div class="menu__item" id="article">
+          <a class="menu__item__link" href="#article">
+            <i class="fas fa-sticky-note  menu-icon"></i>
+            文章管理
+            <i class="fas fa-chevron-right menu-drop-down"></i>
+          </a>
+          <div class="sub-menu">
+            <a class="sub-menu__link" href="">
+              <i class="far fa-list-alt menu-icon"></i>
+              文章列表
+            </a>
+            <a class="sub-menu__link" href="">
+              <i class="fas fa-edit menu-icon"></i>
+              新增文章
+            </a>
+          </div>
+        </div>
+        <div class="menu__item" id="produt">
+          <a class="menu__item__link " href="#produt">
+            <i class="fas fa-box menu-icon"></i>
+            商品管理
+            <i class="fas fa-chevron-right menu-drop-down"></i>
+          </a>
+          <div class="sub-menu">
+            <a class="sub-menu__link" href="">
+              <i class="far fa-list-alt menu-icon"></i>
+              商品列表
+            </a>
+            <a class="sub-menu__link" href="">
+              <i class="fas fa-cart-plus menu-icon"></i>
+              新增商品
+            </a>
+          </div>
+        </div>
+        <div class="menu__item">
+          <a class="menu__item__link" href="#">
+            <i class="fas fa-user-circle menu-icon"></i>
+            管理員
+          </a>
+        </div>
+        <div class="menu__item">
+          <a class="menu__item__link" href="#">
+            <i class="fab fa-github menu-icon"></i>
+            GitHub
           </a>
         </div>
       </div>
-      <div class="menu__item" id="produt">
-        <a class="menu__item__link " href="#produt">
-          <i class="fas fa-box menu-icon"></i>
-          商品管理
-          <i class="fas fa-chevron-right menu-drop-down"></i>
-        </a>
-        <div class="sub-menu">
-          <a class="sub-menu__link" href="">
-            <i class="far fa-list-alt menu-icon"></i>
-            商品列表
-          </a>
-          <a class="sub-menu__link" href="">
-            <i class="fas fa-cart-plus menu-icon"></i>
-            新增商品
-          </a>
-        </div>
-      </div>
-      <div class="menu__item">
-        <a class="menu__item__link" href="#">
-          <i class="fas fa-user-circle menu-icon"></i>
-          管理員
-        </a>
-      </div>
-      <div class="menu__item">
-        <a class="menu__item__link" href="#">
-          <i class="fab fa-github menu-icon"></i>
-          GitHub
-        </a>
-      </div>
-    </div>
-  </nav>
-</body>
-
+    </nav>
+  </body>
 </html>

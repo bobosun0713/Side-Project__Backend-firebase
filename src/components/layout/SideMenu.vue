@@ -1,172 +1,135 @@
 <template>
-  <div class="sidebar" :class="{ 'sidebar--close': SideMenu }">
-    <button class="sidebar-control" @click="closeSideMenu">
-      <font-awesome-icon
-        icon="chevron-circle-left"
-        class="icon-side"
-        v-if="!SideMenu"
-      />
-      <font-awesome-icon icon="chevron-circle-right" class="icon-side" v-else />
-    </button>
+  <nav class="sidebar">
     <div class="sidebar-content">
       <!-- Logo -->
-      <div class="sidebar__logo"></div>
+      <div class="sidebar-logo">
+        <img
+          class="sidebar-logo__img"
+          src="../../assets/image/vueV3.png"
+          alt=""
+        />
+      </div>
       <!-- 側邊選單 -->
       <ul class="sidebar__nav">
-        <side-menu-list
-          :item="item"
-          v-for="(item, index) in SideMenuList"
-          :key="index"
-        ></side-menu-list>
+        <div class="menu">
+          <side-menu-item
+            :item="item"
+            v-for="(item, index) in SideMenuList"
+            :key="index"
+          ></side-menu-item>
+        </div>
       </ul>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
-import SideMenuList from "@/components/layout/SideMenuItem.vue";
+import SideMenuItem from '@/components/layout/SideMenuItem.vue'
 export default {
-  name: "SideMenu",
+  name: 'SideMenu',
   components: {
-    SideMenuList,
+    SideMenuItem,
   },
   data() {
     return {
       SideMenu: false,
       SideMenuList: [
-        { name: "首頁", icon: "house-damage", path: "/" },
+        { name: '首頁', icon: 'home', path: '/' },
         {
-          name: "文章管理",
-          icon: "scroll",
+          name: '文章管理',
+          icon: 'sticky-note',
           children: [
-            { name: "文章列表", icon: "list", path: "/article" },
-            { name: "新增文章", icon: "list", path: "" },
+            { name: '文章列表', icon: 'list-alt', path: '/article' },
+            { name: '新增文章', icon: 'edit', path: '/s' },
           ],
         },
-        { name: "管理員", icon: "user-alt", path: "/admin" },
-        { name: "GitHub", icon: "scroll", path: "/login" },
+        {
+          name: '商品管理',
+          icon: 'box',
+          children: [
+            { name: '商品列表', icon: 'list-alt', path: '/s' },
+            { name: '新增商品', icon: 'cart-plus', path: '/s' },
+          ],
+        },
+        { name: '管理員', icon: 'user-alt', path: '/admin' },
+        { name: 'GitHub', icon: 'edit', path: '/login' },
       ],
-    };
+    }
   },
   methods: {
     closeSideMenu() {
-      this.SideMenu = !this.SideMenu;
-      this.$emit("close-side");
+      this.SideMenu = !this.SideMenu
+      this.$emit('close-side')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
+.menu-icon {
+  margin-right: 15px;
+}
+.menu-drop-down {
+  float: right;
+  margin-top: 7px;
+  font-size: 12px;
+  transition: transform 0.5s;
+}
+
+// sideMenu
 .sidebar {
   position: fixed;
-  top: 0;
   left: 0;
-  width: 330px;
-  height: 100%;
-  background-color: #ffffff;
-  box-shadow: 1px 0px 10px rgb(180, 177, 177);
+  top: 0;
+  background-color: #34384e;
+  height: 100vh;
+  width: 250px;
   transition: left 0.5s;
-  z-index: 5;
 
-  // 開關
-  &-control {
-    cursor: pointer;
-    position: absolute;
-    border: 0;
-    border-radius: 100%;
-    top: 0;
-    right: -18px;
-    bottom: 0;
-    margin: auto 0;
-    background-color: #fff;
-    width: 40px;
-    height: 40px;
-    box-shadow: 5px 0 3px rgb(206, 206, 206);
-  }
+  &-logo {
+    text-align: center;
+    margin: 60px 0 30px;
 
-  // sidebar-內容
-  &-content {
-    height: 100%;
-
-    //logo
-    .sidebar__logo {
-      margin: 30px auto;
-      width: 200px;
-      height: 200px;
+    &__img {
       border-radius: 100%;
-      box-shadow: 0 0 7px #888;
-      background: url("~@/assets/image/logo.png") no-repeat center bottom;
-      background-size: 80%;
+      background-color: white;
+      height: 100px;
+      width: 100px;
+      padding: 5px;
     }
+  }
 
-    // 導航欄
-    .sidebar__nav {
-      // border: 1px solid blue;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-
-      // 項目
-      &__item {
-        > a {
-          // text-align: center;
-          display: block;
-          padding: 31.5px 0 31.5px 70px;
-          color: #202836;
-          font-weight: 900;
-          font-size: 1.25rem;
-          transition: all 0.2s;
-        }
-
-        &:hover > a {
-          color: #3a976d;
-        }
-      }
-    }
-
-    // 選單 複選單
-    .sidebar__nav__child {
-      // height: auto;
-      background-color: #476382;
-      transition: all 0.5s;
+  .menu {
+    &__item {
       overflow: hidden;
+      &__link {
+        padding: 10px 30px;
+        display: block;
+        font-size: 16px;
+        transition: all 0.2s;
+        color: white;
+      }
 
-      // 項目
-      li {
-        > a {
-          
-          padding: 31.5px 0 31.5px 100px;
-          font-size: 1rem;
+      // 複選單
+      .sub-menu {
+        background-color: $sub-color-blue;
+        transition: all 0.5s;
+
+        .menu__item__link {
+          display: block;
+          padding: 10px 0 15px 40px;
           color: white;
-
-          .icon {
-            font-size: 1rem;
-            color: white;
-          }
-        }
-
-        &:hover > a {
-          color: black;
+          font-size: 14px;
+          // font-weight: bold;
+          border-bottom: 0.5px solid white;
         }
       }
     }
   }
 }
 
-.sidebar--close {
-  left: -330px;
-
-  .sidebar-control {
-    transition: all 0.5s;
-    right: -25px;
-    margin: auto 0;
-    width: 50px;
-    height: 50px;
-    padding-left: 15px;
-  }
-}
 .router-link-exact-active {
-  background-color: #5bd39f;
+  background-color: $sub-color-shallow_green;
+  border-left: 4px solid rgb(51, 245, 51);
 }
 </style>

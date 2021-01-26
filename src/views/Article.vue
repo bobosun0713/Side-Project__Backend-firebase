@@ -1,20 +1,22 @@
 <template>
   <div class="article">
-    <transition name="opacity">
-      <light-box
-        @close-dialog="switchDialog"
-        v-if="isOpenDialog"
-        :articleData="articleData"
-        :boxDate="boxDate"
-      ></light-box>
-    </transition>
+    <light-box
+      @close-dialog="switchDialog"
+      v-if="isOpenDialog"
+      :articleData="articleData"
+      :boxDate="boxDate"
+    ></light-box>
+    <div class="article__search">
+      <input type="text" class="article__search__input" />
+      <button class="article__search__bi">搜尋列表</button>
+    </div>
     <div class="content">
       <div class="content-header">
         <h2 class="content-header__title">文章列表</h2>
         <button class="content-header__upload" @click="switchDialog">
           上傳文章
         </button>
-        <div class="content-header__search">
+        <!-- <div class="content-header__search">
           <input
             class="content-header__search__input"
             type="text"
@@ -24,7 +26,7 @@
           <button class="content-header__search__button" @click="searchBtn">
             搜尋
           </button>
-        </div>
+        </div> -->
       </div>
       <table class="content-table">
         <thead>
@@ -93,13 +95,12 @@
 </template>
 
 <script>
-import { db, collection, storageRef, collectionOrder } from "@/db";
-import LightBox from "@/components/LightBox.vue";
-// import PagiNation from "@/components/layout/PagiNation.vue";
-import { SearchMixin, GetTimeMixin } from "@/assets/js/function.js";
+import { db, collection, storageRef, collectionOrder } from '@/db'
+import LightBox from '@/components/LightBox.vue'
+import { SearchMixin, GetTimeMixin } from '@/assets/js/function.js'
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     LightBox,
   },
@@ -109,7 +110,7 @@ export default {
       articleData: [],
 
       // 搜尋
-      searchTitle: "",
+      searchTitle: '',
       // 切換搜尋時的功能
       isSearch: false,
 
@@ -121,78 +122,78 @@ export default {
       boxDate: {},
       // 開啟燈箱
       isOpenDialog: false,
-    };
+    }
   },
   methods: {
     //dialog 開關
     switchDialog() {
-      this.boxDate = {};
+      this.boxDate = {}
       // console.log('執行關閉')
-      this.isOpenDialog = !this.isOpenDialog;
+      this.isOpenDialog = !this.isOpenDialog
     },
     // 修改 --- 待詢問（無法解構ID)
     editAction(idx) {
       // 用id 抓取修改資料，放到暫存修改資料的物件裡。
-      this.boxDate = { ...this.articleData.find((val) => val.id === idx) };
+      this.boxDate = { ...this.articleData.find((val) => val.id === idx) }
       // id為唯獨 無法解構, 手動把id加回去。
-      this.boxDate.id = idx;
-      this.isOpenDialog = !this.isOpenDialog;
+      this.boxDate.id = idx
+      this.isOpenDialog = !this.isOpenDialog
     },
     // 刪除
-    DeleteMsg(title, id, imgName) {
-      this.$confirm(`刪除這篇『${title}』文章?`, "刪除通知", {
-        confirmButtonText: "確定",
-        cancelButtonText: "取消",
-        type: "warning",
+    DELETE_MESSAGE(title, id, imgName) {
+      this.$confirm(`刪除這篇『${title}』文章?`, '刪除通知', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning',
       })
         .then(() => {
-          storageRef.child(`image/${imgName}`).delete();
-          collection.doc(id).delete();
-          this.MessageDialog("success", "刪除成功!", false);
+          storageRef.child(`image/${imgName}`).delete()
+          collection.doc(id).delete()
+          this.MessageDialog('success', '刪除成功!', false)
         })
-        .catch(() => this.MessageDialog("info", "取消刪除!", false));
+        .catch(() => this.MessageDialog('info', '取消刪除!', false))
     },
 
     // 搜尋按鈕
     searchBtn() {
-      this.searchTitle = this.$refs.title.value;
+      this.searchTitle = this.$refs.title.value
       // 判斷按下篩選後，切換 computed totalPage函式調用哪個的陣列
-      this.isSearch = !this.searchTitle ? false : true;
+      this.isSearch = !this.searchTitle ? false : true
     },
 
     // 分頁控制按鈕
     changeBtn(Num) {
-      let pageNum = this.nowPage + Num;
+      let pageNum = this.nowPage + Num
       if (pageNum < 1) {
-        this.nowPage = 1;
+        this.nowPage = 1
       } else if (pageNum > this.totalPage) {
-        this.nowPage = this.totalPage;
+        this.nowPage = this.totalPage
       } else {
-        this.nowPage = pageNum;
+        this.nowPage = pageNum
       }
     },
   },
   computed: {
     // 搜尋
     pageList() {
-      let start = (this.nowPage - 1) * this.perPage;
+      let start = (this.nowPage - 1) * this.perPage
       return this.articleData
         .slice(start, start + this.perPage)
-        .filter((val) => val.title.match(this.searchTitle));
+        .filter((val) => val.title.match(this.searchTitle))
     },
     // 總頁數 (判斷篩選前 或 篩選後 使用哪個陣列)
     totalPage() {
       return !this.isSearch
         ? Math.ceil(this.articleData.length / this.perPage)
-        : Math.ceil(this.pageList.length / this.perPage);
+        : Math.ceil(this.pageList.length / this.perPage)
     },
   },
   mounted() {
     // 取得資料
-    this.$bind("articleData", collectionOrder);
+    this.$bind('articleData', collectionOrder)
   },
   mixins: [SearchMixin, GetTimeMixin],
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -223,10 +224,16 @@ export default {
     cursor: pointer;
     border: 0;
     margin: 0 10px;
+    background-color: transparent;
     transition: all 0.5s;
     &:hover {
       color: black;
     }
   }
+}
+.article__search {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
 }
 </style>
