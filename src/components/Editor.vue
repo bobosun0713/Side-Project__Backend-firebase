@@ -34,6 +34,6 @@ export default {
 
 <style lang="scss" scoped>
 /deep/ .ql-container {
-  height: 200px;
+  height: 250px;
 }
 </style>

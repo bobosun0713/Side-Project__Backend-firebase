@@ -9,7 +9,7 @@
 
 .opacity-enter-active,
 .opacity-leave-active {
-  transition: all .1s;
+  transition: all 0.1s;
 }
 
 .opacity-leave {
@@ -20,3 +20,16 @@
   opacity: 0;
 }
 
+// 往左
+.Left-enter {
+  transform: translateX(30px);
+}
+
+.Left-enter-active,
+.Left-leave-active {
+  transition: transform 5s;
+}
+
+.Left-leave {
+  transform: translateX(-30px);
+}

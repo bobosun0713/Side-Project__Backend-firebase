@@ -5,6 +5,8 @@
       v-if="!menuChild"
       :to="item.path"
       class="menu__item__link"
+      active-class="active"
+      :default-active="this.$route.path"
     >
       <font-awesome-icon :icon="item.icon" class="menu-icon" />
       {{ item.name }}
@@ -21,11 +23,7 @@
           :style="{ transform: iconRotate }"
         />
       </a>
-      <ul
-        class="sub-menu"
-        :style="{ height: ChildrenHight }"
-        ref="subMenuHeight"
-      >
+      <ul class="sub-menu" ref="test" :style="{ height: ChildrenHight }">
         <side-menu-item
           v-for="(child, index) in item.children"
           :key="index"
@@ -38,42 +36,58 @@
 
 <script>
 export default {
-  name: "SideMenuItem",
+  name: 'SideMenuItem',
   props: {
     item: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
+    },
+    active: {
+      type: String,
+      default: '',
     },
   },
   data() {
     return {
       isListOpen: false,
       itemLen: this.item.children,
-    };
+      activeLink: '',
+    }
   },
   methods: {
     toggleOpen() {
-      this.isListOpen = !this.isListOpen;
+      this.isListOpen = !this.isListOpen
     },
   },
   computed: {
+    nowPath() {
+      return this.$route.fullPath
+    },
+
     // 使用這個開關，過渡效果不是特別優化。
     menuChild() {
-      return this.item.children && this.item.children.length;
+      return this.item.children && this.item.children.length
     },
 
     iconRotate() {
-      return this.isListOpen ? "rotate(94deg)" : "rotate(0)";
+      return this.isListOpen ? 'rotate(94deg)' : 'rotate(0)'
     },
 
     // 動態給高度
     ChildrenHight() {
-      return this.isListOpen ? `${45 * this.itemLen.length}px` : "0px";
+      return this.isListOpen ? `${45 * this.itemLen.length}px` : '0px'
     },
   },
-};
+
+  mounted() {
+    if (!this.item.children) return
+    this.isListOpen = Boolean(
+      this.item.children.find((child) => child.path === this.nowPath)
+    )
+  },
+}
 </script>
 
-<style></style>
+<style lang="scss"></style>

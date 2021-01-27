@@ -7,6 +7,7 @@
           class="sidebar-logo__img"
           src="../../assets/image/vueV3.png"
           alt=""
+          @click="goHome"
         />
       </div>
       <!-- 側邊選單 -->
@@ -16,6 +17,7 @@
             :item="item"
             v-for="(item, index) in SideMenuList"
             :key="index"
+            :active="routerLink"
           ></side-menu-item>
         </ul>
       </div>
@@ -24,9 +26,9 @@
 </template>
 
 <script>
-import SideMenuItem from "@/components/layout/SideMenuItem.vue";
+import SideMenuItem from '@/components/layout/SideMenuItem.vue'
 export default {
-  name: "SideMenu",
+  name: 'SideMenu',
   components: {
     SideMenuItem,
   },
@@ -34,43 +36,40 @@ export default {
     return {
       SideMenu: false,
       SideMenuList: [
-        { name: "首頁", icon: "home", path: "/" },
+        // { name: '首頁', icon: 'home', path: '/' },
         {
-          name: "文章管理",
-          icon: "sticky-note",
+          name: '文章管理',
+          icon: 'sticky-note',
           children: [
-            { name: "文章列表", icon: "list-alt", path: "/article" },
-            { name: "新增文章", icon: "edit", path: "/articleadd" },
+            { name: '文章列表', icon: 'list-alt', path: '/article' },
+            { name: '新增文章', icon: 'edit', path: '/articleadd' },
           ],
         },
         {
-          name: "商品管理",
-          icon: "box",
+          name: '商品管理',
+          icon: 'box',
           children: [
-            { name: "商品列表", icon: "list-alt", path: "/article" },
-            { name: "新增商品", icon: "cart-plus", path: "/articleadd" },
+            { name: '商品列表', icon: 'list-alt', path: '/123' },
+            { name: '新增商品', icon: 'cart-plus', path: '/123' },
           ],
         },
-        { name: "管理員", icon: "user-alt", path: "/admin" },
-        { name: "GitHub", icon: "edit", path: "/search" },
+        { name: '管理員', icon: 'user-alt', path: '/admin' },
+        { name: 'GitHub', icon: 'edit', path: '/search' },
       ],
 
-      routerLink: "",
-    };
+      routerLink: '',
+    }
   },
   methods: {
     closeSideMenu() {
-      this.SideMenu = !this.SideMenu;
-      this.$emit("close-side");
+      this.SideMenu = !this.SideMenu
+      this.$emit('close-side')
+    },
+    goHome() {
+      this.$router.push('/')
     },
   },
-  watch: {
-    $route(link) {
-      this.routerLink = this.$route.path.substr(1).split("/");
-      console.log(this.routerLink);
-    },
-  },
-};
+}
 </script>
 
 <style lang="scss">
@@ -99,6 +98,7 @@ export default {
     margin: 60px 0 30px;
 
     &__img {
+      cursor: pointer;
       border-radius: 100%;
       background-color: white;
       height: 80px;
@@ -135,8 +135,7 @@ export default {
     }
   }
 }
-
-.router-link-exact-active {
+.active {
   background-color: $sub-color-shallow_green;
   border-left: 4px solid rgb(51, 245, 51);
 }

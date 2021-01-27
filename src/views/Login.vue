@@ -1,22 +1,22 @@
 <template>
   <div class="login">
     <div class="login-form">
-      <!-- <button @click="test">測試轉址</button> -->
-      <!-- <button @click="SignOut">登出</button> -->
-      <!-- <button @click="checkUser">登入資訊</button> -->
-      <div class="login-form__header login-form--margin">
+      <div class="login-form__header">
         <img
           class="login-form__header__img"
-          src="../assets/image/logo-gif.gif"
+          src="../assets/image/login-2.gif"
           alt=""
         />
       </div>
       <validation-observer
-        class="login-form__body login-form--margin"
+        class="login-form__body"
         tag="form"
         ref="form"
         @submit.prevent="SubmitAction()"
       >
+        <div class="login-form__item login-form__margin">
+          <h2 class="login-form__title">BoBo</h2>
+        </div>
         <login-input
           v-model="email"
           :type="{ type: 'text', name: '帳號', rules: 'required|email' }"
@@ -25,8 +25,8 @@
           v-model="password"
           :type="{ type: 'password', name: '密碼', rules: 'required|password' }"
         ></login-input>
-        <div class="login-form__body-group">
-          <button type="submit" class="login-form__footer__button">登入</button>
+        <div class="login-form__item">
+          <button class="long-form__button">Sing In</button>
         </div>
       </validation-observer>
     </div>
@@ -34,162 +34,144 @@
 </template>
 
 <script>
-import LoginInput from "@/components/login/LoginInput.vue";
-import { User } from "@/db";
+import LoginInput from '@/components/login/LoginInput.vue'
+import { User } from '@/db'
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     LoginInput,
   },
   data() {
     return {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: '',
+    }
   },
   methods: {
     // 送出
     SubmitAction() {
       this.$refs.form.validate().then((success) => {
         if (!success) {
-          this.email = this.password = "";
-          return this.MessageDialog("error", "請輸入帳號或密碼！", true);
+          this.email = this.password = ''
+          return this.MessageDialog('error', '請輸入帳號或密碼！', true)
         }
-        this.SingIn();
-      });
+        this.SingIn()
+      })
     },
     // 登入函式
     SingIn() {
       User.signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           // 成功登入 並傳入至vuex 存UID來當作登入判斷
-          let UID = User.currentUser.uid;
-          this.$store.dispatch("loginAction", UID);
-          this.$router.push({ path: "/" });
-          this.MessageDialog("success", "登入成功", true);
+          let UID = User.currentUser.uid
+          this.$store.dispatch('loginAction', UID)
+          this.$router.push({ path: '/' })
+          this.MessageDialog('success', '登入成功', true)
         })
         .catch(() => {
-          this.email = this.password = "";
-          this.MessageDialog("error", "登入失敗，再試一次！", true);
-        });
+          this.email = this.password = ''
+          this.MessageDialog('error', '登入失敗，再試一次！', true)
+        })
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
 .login {
-  top: 0;
-  left: 0;
-  z-index: 10;
-  position: fixed;
-  // background: linear-gradient(120deg, #35495e, #41b883);
-  background: url('~@/assets/image/vue.jpg') no-repeat center center;
+  //   border: 1px solid;
   width: 100%;
-  height: 100%;
-
+  height: 100vh;
+  background-color: $main-color-bg;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   &-form {
-    background-color: white;
-    box-shadow: 0 0 17px #527C78;
-    border: 5px solid #527C78;
-    border-radius: 20px;
-    margin: 0 auto;
-    width: 350px;
+    width: 700px;
     display: flex;
-    align-items: center;
-    flex-direction: column;
+    justify-content: space-around;
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 8px rgb(223, 219, 219);
 
-    // 共用
-    &--margin {
-      margin-bottom: 25px;
-    }
-
-    // header
+    // 圖片
     &__header {
-      // border: 1px solid;
-      margin: 15px auto;
-
+      width: 100%;
       &__img {
-        // border: 1px solid;
-        object-fit: cover;
-        width: 170px;
-        height: 170px;
+        width: 300px;
       }
     }
 
-    // body
+    // 內容
     &__body {
       width: 100%;
-
-      // 輸入區域
-      &-group {
-        width: 100%;
-        text-align: center;
-        &:not(:last-child) {
-          margin-bottom: 15px;
-        }
-
-        // 輸入名稱
-        &__title {
-          width: 30%;
-          font-size: 1.125rem;
-          font-weight: bold;
-        }
-
-        // 輸入框
-        &__input {
-          width: 70%;
-          padding: 5px 0 5px 15px;
-          border-radius: 20px;
-          border: 0;
-          box-shadow: 0 0 3px rgb(106, 103, 103);
-          font-size: 1rem;
-          transform: all 0.5s;
-        }
-
-        // 輸入框錯誤題時
-        .error-input {
-          border: 0;
-          box-shadow: 0 0 3px red;
-        }
-
-        // 錯誤訊息
-        &__error {
-          text-align: left;
-          margin-top: 5px;
-          width: 180px;
-          margin: 5px auto 0;
-          // margin-left: -40px;
-          color: rgb(228, 15, 15);
-        }
-      }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
+  }
+}
 
-    // footer
-    &__footer {
-      // 登入
-      &__button {
-        background-color: #41b883;
-        box-shadow: 1px 1px 5px rgb(121, 119, 119);
-        border: 0;
-        border-radius: 5px;
-        padding: 8px 16px;
-        color: white;
-        font-weight: bold;
-        transition: all 0.3s;
-        cursor: pointer;
+// 標題
+.login-form__title {
+  font-size: 2.5rem;
+  background: linear-gradient(to right, #41b883, #708fb1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-        &:active {
-          box-shadow: unset;
-          transform: translateY(1px);
-          background-color: #35495e;
-        }
-      }
-    }
+// 輸入框
+.login-form__input {
+  width: 100%;
+  border: 0.5px solid #888;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+
+  // Error
+  &__error {
+    text-align: left;
+    margin-top: 2.5px;
+    padding-left: 15px;
+    font-size: 12px;
+    height: 15px;
+    color: rgb(194, 26, 26);
+  }
+}
+
+// 按鈕
+.long-form__button {
+  cursor: pointer;
+  padding: 9px 20px;
+  border: 0;
+
+  border-radius: 20px;
+  box-shadow: 1.5px 1.5px 3px rgb(163, 160, 160);
+  background-color: $sub-color-blue;
+  color: white;
+  transition: all 0.5s;
+
+  &:active {
+    transform: translateY(1.5px);
+    box-shadow: 0 0 0;
+  }
+}
+
+//寬度
+.login-form__item {
+  width: 230px;
+  text-align: center;
+}
+
+// 間距
+.login-form__margin {
+  margin-bottom: 10px;
+  &:first-child {
+    margin-bottom: 25px;
   }
 }
 </style>

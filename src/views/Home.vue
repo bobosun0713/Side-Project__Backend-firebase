@@ -2,35 +2,33 @@
   <div class="home">
     <side-menu :class="{ sideMenu: sideLeft }"></side-menu>
     <div class="backend" :class="{ 'backend--active': sideLeft }">
-      <header-top @switch-btn="switchMenu"></header-top>
-      <!-- <transition name="opacity"> -->
+      <home-header @switch-btn="switchMenu"></home-header>
       <router-view />
-      <!-- </transition> -->
     </div>
   </div>
 </template>
 
 <script>
-import SideMenu from "@/components/layout/SideMenu.vue";
-import HeaderTop from "@/components/layout/Header.vue";
+import SideMenu from '@/components/layout/SideMenu.vue'
+import HomeHeader from '@/components/layout/Header.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     SideMenu,
-    HeaderTop,
+    HomeHeader,
   },
   data() {
     return {
       sideLeft: false,
-    };
+    }
   },
   methods: {
     switchMenu() {
-      this.sideLeft = !this.sideLeft;
+      this.sideLeft = !this.sideLeft
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

@@ -9,28 +9,21 @@ import Welcome from '@/views/Welcome'
 import Login from '@/views/Login'
 import Admin from '@/views/Admin'
 
-
-
-// firebase
-import store from '@/store'
-import Cookies from 'js-cookie'
-
-
 Vue.use(VueRouter)
 
+// 原定路由
 const routes = [
-  {
-    path: '*',
-    redirect: '/login',
-  },
   {
     path: '/',
     name: 'home',
     component: Home,
     meta: {
-      breadcrumb: [{
-        name: '首頁',
-      }]
+      title: '首頁',
+      breadcrumb: [
+        {
+          name: '首頁',
+        },
+      ],
     },
     children: [
       {
@@ -38,10 +31,13 @@ const routes = [
         name: 'welcome',
         component: Welcome,
         meta: {
+          title: '首頁',
           requiresAuth: true,
-          breadcrumb: [{
-            name: '首頁',
-          }]
+          breadcrumb: [
+            {
+              name: '首頁',
+            },
+          ],
         },
       },
       {
@@ -50,12 +46,15 @@ const routes = [
         component: Article,
         meta: {
           requiresAuth: true,
-          breadcrumb: [{
-            name: '首頁',
-            link: '/'
-          },
-          { name: '文章管理' },
-          { name: '文章列表' }]
+          title: '文章列表',
+          breadcrumb: [
+            {
+              name: '首頁',
+              link: '/',
+            },
+            { name: '文章管理' },
+            { name: '文章列表' },
+          ],
         },
       },
       {
@@ -64,12 +63,15 @@ const routes = [
         component: ArticleAdd,
         meta: {
           requiresAuth: true,
-          breadcrumb: [{
-            name: '首頁',
-            link: '/'
-          },
-          { name: '文章管理' },
-          { name: '新增文章' }]
+          title: '文章新增',
+          breadcrumb: [
+            {
+              name: '首頁',
+              link: '/',
+            },
+            { name: '文章管理' },
+            { name: '新增文章' },
+          ],
         },
       },
       {
@@ -78,22 +80,28 @@ const routes = [
         component: Admin,
         meta: {
           requiresAuth: true,
-          breadcrumb: [{
-            name: '首頁',
-            link: '/'
-          },
-          { name: '管理員' }]
+          title: '管理員專區',
+          breadcrumb: [
+            {
+              name: '首頁',
+              link: '/',
+            },
+            { name: '管理員' },
+          ],
         },
       },
-    ]
+    ],
   },
   {
     path: '/login',
-    name: "login",
+    name: 'login',
     component: Login,
   },
+  {
+    path: '*',
+    redirect: '/login',
+  },
 ]
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -101,10 +109,11 @@ const router = new VueRouter({
 })
 
 // router.beforeEach((to, from, next) => {
-//   let User = store.state.userUid || Cookies.get('UID');
+//   window.document.title = to.meta.title
+//   let User = store.state.userUid || Cookies.get('UID')
 //   if (to.meta.requiresAuth) {
 //     if (!User) {
-//       console.log('導入登入頁');
+//       console.log('導入登入頁')
 //       next('/login')
 //     } else {
 //       next()

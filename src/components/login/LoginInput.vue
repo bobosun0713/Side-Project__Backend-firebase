@@ -1,21 +1,20 @@
 <template>
   <validation-provider
-    class="login-form__body-group"
+    class="login-form__item login-form__margin"
     :name="type.name"
     v-slot="{ failed, errors }"
     tag="div"
     :rules="type.rules"
     mode="lazy"
   >
-    <label class="login-form__body-group__title" for="">{{ type.name }} </label>
     <input
-      class="login-form__body-group__input"
+      class="login-form__input"
       :class="{ 'error-input': failed }"
       :type="type.type"
       v-model="getValue"
-      placeholder="請輸入密碼"
+      :placeholder="type.name"
     />
-    <p class="login-form__body-group__error">{{ errors[0] }}</p>
+    <p class="login-form__input__error">{{ errors[0] }}</p>
   </validation-provider>
 </template>
 
