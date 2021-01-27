@@ -1,7 +1,6 @@
 <template>
   <validation-provider
     class="login-form__item login-form__margin"
-    :name="type.name"
     v-slot="{ failed, errors }"
     tag="div"
     :rules="type.rules"
@@ -20,30 +19,30 @@
 
 <script>
 export default {
-  name: 'LoginInput',
+  name: "LoginInput",
   props: {
     value: {
       type: String,
-      default: '',
+      default: "",
     },
     type: {
       type: Object,
       default() {
-        return {}
+        return {};
       },
     },
   },
   computed: {
     getValue: {
       get() {
-        return this.value
+        return this.value;
       },
       set(val) {
-        this.$emit('input', val)
+        this.$emit("input", val);
       },
     },
   },
-}
+};
 </script>
 
-<style></style>
+<style ></style>

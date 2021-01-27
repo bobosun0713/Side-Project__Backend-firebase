@@ -41,8 +41,8 @@ const routes = [
         },
       },
       {
-        path: 'article',
-        name: 'article',
+        path: 'article/list',
+        name: 'article_list',
         component: Article,
         meta: {
           requiresAuth: true,
@@ -58,8 +58,8 @@ const routes = [
         },
       },
       {
-        path: 'articleadd',
-        name: 'articleadd',
+        path: 'article/add',
+        name: 'article_add',
         component: ArticleAdd,
         meta: {
           requiresAuth: true,
@@ -71,6 +71,23 @@ const routes = [
             },
             { name: '文章管理' },
             { name: '新增文章' },
+          ],
+        },
+      },
+      {
+        path: 'article/edit/:id',
+        name: 'article_edit',
+        component: ArticleAdd,
+        meta: {
+          requiresAuth: true,
+          title: '文章新增',
+          breadcrumb: [
+            {
+              name: '首頁',
+              link: '/',
+            },
+            { name: '文章管理' },
+            { name: '編輯文章' },
           ],
         },
       },

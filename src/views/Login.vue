@@ -12,7 +12,7 @@
         class="login-form__body"
         tag="form"
         ref="form"
-        @submit.prevent="SubmitAction()"
+        @submit.prevent="SubmitAction"
       >
         <div class="login-form__item login-form__margin">
           <h2 class="login-form__title">BoBo</h2>
@@ -139,7 +139,7 @@ export default {
     padding-left: 15px;
     font-size: 12px;
     height: 15px;
-    color: rgb(194, 26, 26);
+    color: red;
   }
 }
 

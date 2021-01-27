@@ -41,8 +41,8 @@ export default {
           name: '文章管理',
           icon: 'sticky-note',
           children: [
-            { name: '文章列表', icon: 'list-alt', path: '/article' },
-            { name: '新增文章', icon: 'edit', path: '/articleadd' },
+            { name: '文章列表', icon: 'list-alt', path: '/article/list' },
+            { name: '新增文章', icon: 'edit', path: '/article/add' },
           ],
         },
         {

@@ -1,4 +1,5 @@
-.bo-button--logout {
+.bo-button {
+  display: block;
   margin: 0 auto;
   width: 120px;
   // margin-right: 25px;
@@ -17,3 +18,8 @@
     box-shadow: 0 0 0;
   }
 }
+
+.bo-button--logout {
+  margin-right: 25px;
+}
+

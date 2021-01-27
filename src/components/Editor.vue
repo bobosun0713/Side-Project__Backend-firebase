@@ -4,36 +4,36 @@
 
 <script>
 export default {
-  name: 'Editor',
+  name: "Editor",
   props: {
     value: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   computed: {
     getValue: {
       get() {
-        return this.value
+        return this.value;
       },
       set(val) {
-        this.$emit('input', val)
+        this.$emit("input", val);
       },
     },
   },
   data() {
     return {
       editorOption: {
-        placeholder: '請輸入內容...',
-        theme: 'snow',
+        placeholder: "請輸入內容...",
+        theme: "snow",
       },
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
 /deep/ .ql-container {
-  height: 250px;
+  height: 300px;
 }
 </style>

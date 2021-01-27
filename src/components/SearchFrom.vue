@@ -72,7 +72,7 @@ export default {
 
     // 輸入框
     &__input {
-      border: 1px solid #888;
+      border: 0.5px solid rgba(185, 183, 183, 0.533);
       width: 100%;
       border-radius: 5px;
       padding: 10px 15px;
