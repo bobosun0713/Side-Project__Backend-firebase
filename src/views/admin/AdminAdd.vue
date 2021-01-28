@@ -62,7 +62,7 @@
 
 <script>
 import { isLoading } from '@/assets/js/function.js'
-import { User } from '@/db'
+import { User, UserCollection } from '@/db'
 export default {
   name: 'adminAdd',
   data() {
@@ -76,20 +76,30 @@ export default {
     }
   },
   methods: {
+    // 新增帳戶
     addAdmin() {
       this.$refs.form.validate().then((success) => {
         if (!success) return
+        this.isLoading()
         User.createUserWithEmailAndPassword(
           this.adminData.email,
           this.adminData.password
         )
           .then(() => {
+            this.addAdminDb()
             this.MessageDialog('success', '帳號新增成成功', true)
+            this.loading.close()
+            this.$router.push('/admin/list')
           })
           .catch((error) => {
             this.MessageDialog('error', error.message, true)
           })
       })
+    },
+
+    // 新增至DB資料
+    addAdminDb() {
+      UserCollection.add(this.adminData)
     },
   },
   mixins: [isLoading],
