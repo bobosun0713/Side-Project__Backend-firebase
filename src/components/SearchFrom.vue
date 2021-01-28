@@ -1,14 +1,14 @@
 <template>
   <div class="search-form">
-    <h2 class="search-form__title">{{ '搜尋' + title }}</h2>
-    <div class="search-form__content">
+    <h2 class="search-form-title">{{ "搜尋" + title }}</h2>
+    <div class="search-form-content">
       <input
         type="text"
-        class="search-form__content__input bo-input "
+        class="search-form-content__input bo-input"
         v-model="value"
         :placeholder="title + '名稱'"
       />
-      <button class="search-form__content__submit" @click="clickSubmit">
+      <button class="search-form-content__button" @click="clickSubmit">
         搜尋
       </button>
     </div>
@@ -17,34 +17,33 @@
 
 <script>
 export default {
-  name: 'SearchForm',
+  name: "SearchForm",
   props: {
     title: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
     return {
-      value: '',
-      fullscreenLoading: false,
-    }
+      value: "",
+    };
   },
   methods: {
     clickSubmit() {
       const loading = this.$loading({
         lock: true,
-        text: '搜尋中 請稍後!',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)',
-      })
+        text: "搜尋中 請稍後!",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       setTimeout(() => {
-        this.$emit('search-value', this.value)
-        loading.close()
-      }, 1500)
+        this.$emit("search-value", this.value);
+        loading.close();
+      }, 1500);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -56,13 +55,13 @@ export default {
   margin-bottom: 30px;
   padding: 0 30px;
 
-  &__title {
+  &-title {
     font-size: 18px;
     padding: 15px 0;
     border-bottom: 1px solid rgb(202, 201, 201);
   }
 
-  &__content {
+  &-content {
     display: flex;
     padding: 15px 0;
 
@@ -72,7 +71,7 @@ export default {
     }
 
     // 按鈕
-    &__submit {
+    &__button {
       cursor: pointer;
       padding: 5px 10px;
       width: 100px;

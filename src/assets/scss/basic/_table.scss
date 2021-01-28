@@ -1,5 +1,5 @@
 // table
-.bo-table {
+.table {
   width: 100%;
   max-width: 100%;
   border: 1px solid #35495e;
@@ -7,41 +7,48 @@
   border-collapse: collapse;
   text-align: center;
 
-  //標頭
-  thead {
+  // 表頭
+  &-thead {
     background-color: #35495e;
     color: #fff;
     font-size: 1.125rem;
-  }
 
-  .table-th {
-    padding: 16px 0;
-    width: calc(100% / 6);
+    &__th {
+      padding: 16px 0;
+      width: calc(100% / 6);
 
-    &:not(:first-child) {
-      border-left: 1px solid white;
+      &:not(:first-child) {
+        border-left: 1px solid white;
+      }
     }
   }
 
-  .table-td {
-    padding: 10px 10px;
-    border-bottom: 1px solid #354951;
-    border-left: 1px solid #354951;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  &-tbody {
+    &__td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #354951;
+      border-left: 1px solid #354951;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
-    &:first-child {
-      font-weight: bold;
-      font-size: 1.125rem;
-    }
+      &:first-child {
+        font-weight: bold;
+        font-size: 1.125rem;
+      }
 
-    .table-btns {
-      cursor: pointer;
-      border: 0;
-      background-color: transparent;
+      &__img {
+        width: 100px;
+      }
 
-      &:nth-of-type(2) {
-        margin-left: 20px;
+      // 按鈕
+      &__button {
+        cursor: pointer;
+        border: 0;
+        background-color: transparent;
+
+        &:nth-of-type(2) {
+          margin-left: 20px;
+        }
       }
     }
   }

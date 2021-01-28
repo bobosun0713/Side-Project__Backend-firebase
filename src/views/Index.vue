@@ -1,8 +1,8 @@
 <template>
-  <div class="welcome">
-    <div class="welcome-content">
-      <h1 class="welcome-content__title">BOBO</h1>
-      <h2 class="welcome-content__subtitle">Welcome</h2>
+  <div class="index">
+    <div class="index-content">
+      <h1 class="index-content__title">BOBO</h1>
+      <h2 class="index-content__subtitle">Welcome</h2>
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.welcome {
+.index {
   margin-top: 150px;
   display: flex;
   align-items: center;

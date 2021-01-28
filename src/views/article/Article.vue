@@ -4,62 +4,60 @@
     <search-form :title="'文章'" @search-value="searchValue"></search-form>
 
     <!-- 文章列表 -->
-    <div class="article-list-content">
-      <div class="article-list-content__header">
-        <h2 class="article-list-content__header__title">文章列表</h2>
-      </div>
-
-      <table class="bo-table">
-        <thead>
+    <div class="article-list">
+      <h2 class="article-list__title">文章列表</h2>
+      <table class="table article-list__table">
+        <thead class="table-thead">
           <tr>
-            <th class="table-th">文章編號</th>
-            <th class="table-th">刊登時間</th>
-            <th class="table-th">文章標題</th>
-            <th class="table-th">文章內容</th>
-            <th class="table-th">文章圖片</th>
-            <th class="table-th">操作</th>
+            <th class="table-thead__th">文章編號</th>
+            <th class="table-thead__th">刊登時間</th>
+            <th class="table-thead__th">文章標題</th>
+            <th class="table-thead__th">文章內容</th>
+            <th class="table-thead__th">文章圖片</th>
+            <th class="table-thead__th">操作</th>
           </tr>
         </thead>
-        <tbody>
-          <template v-if="pageList.length !== 0">
-            <tr v-for="(item, index) in pageList" :key="index">
-              <td class="table-td">{{ item.id }}</td>
-              <td class="table-td">
-                {{ getDate(item.time) }}
-              </td>
-              <td class="table-td">
-                {{ item.title }}
-              </td>
-              <td class="table-td" v-html="item.content"></td>
-              <td class="table-td">
-                <img
-                  class="table-id__img"
-                  alt=""
-                  style="width: 100px"
-                  :src="item.imgUrl"
+
+        <tbody class="table-tbody" v-if="pageList.length !== 0">
+          <tr v-for="(item, index) in pageList" :key="index">
+            <td class="table-tbody__td">{{ item.id }}</td>
+            <td class="table-tbody__td">
+              {{ getDate(item.time) }}
+            </td>
+            <td class="table-tbody__td">
+              {{ item.title }}
+            </td>
+            <td class="table-tbody__td" v-html="item.content"></td>
+            <td class="table-tbody__td">
+              <img class="table-tbody__td__img" alt="" :src="item.imgUrl" />
+            </td>
+            <td class="table-tbody__td">
+              <button
+                class="table-tbody__td__button"
+                @click="editAction(item.id)"
+              >
+                <font-awesome-icon icon="pencil-alt" class="article-icon" />
+              </button>
+              <button
+                type="text"
+                class="table-tbody__td__button"
+                @click="deleteMessage(item.title, item.id, item.time)"
+              >
+                <font-awesome-icon
+                  icon="trash-alt"
+                  class="article-icon-delete"
                 />
-              </td>
-              <td class="table-td">
-                <button class="table-btns" @click="editAction(item.id)">
-                  <font-awesome-icon icon="pencil-alt" class="article-icon" />
-                </button>
-                <button
-                  type="text"
-                  class="table-btns"
-                  @click="deleteMessage(item.title, item.id, item.time)"
-                >
-                  <font-awesome-icon
-                    icon="trash-alt"
-                    class="article-icon-delete"
-                  />
-                </button>
-              </td>
-            </tr>
-          </template>
-          <tr v-else>
-            <td class="table-td" colspan="6">無此文章</td>
+              </button>
+            </td>
           </tr>
         </tbody>
+        <template v-else>
+          <tbody class="table-tbody">
+            <tr>
+              <td class="table-tbody__td" colspan="6">無此文章</td>
+            </tr>
+          </tbody>
+        </template>
       </table>
 
       <!-- 分頁器 -->
@@ -86,12 +84,12 @@
 </template>
 
 <script>
-import { collection, storageRef, collectionOrder } from '@/db'
-import { isLoading, GetTimeMixin } from '@/assets/js/function.js'
+import { collection, storageRef, collectionOrder } from "@/db";
+import { isLoading, GetTimeMixin } from "@/assets/js/function.js";
 
-import SearchForm from '@/components/SearchFrom.vue'
+import SearchForm from "@/components/SearchFrom.vue";
 export default {
-  name: 'ArticleList',
+  name: "ArticleList",
   components: {
     SearchForm,
   },
@@ -101,102 +99,94 @@ export default {
       articleData: [],
 
       // 搜尋
-      searchTitle: '',
+      searchTitle: "",
       isSearch: false,
 
       // 分頁
       nowPage: 1,
       perPage: 8,
-    }
+    };
   },
   methods: {
     // 修改
     editAction(idx) {
-      this.$router.push(`/article/edit/${idx}`)
+      this.$router.push(`/article/edit/${idx}`);
     },
 
     // 刪除
     deleteMessage(title, id, time) {
-      this.$confirm(`刪除這篇『${title}』文章?`, '刪除通知', {
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-        type: 'warning',
+      this.$confirm(`刪除這篇『${title}』文章?`, "刪除通知", {
+        confirmButtonText: "確定",
+        cancelButtonText: "取消",
+        type: "warning",
       })
         .then(() => {
-          storageRef.child(`image/${time}`).delete()
-          collection.doc(id).delete()
-          this.MessageDialog('success', '刪除成功!', false)
+          storageRef.child(`image/${time}`).delete();
+          collection.doc(id).delete();
+          this.MessageDialog("success", "刪除成功!", false);
         })
-        .catch(() => this.MessageDialog('info', '取消刪除!', false))
+        .catch(() => this.MessageDialog("info", "取消刪除!", false));
     },
 
     // 搜尋按鈕
     searchValue(value) {
-      this.searchTitle = value
+      this.searchTitle = value;
       // 判斷按下篩選後，切換 computed totalPage函式調用哪個的陣列
-      this.isSearch = !this.searchTitle ? false : true
+      this.isSearch = !this.searchTitle ? false : true;
     },
 
     // 分頁控制按鈕
     changeBtn(Num) {
-      let pageNum = this.nowPage + Num
+      let pageNum = this.nowPage + Num;
       if (pageNum < 1) {
-        this.nowPage = 1
+        this.nowPage = 1;
       } else if (pageNum > this.totalPage) {
-        this.nowPage = this.totalPage
+        this.nowPage = this.totalPage;
       } else {
-        this.nowPage = pageNum
+        this.nowPage = pageNum;
       }
     },
   },
   computed: {
     // 搜尋
     pageList() {
-      let start = (this.nowPage - 1) * this.perPage
+      let start = (this.nowPage - 1) * this.perPage;
       return this.articleData
         .slice(start, start + this.perPage)
-        .filter((val) => val.title.match(this.searchTitle))
+        .filter((val) => val.title.match(this.searchTitle));
     },
 
     // 總頁數 (判斷篩選前 或 篩選後 使用哪個陣列)
     totalPage() {
       return !this.isSearch
         ? Math.ceil(this.articleData.length / this.perPage)
-        : Math.ceil(this.pageList.length / this.perPage)
+        : Math.ceil(this.pageList.length / this.perPage);
     },
   },
   mounted() {
     // 取得資料
-    this.isLoading()
-    this.$bind('articleData', collectionOrder).then(() => {
-      this.loading.close()
-    })
+    this.isLoading();
+    this.$bind("articleData", collectionOrder).then(() => {
+      this.loading.close();
+    });
   },
   mixins: [isLoading, GetTimeMixin],
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .article {
   padding: 30px 35px;
-}
 
-// list
-.article-list-content {
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.548);
-  box-shadow: 0 0 7px rgb(206, 201, 201);
-  border-radius: 15px;
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 20px;
+  &-list {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.548);
+    box-shadow: 0 0 7px rgb(206, 201, 201);
+    border-radius: 15px;
 
     // 標題
     &__title {
+      margin-bottom: 20px;
       font-size: 18px;
     }
   }

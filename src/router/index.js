@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 // 分頁
 import Home from '@/views/Home'
-import Welcome from '@/views/Welcome'
+import Welcome from '@/views/Index'
 import Login from '@/views/Login'
 
 import Article from '@/views/article/Article'
@@ -23,18 +23,10 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
-    meta: {
-      title: '首頁',
-      breadcrumb: [
-        {
-          name: '首頁',
-        },
-      ],
-    },
     children: [
       {
         path: '',
-        name: 'Welcome',
+        name: 'Index',
         component: Welcome,
         meta: {
           title: '首頁',
@@ -152,18 +144,17 @@ const router = new VueRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  window.document.title = to.meta.title
-  let User = store.state.userUid || Cookies.get('UID')
-  if (to.meta.requiresAuth) {
-    if (!User) {
-      next('/login')
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   let User = store.state.userUid || Cookies.get('UID')
+//   if (to.meta.requiresAuth) {
+//     if (!User) {
+//       next('/login')
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export default router
