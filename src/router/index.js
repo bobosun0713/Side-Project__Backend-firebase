@@ -125,19 +125,18 @@ const router = new VueRouter({
   routes,
 })
 
-// router.beforeEach((to, from, next) => {
-//   window.document.title = to.meta.title
-//   let User = store.state.userUid || Cookies.get('UID')
-//   if (to.meta.requiresAuth) {
-//     if (!User) {
-//       console.log('導入登入頁')
-//       next('/login')
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  window.document.title = to.meta.title
+  let User = store.state.userUid || Cookies.get('UID')
+  if (to.meta.requiresAuth) {
+    if (!User) {
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router
