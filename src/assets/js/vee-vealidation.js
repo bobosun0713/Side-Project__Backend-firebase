@@ -8,18 +8,17 @@ Object.keys(rules).forEach((rule) => {
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
 
-
 extend('email', {
   ...rules.email,
-  message: 'email格式錯誤'
+  message: 'Email格式錯誤',
 })
 
-extend('password', value => {
+extend('password', (value) => {
   let reg = /^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/
-  return !reg.test(value) ? '密碼格式錯誤' : true
+  return !reg.test(value) ? '密碼格式必須含有英文及數字' : true
 })
 
 extend('required', {
   ...rules.required,
-  message: '欄位不能為空'
+  message: '欄位不能為空',
 })

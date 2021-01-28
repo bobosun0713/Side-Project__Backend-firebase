@@ -17,7 +17,7 @@
         <label class="article-form__group__title" for="">文章標題</label>
         <input
           type="text"
-          class="article-form__group__input"
+          class="article-form__group__input bo-input"
           v-model="articleData.title"
         />
         <p class="article-form__error">{{ errors[0] }}</p>
@@ -91,7 +91,7 @@ export default {
     }
   },
   methods: {
-    async SubmitAction() {
+    SubmitAction() {
       this.action === 'add' ? this.addArticle() : this.editAction()
     },
 
@@ -202,9 +202,7 @@ export default {
 
     // 輸入框
     &__input {
-      border: 0.5px solid rgba(185, 183, 183, 0.533);
-      padding: 10px 15px;
-      border-radius: 5px;
+      width: 100%;
     }
 
     // 圖片ˇ

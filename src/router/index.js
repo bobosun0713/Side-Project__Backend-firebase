@@ -126,6 +126,7 @@ const routes = [
               link: '/',
             },
             { name: '管理員' },
+            { name: '新增管理員' },
           ],
         },
       },

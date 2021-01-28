@@ -4,7 +4,7 @@
     <div class="search-form__content">
       <input
         type="text"
-        class="search-form__content__input"
+        class="search-form__content__input bo-input "
         v-model="value"
         :placeholder="title + '名稱'"
       />
@@ -68,10 +68,7 @@ export default {
 
     // 輸入框
     &__input {
-      border: 0.5px solid rgba(185, 183, 183, 0.533);
       width: 100%;
-      border-radius: 5px;
-      padding: 10px 15px;
     }
 
     // 按鈕
