@@ -9,6 +9,10 @@ import Welcome from '@/views/Welcome'
 import Login from '@/views/Login'
 import Admin from '@/views/Admin'
 
+// vuex
+import store from '@/store'
+import Cookies from 'js-cookie'
+
 Vue.use(VueRouter)
 
 // 原定路由

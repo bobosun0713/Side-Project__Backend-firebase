@@ -6,7 +6,7 @@
         <span class="side-menu-control__line"></span>
       </button>
       <!-- logout -->
-      <button class="bo-button bo-button--logout">
+      <button class="bo-button bo-button--logout" @click="SignOut">
         Sing Out
       </button>
     </div>
