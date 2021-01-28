@@ -17,23 +17,30 @@ body {
 }
 
 // icon 專區
-.icon {
-  max-height: 24px;
-  max-width: 24px;
-  color: #193152;
-  font-size: 1.5rem;
-  margin-right: 10px;
-}
-
-.icon-side {
-  border-radius: 100%;
-  color: #193152;
-  font-size: 1.5rem;
-}
-
-.article-icon-btn {
+.article-icon,
+.article-icon-delete {
   font-size: 1.25rem;
-  color: #84999e;
+  color: $sub-color-shallow_gray;
+  transition: color 0.3s;
+  &:hover {
+    color: $main-color;
+  }
+}
+.article-icon-delete {
+  color: $sub-color-shallow_gray;
+  &:hover {
+    color: $sub-color-red;
+  }
+}
+
+.pagination-icon {
+  color: $sub-color-shallow_gray;
+  font-size: 1.125rem;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $main-color;
+  }
 }
 
 .menu-icon {

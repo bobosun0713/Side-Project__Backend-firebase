@@ -41,10 +41,7 @@
               </td>
               <td class="table-td">
                 <button class="table-btns" @click="editAction(item.id)">
-                  <font-awesome-icon
-                    icon="pencil-alt"
-                    class="article-icon-btn"
-                  />
+                  <font-awesome-icon icon="pencil-alt" class="article-icon" />
                 </button>
                 <button
                   type="text"
@@ -53,7 +50,7 @@
                 >
                   <font-awesome-icon
                     icon="trash-alt"
-                    class="article-icon-btn"
+                    class="article-icon-delete"
                   />
                 </button>
               </td>
@@ -70,7 +67,7 @@
         <button class="pagination__button" @click="changeBtn(-1)">
           <font-awesome-icon
             icon="chevron-circle-left"
-            class="article-icon-btn"
+            class="pagination-icon"
           />
         </button>
         <div class="pagination__pages" v-show="totalPage !== 0">
@@ -80,7 +77,7 @@
         <button class="pagination__button" @click="changeBtn(1)">
           <font-awesome-icon
             icon="chevron-circle-right"
-            class="article-icon-btn"
+            class="pagination-icon"
           />
         </button>
       </div>
