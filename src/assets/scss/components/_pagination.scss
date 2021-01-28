@@ -1,0 +1,10 @@
+// 分頁器
+.pagination-icon {
+  color: $sub-color-shallow_gray;
+  font-size: 1.125rem;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $main-color;
+  }
+}

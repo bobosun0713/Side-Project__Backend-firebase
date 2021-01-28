@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+  font-family: "微軟正黑體", sans-serif;
+  text-decoration: none;
+  outline: none;
+  letter-spacing: 1.5px;
+  box-sizing: border-box;
+}
+html,
+body {
+  background-color: #eff2f8;
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+// icon 專區
+.article-icon,
+.article-icon-delete {
+  font-size: 1.25rem;
+  color: $sub-color-shallow_gray;
+  transition: color 0.3s;
+  &:hover {
+    color: $main-color;
+  }
+}
+.article-icon-delete {
+  color: $sub-color-shallow_gray;
+  &:hover {
+    color: $sub-color-red;
+  }
+}
+
+
+.menu-icon {
+  margin-right: 15px;
+}
+.menu-arrow-down {
+  float: right;
+  margin-top: 7px;
+  font-size: 12px;
+  transition: transform 0.5s;
+}
+
+// 圖片上傳
+.icon-upload {
+  color: #888;
+  font-size: 2.5rem;
+}
