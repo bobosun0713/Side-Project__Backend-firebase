@@ -91,13 +91,11 @@
 <script>
 import { collection, storageRef, collectionOrder } from '@/db'
 import { isLoading, GetTimeMixin } from '@/assets/js/function.js'
-import LightBox from '@/components/LightBox.vue'
 
 import SearchForm from '@/components/SearchFrom.vue'
 export default {
   name: 'ArticleList',
   components: {
-    LightBox,
     SearchForm,
   },
   data() {

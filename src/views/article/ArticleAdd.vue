@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import Editor from '@/components/Editor.vue'
+import Editor from '@/components/article/Editor.vue'
 import { collection, storageRef, collectionOrder } from '@/db'
 import { isLoading } from '@/assets/js/function.js'
 
@@ -130,6 +130,7 @@ export default {
           this.articleData.imgUrl = downloadUrl
         })
     },
+
     // 取得照片數據
     getImageFile(e) {
       this.$refs.img.validate(e)

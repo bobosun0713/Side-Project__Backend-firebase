@@ -3,11 +3,12 @@ import VueRouter from 'vue-router'
 
 // 分頁
 import Home from '@/views/Home'
-import Article from '@/views/Article'
-import ArticleAdd from '@/views/ArticleAdd'
 import Welcome from '@/views/Welcome'
 import Login from '@/views/Login'
-import Admin from '@/views/Admin'
+
+import Article from '@/views/article/Article'
+import ArticleAdd from '@/views/article/ArticleAdd'
+import Admin from '@/views/admin/Admin'
 
 // vuex
 import store from '@/store'
