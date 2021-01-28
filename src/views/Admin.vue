@@ -1,11 +1,12 @@
 <template>
   <div class="admin">
     <search-form :title="'管理員'"></search-form>
-    <div class="content">
-      <div class="content-header">
-        <h2 class="content-header__title">管理員列表</h2>
+    <div class="admin-list-content">
+      <div class="admin-list-content__header">
+        <h2 class="admin-list-content__header__title">管理員列表</h2>
       </div>
-      <table class="content-table">
+
+      <table class="bo-table">
         <thead>
           <tr>
             <th class="table-th">管理員名稱</th>
@@ -26,37 +27,53 @@
 </template>
 
 <script>
-import { db, collection, storageRef, UserCollection } from "@/db";
-import { isLoading, GetTimeMixin } from "@/assets/js/function.js";
+import { UserCollection } from '@/db'
+import { isLoading, GetTimeMixin } from '@/assets/js/function.js'
 
-import SearchForm from "@/components/SearchFrom.vue";
+import SearchForm from '@/components/SearchFrom.vue'
 export default {
-  name: "admin",
+  name: 'admin',
   components: {
     SearchForm,
   },
   data() {
     return {
       adminData: [],
-    };
+    }
   },
   mounted() {
-    this.isLoading();
-    this.$bind("adminData", UserCollection).then(() => {
-      this.loading.close();
-    });
+    this.isLoading()
+    this.$bind('adminData', UserCollection).then(() => {
+      this.loading.close()
+    })
   },
   mixins: [isLoading, GetTimeMixin],
-  watch: {
-    adminData(newValue, oldValue) {
-      this.mixinAry = [...newValue];
-    },
-  },
-};
+}
 </script>
 
 <style lang="scss" scoped>
 .admin {
   padding: 30px 35px;
+}
+
+// list
+.admin-list-content {
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.548);
+  box-shadow: 0 0 7px rgb(206, 201, 201);
+  border-radius: 15px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+
+    // 標題
+    &__title {
+      font-size: 18px;
+    }
+  }
 }
 </style>

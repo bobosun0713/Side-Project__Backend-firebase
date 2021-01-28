@@ -1,104 +1,47 @@
 // table
-.content {
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.548);
-  box-shadow: 0 0 7px rgb(206, 201, 201);
-  border-radius: 15px;
+.bo-table {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #35495e;
+  background-color: white;
+  border-collapse: collapse;
+  text-align: center;
 
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 20px;
+  //標頭
+  thead {
+    background-color: #35495e;
+    color: #fff;
+    font-size: 1.125rem;
+  }
 
-    // 標題
-    &__title {
-      font-size: 18px;
-    }
+  .table-th {
+    padding: 16px 0;
+    width: calc(100% / 6);
 
-    // 上傳按鈕
-    &__upload {
-      background-color: #40b983;
-      border: 0;
-      border-radius: 5px;
-      padding: 5px 10px;
-      letter-spacing: 1.5px;
-      color: #fff;
-      text-shadow: 0 0 1px rgb(129, 125, 125);
-      box-shadow: 0 0 3px #888;
-      cursor: pointer;
-    }
-
-    // 搜尋
-    &__search {
-      margin: 10px 0 0;
-      flex-basis: 100%;
-
-      &__input {
-        width: 200px;
-        border-radius: 5px;
-        border: 1px solid #35495e;
-        padding: 5px 10px;
-      }
-
-      &__button {
-        cursor: pointer;
-        box-shadow: 0 0 7px #888;
-        border-radius: 5px;
-        border: 0;
-        padding: 5px 10px;
-        margin-left: 5px;
-        background-color: #35495e;
-        color: white;
-      }
+    &:not(:first-child) {
+      border-left: 1px solid white;
     }
   }
 
-  &-table {
-    width: 100%;
-    max-width: 100%;
-    border: 1px solid #35495e;
-    background-color: white;
-    border-collapse: collapse;
-    text-align: center;
+  .table-td {
+    padding: 10px 10px;
+    border-bottom: 1px solid #354951;
+    border-left: 1px solid #354951;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
-    //標頭
-    thead {
-      background-color: #35495e;
-      color: #fff;
+    &:first-child {
+      font-weight: bold;
       font-size: 1.125rem;
     }
 
-    .table-th {
-      padding: 16px 0;
-      width: calc(100% / 6);
+    .table-btns {
+      cursor: pointer;
+      border: 0;
+      background-color: transparent;
 
-      &:not(:first-child) {
-        border-left: 1px solid white;
-      }
-    }
-
-    .table-td {
-      padding: 10px 10px;
-      border-bottom: 1px solid #354951;
-      border-left: 1px solid #354951;
-      text-overflow: ellipsis;
-      overflow: hidden;
-
-      &:first-child {
-        font-weight: bold;
-        font-size: 1.125rem;
-      }
-
-      .table-btns {
-        cursor: pointer;
-        border: 0;
-        background-color: transparent;
-
-        &:nth-of-type(2) {
-          margin-left: 20px;
-        }
+      &:nth-of-type(2) {
+        margin-left: 20px;
       }
     }
   }

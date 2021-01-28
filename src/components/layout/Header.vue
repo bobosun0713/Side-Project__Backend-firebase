@@ -122,30 +122,5 @@ export default {
       }
     }
   }
-
-  // // breadcrumb
-  // .breadcrumb {
-  //   display: flex;
-  //   padding: 5px 25px;
-  //   border-top: 1px solid rgb(226, 220, 220);
-  //   border-bottom: 1px solid rgb(226, 220, 220);
-  //   flex-basis: 100%;
-
-  //   &__links {
-  //     position: relative;
-  //     font-size: 12px;
-
-  //     &:not(:first-child) {
-  //       margin-left: 15px;
-  //       &:before {
-  //         content: '\276F';
-  //         position: absolute;
-  //         left: -10px;
-  //         font-size: 10px;
-  //         top: 0px;
-  //       }
-  //     }
-  //   }
-  // }
 }
 </style>
