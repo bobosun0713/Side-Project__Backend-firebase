@@ -53,7 +53,14 @@ export default {
             { name: '新增商品', icon: 'cart-plus', path: '/123' },
           ],
         },
-        { name: '管理員', icon: 'user-alt', path: '/admin' },
+        {
+          name: '管理員',
+          icon: 'user-alt',
+          children: [
+            { name: '管理員列表', icon: 'list-alt', path: '/admin/list' },
+            { name: '新增管理員', icon: 'cart-plus', path: '/admin/add' },
+          ],
+        },
         { name: 'GitHub', icon: 'edit', path: '/search' },
       ],
 
@@ -73,16 +80,6 @@ export default {
 </script>
 
 <style lang="scss">
-.menu-icon {
-  margin-right: 15px;
-}
-.menu-drop-down {
-  float: right;
-  margin-top: 7px;
-  font-size: 12px;
-  transition: transform 0.5s;
-}
-
 // sideMenu
 .sidebar {
   position: fixed;

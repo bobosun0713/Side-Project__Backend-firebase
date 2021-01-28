@@ -9,6 +9,7 @@ import Login from '@/views/Login'
 import Article from '@/views/article/Article'
 import ArticleAdd from '@/views/article/ArticleAdd'
 import Admin from '@/views/admin/Admin'
+import AdminAdd from '@/views/admin/AdminAdd'
 
 // vuex
 import store from '@/store'
@@ -97,9 +98,25 @@ const routes = [
         },
       },
       {
-        path: 'admin',
-        name: 'admin',
+        path: 'admin/list',
+        name: 'admin_list',
         component: Admin,
+        meta: {
+          requiresAuth: true,
+          title: '管理員專區',
+          breadcrumb: [
+            {
+              name: '首頁',
+              link: '/',
+            },
+            { name: '管理員' },
+          ],
+        },
+      },
+      {
+        path: 'admin/add',
+        name: 'admin_add',
+        component: AdminAdd,
         meta: {
           requiresAuth: true,
           title: '管理員專區',

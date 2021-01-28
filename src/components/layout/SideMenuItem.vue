@@ -14,14 +14,15 @@
 
     <!-- 二 -->
     <template v-else>
-      <a class="menu__item__link" href="javascript:;" @click="toggleOpen">
+      <a
+        class="menu__item__link"
+        :class="{ 'menu__item__link--active': isListOpen }"
+        href="javascript:;"
+        @click="toggleOpen"
+      >
         <font-awesome-icon :icon="item.icon" class="menu-icon" />
         {{ item.name }}
-        <font-awesome-icon
-          icon="chevron-right"
-          class="menu-drop-down"
-          :style="{ transform: iconRotate }"
-        />
+        <font-awesome-icon icon="chevron-right" class="menu-arrow-down" />
       </a>
       <ul class="sub-menu" ref="test" :style="{ height: ChildrenHight }">
         <side-menu-item
@@ -71,10 +72,6 @@ export default {
       return this.item.children && this.item.children.length
     },
 
-    iconRotate() {
-      return this.isListOpen ? 'rotate(94deg)' : 'rotate(0)'
-    },
-
     // 動態給高度
     ChildrenHight() {
       return this.isListOpen ? `${45 * this.itemLen.length}px` : '0px'
@@ -90,4 +87,10 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.menu__item__link--active {
+  > .menu-arrow-down {
+    transform: rotate(90deg);
+  }
+}
+</style>

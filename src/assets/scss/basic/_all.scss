@@ -16,6 +16,7 @@ body {
   width: 100%;
 }
 
+// icon 專區
 .icon {
   max-height: 24px;
   max-width: 24px;
@@ -33,4 +34,14 @@ body {
 .article-icon-btn {
   font-size: 1.25rem;
   color: #84999e;
+}
+
+.menu-icon {
+  margin-right: 15px;
+}
+.menu-arrow-down {
+  float: right;
+  margin-top: 7px;
+  font-size: 12px;
+  transition: transform 0.5s;
 }
