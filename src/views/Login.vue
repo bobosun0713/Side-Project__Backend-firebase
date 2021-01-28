@@ -139,7 +139,7 @@ export default {
     padding-left: 15px;
     font-size: 12px;
     height: 15px;
-    color: red;
+    color: $sub-color-red;
   }
 }
 

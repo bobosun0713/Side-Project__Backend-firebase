@@ -54,6 +54,10 @@ export default {
     color: $main-color;
     font-size: 14px;
 
+    &:first-child {
+      cursor: pointer;
+    }
+
     &:not(:first-child) {
       margin-left: 20px;
 

@@ -243,7 +243,7 @@ export default {
   &__error {
     height: 20px;
     font-size: 12px;
-    color: red;
+    color: $sub-color-red;
   }
 }
 
