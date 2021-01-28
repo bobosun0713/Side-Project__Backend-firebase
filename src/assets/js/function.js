@@ -3,16 +3,16 @@ export const GetTimeMixin = {
   computed: {
     getDate() {
       return (time) => {
-        let year = new Date(time).getUTCFullYear();
-        let Month = new Date(time).getMonth() + 1;
-        let date = new Date(time).getDate();
-        let Hours = new Date(time).getHours();
-        let Min = new Date(time).getMinutes();
-        let scs = new Date(time).getSeconds();
-        return `${year}-${Month}-${date} | ${Hours}:${Min}:${scs}`;
-      };
+        let year = new Date(time).getUTCFullYear()
+        let Month = new Date(time).getMonth() + 1
+        let date = new Date(time).getDate()
+        let Hours = new Date(time).getHours()
+        let Min = new Date(time).getMinutes()
+        let scs = new Date(time).getSeconds()
+        return `${year}-${Month}-${date} -- ${Hours}:${Min}:${scs}`
+      }
     },
-  }
+  },
 }
 
 // 共用搜尋，需搭配外層資料 -- 以重構 - 沒用到
@@ -25,7 +25,7 @@ export const SearchMixin = {
   },
   methods: {
     SearchMixin(Data, Type) {
-      this.mixinAry = Data.filter((val) => val[Type].match(this.mixinTitle));
+      this.mixinAry = Data.filter((val) => val[Type].match(this.mixinTitle))
     },
   },
 }
@@ -41,12 +41,10 @@ export const isLoading = {
     isLoading() {
       this.loading = this.$loading({
         lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
     },
-
-  }
+  },
 }
-
