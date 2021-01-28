@@ -56,8 +56,6 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  display: flex;
-  flex-wrap: wrap;
   background-color: white;
 
   &-content {

@@ -92,25 +92,25 @@ export default {
   },
   methods: {
     SubmitAction() {
-      this.action === 'add' ? this.addArticle() : this.editAction()
+      this.$refs.form.validate().then((success) => {
+        if (!success) return
+        this.action === 'add' ? this.addArticle() : this.editAction()
+      })
     },
 
     // 新增
     addArticle() {
-      this.$refs.form.validate().then((success) => {
-        if (!success) return
-        // loading
-        this.isLoading()
-        // 上傳照片
-        this.upLoadImage()
+      // loading
+      this.isLoading()
+      // 上傳照片
+      this.upLoadImage()
 
-        // 取得完圖片網址，並新增這筆資料
-        collection.doc(this.articleId).set(this.articleData)
-        // close-loading
-        this.loading.close()
-        this.MessageDialog('success', '新增成功', true)
-        this.$router.push('/article/list')
-      })
+      // 取得完圖片網址，並新增這筆資料
+      collection.doc(this.articleId).set(this.articleData)
+      // close-loading
+      this.loading.close()
+      this.MessageDialog('success', '新增成功', true)
+      this.$router.push('/article/list')
     },
 
     // 上傳圖片

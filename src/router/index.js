@@ -34,7 +34,7 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'welcome',
+        name: 'Welcome',
         component: Welcome,
         meta: {
           title: '首頁',
@@ -48,7 +48,7 @@ const routes = [
       },
       {
         path: 'article/list',
-        name: 'article_list',
+        name: 'ArticleList',
         component: Article,
         meta: {
           requiresAuth: true,
@@ -65,7 +65,7 @@ const routes = [
       },
       {
         path: 'article/add',
-        name: 'article_add',
+        name: 'ArticleAdd',
         component: ArticleAdd,
         meta: {
           requiresAuth: true,
@@ -82,7 +82,7 @@ const routes = [
       },
       {
         path: 'article/edit/:id',
-        name: 'article_edit',
+        name: 'ArticleEdit',
         component: ArticleAdd,
         meta: {
           requiresAuth: true,
@@ -99,7 +99,7 @@ const routes = [
       },
       {
         path: 'admin/list',
-        name: 'admin_list',
+        name: 'AdminList',
         component: Admin,
         meta: {
           requiresAuth: true,
@@ -110,12 +110,13 @@ const routes = [
               link: '/',
             },
             { name: '管理員' },
+            { name: '管理員列表' },
           ],
         },
       },
       {
         path: 'admin/add',
-        name: 'admin_add',
+        name: 'AdminAdd',
         component: AdminAdd,
         meta: {
           requiresAuth: true,
@@ -134,8 +135,11 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: Login,
+    meta: {
+      title: '登入',
+    },
   },
   {
     path: '*',

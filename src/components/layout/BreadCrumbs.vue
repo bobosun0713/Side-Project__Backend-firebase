@@ -26,15 +26,13 @@ export default {
       }
     },
   },
-  mounted() {
-    // 一開始先把值塞入breadCrumbList 陣列裡。
-    this.breadCrumbList = this.$route.meta.breadcrumb
-  },
   watch: {
     // 監聽路由變化，把每個路由meta裡面的breadcrumb值，塞入breadCrumbList 陣列裡。
-    $route(newlink) {
-      // console.log(newlink.meta.breadList);
-      this.breadCrumbList = newlink.meta.breadcrumb
+    $route: {
+      immediate: true,
+      handler(newValue) {
+        this.breadCrumbList = newValue.meta.breadcrumb
+      },
     },
   },
 }

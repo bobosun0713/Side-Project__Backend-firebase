@@ -52,10 +52,7 @@ export default {
     // 送出
     SubmitAction() {
       this.$refs.form.validate().then((success) => {
-        if (!success) {
-          this.email = this.password = ''
-          return this.MessageDialog('error', '請輸入帳號或密碼！', true)
-        }
+        if (!success) return
         this.SingIn()
       })
     },
@@ -70,7 +67,6 @@ export default {
           this.MessageDialog('success', '登入成功', true)
         })
         .catch(() => {
-          this.email = this.password = ''
           this.MessageDialog('error', '登入失敗，再試一次！', true)
         })
     },
