@@ -15,43 +15,43 @@
 </template>
 
 <script>
-import BreadCrumb from "@/components/layout/BreadCrumbs.vue";
-import { User } from "@/db";
+import BreadCrumb from '@/components/layout/BreadCrumbs.vue'
+import { User } from '@/db'
 
 export default {
-  name: "Header",
+  name: 'Header',
   components: {
     BreadCrumb,
   },
   data() {
     return {
       isOpenSideBar: false,
-    };
+    }
   },
   methods: {
     signOut() {
-      this.$confirm(`確定登出?`, "登出", {
-        confirmButtonText: "確定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm(`確定登出?`, '登出', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning',
       })
         .then(() => {
           User.signOut().then(() => {
-            this.$store.dispatch("removeUid");
-            this.MessageDialog("success", "已登出", false);
-            this.$router.push("/login");
-          });
+            this.$store.dispatch('removeUid')
+            this.MessageDialog('success', '已登出', false)
+            this.$router.push('/login')
+          })
         })
         .catch(() => {
-          this.MessageDialog("warning", "已取消登出", false);
-        });
+          this.MessageDialog('warning', '已取消登出', false)
+        })
     },
     toggleOpen() {
-      this.isOpenSideBar = !this.isOpenSideBar;
-      this.$emit("open-menu");
+      this.isOpenSideBar = !this.isOpenSideBar
+      this.$emit('open-menu')
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -84,7 +84,7 @@ export default {
 
         &::before,
         &::after {
-          content: "";
+          content: '';
           display: block;
           height: 3px;
           width: 100%;

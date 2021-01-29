@@ -4,32 +4,32 @@
 
 <script>
 export default {
-  name: "Editor",
+  name: 'Editor',
   props: {
     value: {
       type: String,
-      default: "",
-    },
-  },
-  computed: {
-    getValue: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit("input", val);
-      },
+      default: '',
     },
   },
   data() {
     return {
       editorOption: {
-        placeholder: "請輸入內容...",
-        theme: "snow",
+        placeholder: '請輸入內容...',
+        theme: 'snow',
       },
-    };
+    }
   },
-};
+  computed: {
+    getValue: {
+      get() {
+        return this.value
+      },
+      set(val) {
+        this.$emit('input', val)
+      },
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

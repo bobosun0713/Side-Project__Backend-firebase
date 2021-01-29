@@ -1,34 +1,34 @@
 <template>
   <validation-observer
+    ref="form"
     class="article-form"
     tag="form"
-    ref="form"
     @submit.prevent="SubmitAction"
   >
     <!-- 標題 -->
     <validation-provider
-      class="article-form-group"
       v-slot="{ errors }"
+      class="article-form-group"
       tag="div"
       rules="required"
       mode="lazy"
     >
       <label class="article-form-group__title" for="">文章標題</label>
       <input
+        v-model="articleData.title"
         type="text"
         class="article-form-group__input bo-input"
-        v-model="articleData.title"
       />
       <p class="article-form-group__error">{{ errors[0] }}</p>
     </validation-provider>
     <!-- 圖片 -->
     <validation-provider
-      class="article-form-group"
       v-slot="{ errors }"
+      ref="img"
+      class="article-form-group"
       tag="div"
       rules="required"
       mode="lazy"
-      ref="img"
     >
       <label class="article-form-group__title">圖片上傳</label>
       <div class="article-form-group__upload">
@@ -36,13 +36,16 @@
           <img
             v-show="articleData.imgUrl"
             class="article-form-group__upload__img"
-            :src="articleData.imgUrl" />
-          <font-awesome-icon icon="images" class="icon-upload"
-        /></label>
+            :src="articleData.imgUrl"/>
+          <font-awesome-icon
+            icon="images"
+            class="icon-upload"
+          ></font-awesome-icon
+        ></label>
 
         <input
-          type="file"
           id="img_file"
+          type="file"
           class="article-form-group__upload__file"
           @change="getImageFile"
         />
@@ -51,9 +54,9 @@
     </validation-provider>
     <!-- 內容 -->
     <validation-provider
+      v-slot="{ errors }"
       class="article-form-group"
       tag="div"
-      v-slot="{ errors }"
       rules="required"
       mode="lazy"
     >
@@ -67,116 +70,116 @@
 </template>
 
 <script>
-import Editor from "@/components/article/Editor.vue";
-import { collection, storageRef, collectionOrder } from "@/db";
-import { isLoading } from "@/assets/js/function.js";
+import Editor from '@/components/article/Editor.vue'
+import { collection, storageRef, collectionOrder } from '@/db'
+import { isLoading } from '@/assets/js/function.js'
 
 export default {
-  name: "ArticleAdd",
+  name: 'ArticleAdd',
   components: {
     Editor,
   },
+  mixins: [isLoading],
   data() {
     return {
-      action: "",
+      action: '',
       articleId: 0,
       articleData: {
-        title: "",
+        title: '',
         time: +new Date(),
-        content: "",
-        imgUrl: "",
+        content: '',
+        imgUrl: '',
       },
-    };
+    }
+  },
+  mounted() {
+    this.action = this.$route.path.split('/')[2]
+    // 新增（創建id） 或 修改(讀取資料)
+    this.action === 'add' ? this.setArticleId() : this.editData()
   },
   methods: {
     SubmitAction() {
       this.$refs.form.validate().then((success) => {
-        if (!success) return;
-        this.action === "add" ? this.addArticle() : this.editAction();
-      });
+        if (!success) return
+        this.action === 'add' ? this.addArticle() : this.editAction()
+      })
     },
 
     // 新增
     addArticle() {
       // loading
-      this.isLoading();
+      this.isLoading()
       // 上傳照片
-      this.upLoadImage();
+      this.upLoadImage()
 
       // 取得完圖片網址，並新增這筆資料
-      collection.doc(this.articleId).set(this.articleData);
+      collection.doc(this.articleId).set(this.articleData)
       // close-loading
-      this.loading.close();
-      this.MessageDialog("success", "新增成功", true);
-      this.$router.push("/article/list");
+      this.loading.close()
+      this.MessageDialog('success', '新增成功', true)
+      this.$router.push('/article/list')
     },
 
     // 上傳圖片
     async upLoadImage() {
       // 上傳到storage
       await storageRef
-        .child("image/" + this.articleData.time)
-        .putString(this.articleData.imgUrl.split(",")[1], "base64", {
-          contentType: "image/jpg",
-        });
+        .child('image/' + this.articleData.time)
+        .putString(this.articleData.imgUrl.split(',')[1], 'base64', {
+          contentType: 'image/jpg',
+        })
 
       // 獲取到的url塞回資料裡
       await storageRef
-        .child("image/" + this.articleData.time)
+        .child('image/' + this.articleData.time)
         .getDownloadURL()
         .then((downloadUrl) => {
-          this.articleData.imgUrl = downloadUrl;
-        });
+          this.articleData.imgUrl = downloadUrl
+        })
     },
 
     // 取得照片數據
     getImageFile(e) {
-      this.$refs.img.validate(e);
-      let imgFile = e.target.files[0];
-      let file = new FileReader();
-      file.readAsDataURL(imgFile);
+      this.$refs.img.validate(e)
+      let imgFile = e.target.files[0]
+      let file = new FileReader()
+      file.readAsDataURL(imgFile)
       file.onload = (e) => {
-        this.articleData.imgUrl = e.target.result;
-      };
+        this.articleData.imgUrl = e.target.result
+      }
     },
 
     // 修改
     editAction() {
       // loading
-      this.isLoading();
-      this.upLoadImage();
+      this.isLoading()
+      this.upLoadImage()
       // close-loading
-      this.loading.close();
-      collection.doc(this.$route.path.split("/")[3]).update(this.articleData);
-      this.MessageDialog("success", "修改成功", true);
-      this.$router.push("/article/list");
+      this.loading.close()
+      collection.doc(this.$route.path.split('/')[3]).update(this.articleData)
+      this.MessageDialog('success', '修改成功', true)
+      this.$router.push('/article/list')
     },
 
     // 取得修改資料
     editData() {
       collection
-        .doc(this.$route.path.split("/")[3])
+        .doc(this.$route.path.split('/')[3])
         .get()
         .then((doc) => {
-          this.articleData = { ...doc.data() };
+          this.articleData = { ...doc.data() }
           // console.log('修改', this.articleData)
-        });
+        })
     },
     // 創建id
     setArticleId() {
       collectionOrder.get().then((doc) => {
-        let maxId = Math.max(...doc.docs.map((val) => val.id));
-        this.articleId = maxId <= 0 ? "1" : String(maxId + 1);
-      });
+        let maxId = Math.max(...doc.docs.map((val) => val.id))
+        this.articleId = maxId <= 0 ? '1' : String(maxId + 1)
+      })
     },
   },
-  mixins: [isLoading],
-  mounted() {
-    this.action = this.$route.path.split("/")[2];
-    // 新增（創建id） 或 修改(讀取資料)
-    this.action === "add" ? this.setArticleId() : this.editData();
-  },
-};
+}
 </script>
 
 <style lang="scss" scoped>

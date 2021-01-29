@@ -12,18 +12,18 @@
     <!-- 側邊選單 -->
     <ul class="sidebar-menu">
       <side-menu-item
-        :item="item"
         v-for="(item, index) in SideMenuList"
         :key="index"
+        :item="item"
       ></side-menu-item>
     </ul>
   </nav>
 </template>
 
 <script>
-import SideMenuItem from "@/components/layout/SideMenuItem.vue";
+import SideMenuItem from '@/components/layout/SideMenuItem.vue'
 export default {
-  name: "SideMenu",
+  name: 'SideMenu',
   components: {
     SideMenuItem,
   },
@@ -32,39 +32,39 @@ export default {
       isSideMenu: false,
       SideMenuList: [
         {
-          name: "文章管理",
-          icon: "sticky-note",
+          name: '文章管理',
+          icon: 'sticky-note',
           children: [
-            { name: "文章列表", icon: "list-alt", path: "/article/list" },
-            { name: "新增文章", icon: "edit", path: "/article/add" },
+            { name: '文章列表', icon: 'list-alt', path: '/article/list' },
+            { name: '新增文章', icon: 'edit', path: '/article/add' },
           ],
         },
         {
-          name: "商品管理",
-          icon: "box",
+          name: '商品管理',
+          icon: 'box',
           children: [
-            { name: "商品列表", icon: "list-alt", path: "/123" },
-            { name: "新增商品", icon: "cart-plus", path: "/123" },
+            { name: '商品列表', icon: 'list-alt', path: '/123' },
+            { name: '新增商品', icon: 'cart-plus', path: '/123' },
           ],
         },
         {
-          name: "管理員",
-          icon: "user-alt",
+          name: '管理員',
+          icon: 'user-alt',
           children: [
-            { name: "管理員列表", icon: "list-alt", path: "/admin/list" },
-            { name: "新增管理員", icon: "cart-plus", path: "/admin/add" },
+            { name: '管理員列表', icon: 'list-alt', path: '/admin/list' },
+            { name: '新增管理員', icon: 'cart-plus', path: '/admin/add' },
           ],
         },
-        { name: "GitHub", icon: "edit", path: "/search" },
+        { name: 'GitHub', icon: 'edit', path: '/search' },
       ],
-    };
+    }
   },
   methods: {
     goHome() {
-      this.$router.push("/");
+      this.$router.push('/')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

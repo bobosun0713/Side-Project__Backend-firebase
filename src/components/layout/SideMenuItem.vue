@@ -8,7 +8,10 @@
       active-class="active"
       :default-active="this.$route.path"
     >
-      <font-awesome-icon :icon="item.icon" class="menu-icon" />
+      <font-awesome-icon
+        :icon="item.icon"
+        class="menu-icon"
+      ></font-awesome-icon>
       {{ item.name }}
     </router-link>
 
@@ -20,11 +23,17 @@
         href="javascript:;"
         @click="toggleOpen"
       >
-        <font-awesome-icon :icon="item.icon" class="menu-icon" />
+        <font-awesome-icon
+          :icon="item.icon"
+          class="menu-icon"
+        ></font-awesome-icon>
         {{ item.name }}
-        <font-awesome-icon icon="chevron-right" class="menu-arrow-down" />
+        <font-awesome-icon
+          icon="chevron-right"
+          class="menu-arrow-down"
+        ></font-awesome-icon>
       </a>
-      <ul class="sub-menu" ref="test" :style="{ height: childrenHight }">
+      <ul ref="test" class="sub-menu" :style="{ height: childrenHight }">
         <side-menu-item
           v-for="(child, index) in item.children"
           :key="index"
@@ -37,47 +46,47 @@
 
 <script>
 export default {
-  name: "SideMenuItem",
+  name: 'SideMenuItem',
   props: {
     item: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
     },
     active: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   data() {
     return {
       isListOpen: false,
       itemLen: this.item.children,
-    };
-  },
-  methods: {
-    toggleOpen() {
-      this.isListOpen = !this.isListOpen;
-    },
+    }
   },
   computed: {
     nowPath() {
-      return this.$route.fullPath;
+      return this.$route.fullPath
     },
 
     childrenHight() {
-      return this.isListOpen ? `${41 * this.itemLen.length}px` : "0px";
+      return this.isListOpen ? `${41 * this.itemLen.length}px` : '0px'
     },
   },
 
   mounted() {
-    if (!this.itemLen) return;
+    if (!this.itemLen) return
     this.isListOpen = Boolean(
       this.itemLen.find((child) => child.path === this.nowPath)
-    );
+    )
   },
-};
+  methods: {
+    toggleOpen() {
+      this.isListOpen = !this.isListOpen
+    },
+  },
+}
 </script>
 
 <style lang="scss">

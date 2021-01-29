@@ -1,16 +1,16 @@
 <template>
   <validation-provider
-    class="login-form__item login-form__margin"
     v-slot="{ failed, errors }"
+    class="login-form__item login-form__margin"
     tag="div"
     :rules="type.rules"
     mode="lazy"
   >
     <input
+      v-model="getValue"
       class="login-form__input"
       :class="{ 'error-input': failed }"
       :type="type.type"
-      v-model="getValue"
       :placeholder="type.name"
     />
     <p class="login-form__input__error">{{ errors[0] }}</p>
@@ -19,30 +19,30 @@
 
 <script>
 export default {
-  name: "LoginInput",
+  name: 'LoginInput',
   props: {
     value: {
       type: String,
-      default: "",
+      default: '',
     },
     type: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
     },
   },
   computed: {
     getValue: {
       get() {
-        return this.value;
+        return this.value
       },
       set(val) {
-        this.$emit("input", val);
+        this.$emit('input', val)
       },
     },
   },
-};
+}
 </script>
 
-<style ></style>
+<style></style>

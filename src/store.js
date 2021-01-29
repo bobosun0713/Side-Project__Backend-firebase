@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex, { Store } from 'vuex'
+import Vuex from 'vuex'
 
 import '@/assets/js/element.js'
 import Cookies from 'js-cookie'

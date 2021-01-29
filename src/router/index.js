@@ -144,17 +144,17 @@ const router = new VueRouter({
   routes,
 })
 
-// router.beforeEach((to, from, next) => {
-//   let User = store.state.userUid || Cookies.get('UID')
-//   if (to.meta.requiresAuth) {
-//     if (!User) {
-//       next('/login')
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  let User = store.state.userUid || Cookies.get('UID')
+  if (to.meta.requiresAuth) {
+    if (!User) {
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router

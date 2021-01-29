@@ -3,8 +3,8 @@
     <li
       v-for="(breadcrumb, idx) in breadCrumbList"
       :key="idx"
-      @click="routerTo(idx)"
       class="breadcrumb__links"
+      @click="routerTo(idx)"
     >
       {{ breadcrumb.name }}
     </li>
@@ -19,13 +19,6 @@ export default {
       breadCrumbList: [],
     }
   },
-  methods: {
-    routerTo(idx) {
-      if (this.breadCrumbList[idx].link) {
-        this.$router.push(this.breadCrumbList[idx].link)
-      }
-    },
-  },
   watch: {
     // 監聽路由變化，把每個路由meta裡面的breadcrumb值，塞入breadCrumbList 陣列裡。
     $route: {
@@ -33,6 +26,13 @@ export default {
       handler(newValue) {
         this.breadCrumbList = newValue.meta.breadcrumb
       },
+    },
+  },
+  methods: {
+    routerTo(idx) {
+      if (this.breadCrumbList[idx].link) {
+        this.$router.push(this.breadCrumbList[idx].link)
+      }
     },
   },
 }

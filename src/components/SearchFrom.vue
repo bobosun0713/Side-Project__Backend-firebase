@@ -1,11 +1,11 @@
 <template>
   <div class="search-form">
-    <h2 class="search-form-title">{{ "搜尋" + title }}</h2>
+    <h2 class="search-form-title">{{ '搜尋' + title }}</h2>
     <div class="search-form-content">
       <input
+        v-model="value"
         type="text"
         class="search-form-content__input bo-input"
-        v-model="value"
         :placeholder="title + '名稱'"
       />
       <button class="search-form-content__button" @click="clickSubmit">
@@ -17,33 +17,33 @@
 
 <script>
 export default {
-  name: "SearchForm",
+  name: 'SearchForm',
   props: {
     title: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   data() {
     return {
-      value: "",
-    };
+      value: '',
+    }
   },
   methods: {
     clickSubmit() {
       const loading = this.$loading({
         lock: true,
-        text: "搜尋中 請稍後!",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+        text: '搜尋中 請稍後!',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
       setTimeout(() => {
-        this.$emit("search-value", this.value);
-        loading.close();
-      }, 1500);
+        this.$emit('search-value', this.value)
+        loading.close()
+      }, 1500)
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

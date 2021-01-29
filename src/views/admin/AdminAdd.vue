@@ -1,56 +1,56 @@
 <template>
   <div class="admin-form">
     <validation-observer
+      ref="form"
       class="admin-form__content"
       tag="form"
-      ref="form"
       @submit.prevent="addAdmin"
     >
       <validation-provider
-        class="admin-form__group"
         v-slot="{ errors }"
+        class="admin-form__group"
         tag="div"
         rules="required"
         mode="lazy"
       >
         <label for="" class="admin-form__group__title">管理員名稱</label>
         <input
+          v-model="adminData.name"
           type="text"
           class="admin-form__group__input bo-input"
           placeholder="請輸入名稱"
-          v-model="adminData.name"
         />
         <p class="admin-form__error">{{ errors[0] }}</p>
       </validation-provider>
       <validation-provider
-        class="admin-form__group"
         v-slot="{ errors }"
+        class="admin-form__group"
         tag="div"
         rules="required|email"
         mode="lazy"
       >
         <label for="" class="admin-form__group__title">管理員帳號</label>
         <input
+          v-model="adminData.email"
           type="text"
           class="admin-form__group__input bo-input"
           placeholder="請輸入Email"
-          v-model="adminData.email"
         />
         <p class="admin-form__error">{{ errors[0] }}</p>
       </validation-provider>
       <validation-provider
-        class="admin-form__group"
         v-slot="{ errors }"
+        class="admin-form__group"
         tag="div"
         rules="required|password"
         mode="lazy"
       >
         <label for="" class="admin-form__group__title">管理員密碼</label>
         <input
+          v-model="adminData.password"
           type="text"
           class="admin-form__group__input bo-input"
           placeholder="請輸入密碼"
-          v-model="adminData.password"
         />
         <p class="admin-form__error">{{ errors[0] }}</p>
       </validation-provider>
@@ -64,7 +64,8 @@
 import { isLoading } from '@/assets/js/function.js'
 import { User, UserCollection } from '@/db'
 export default {
-  name: 'adminAdd',
+  name: 'AdminAdd',
+  mixins: [isLoading],
   data() {
     return {
       adminData: {
@@ -102,7 +103,6 @@ export default {
       UserCollection.add(this.adminData)
     },
   },
-  mixins: [isLoading],
 }
 </script>
 

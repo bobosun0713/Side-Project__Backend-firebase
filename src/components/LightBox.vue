@@ -10,7 +10,7 @@
           <validation-provider>
             <div class="dialog-form__group">
               <label for="">文章標題</label>
-              <input type="text" name="" id="" v-model="propsChoose.title" />
+              <input id="" v-model="propsChoose.title" type="text" name="" />
             </div>
           </validation-provider>
           <div class="dialog-form__group">
@@ -18,7 +18,7 @@
           </div>
           <div class="dialog-form__group">
             <label for="">上傳圖片</label>
-            <input type="file" ref="imgFile" @change="getImageFile" />
+            <input ref="imgFile" type="file" @change="getImageFile" />
           </div>
         </div>
         <div class="dialog-form__footer">
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { db, collection, storageRef } from '@/db'
+import { collection, storageRef } from '@/db'
 import Editor from '@/components/Editor.vue'
 
 export default {
@@ -71,6 +71,20 @@ export default {
       // 修改照片時時判斷，
       editBeforeImg: false,
     }
+  },
+  computed: {
+    // 判斷是否新增或修改，調用不同的資料
+    propsChoose() {
+      return Object.keys(this.boxDate).length === 0
+        ? this.dialogData
+        : this.boxDate
+    },
+
+    // 自定義ID
+    getMaxId() {
+      let maxId = Math.max(...this.articleData.map((val) => val.id))
+      return maxId <= 0 ? '1' : String(maxId + 1)
+    },
   },
   methods: {
     // 關閉跳窗
@@ -141,20 +155,6 @@ export default {
         .then((downloadUrl) => {
           this.propsChoose.imgUrl = downloadUrl
         })
-    },
-  },
-  computed: {
-    // 判斷是否新增或修改，調用不同的資料
-    propsChoose() {
-      return Object.keys(this.boxDate).length === 0
-        ? this.dialogData
-        : this.boxDate
-    },
-
-    // 自定義ID
-    getMaxId() {
-      let maxId = Math.max(...this.articleData.map((val) => val.id))
-      return maxId <= 0 ? '1' : String(maxId + 1)
     },
   },
   // mixins: [MessagePlugin],

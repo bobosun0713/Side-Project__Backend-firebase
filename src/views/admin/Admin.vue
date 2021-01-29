@@ -24,28 +24,28 @@
 </template>
 
 <script>
-import { UserCollection } from "@/db";
-import { isLoading, GetTimeMixin } from "@/assets/js/function.js";
+import { UserCollection } from '@/db'
+import { isLoading, GetTimeMixin } from '@/assets/js/function.js'
 
-import SearchForm from "@/components/SearchFrom.vue";
+import SearchForm from '@/components/SearchFrom.vue'
 export default {
-  name: "admin",
+  name: 'Admin',
   components: {
     SearchForm,
   },
+  mixins: [isLoading, GetTimeMixin],
   data() {
     return {
       adminData: [],
-    };
+    }
   },
   mounted() {
-    this.isLoading();
-    this.$bind("adminData", UserCollection).then(() => {
-      this.loading.close();
-    });
+    this.isLoading()
+    this.$bind('adminData', UserCollection).then(() => {
+      this.loading.close()
+    })
   },
-  mixins: [isLoading, GetTimeMixin],
-};
+}
 </script>
 
 <style lang="scss" scoped>

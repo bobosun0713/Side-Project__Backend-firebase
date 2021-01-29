@@ -3,17 +3,17 @@
     <side-menu :class="{ 'sidebar--active': isOpenMenu }"></side-menu>
     <div class="backend" :class="{ 'backend--active': isOpenMenu }">
       <home-header @open-menu="openMenu"></home-header>
-      <router-view />
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import SideMenu from "@/components/layout/SideMenu.vue";
-import HomeHeader from "@/components/layout/Header.vue";
+import SideMenu from '@/components/layout/SideMenu.vue'
+import HomeHeader from '@/components/layout/Header.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     SideMenu,
     HomeHeader,
@@ -21,14 +21,14 @@ export default {
   data() {
     return {
       isOpenMenu: false,
-    };
+    }
   },
   methods: {
     openMenu() {
-      this.isOpenMenu = !this.isOpenMenu;
+      this.isOpenMenu = !this.isOpenMenu
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

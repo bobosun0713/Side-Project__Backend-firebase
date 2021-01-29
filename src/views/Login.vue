@@ -3,40 +3,40 @@
     <div class="login-wrapper">
       <img class="login-image" src="../assets/image/login-2.gif" alt="" />
       <validation-observer
+        ref="form"
         class="login-form"
         tag="form"
-        ref="form"
         @submit.prevent="SubmitAction"
       >
         <h2 class="login-form-title">BoBo</h2>
         <validation-provider
+          v-slot="{ errors }"
           class="login-form-group"
-          v-slot="{ failed, errors }"
           tag="div"
           rules="required|email"
           mode="lazy"
         >
           <input
+            v-model="email"
             class="login-form-group__input"
             type="text"
             placeholder="帳號"
-            v-model="email"
           />
           <span class="login-form-group__error">{{ errors[0] }}</span>
         </validation-provider>
 
         <validation-provider
+          v-slot="{ errors }"
           class="login-form-group"
-          v-slot="{ failed, errors }"
           tag="div"
           rules="required|password"
           mode="lazy"
         >
           <input
+            v-model="password"
             class="login-form-group__input"
             type="text"
             placeholder="密碼"
-            v-model="password"
           />
           <span class="login-form-group__error">{{ errors[0] }}</span>
         </validation-provider>
@@ -48,39 +48,39 @@
 </template>
 
 <script>
-import { User } from "@/db";
+import { User } from '@/db'
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: '',
+    }
   },
   methods: {
     // 送出
     SubmitAction() {
       this.$refs.form.validate().then((success) => {
-        if (!success) return;
-        this.SingIn();
-      });
+        if (!success) return
+        this.SingIn()
+      })
     },
     // 登入函式
     SingIn() {
       User.signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           // 成功登入 並傳入至vuex 存UID來當作登入判斷
-          let UID = User.currentUser.uid;
-          this.$store.dispatch("loginAction", UID);
-          this.$router.push({ path: "/" });
-          this.MessageDialog("success", "登入成功", true);
+          let UID = User.currentUser.uid
+          this.$store.dispatch('loginAction', UID)
+          this.$router.push({ path: '/' })
+          this.MessageDialog('success', '登入成功', true)
         })
         .catch(() => {
-          this.MessageDialog("error", "登入失敗，再試一次！", true);
-        });
+          this.MessageDialog('error', '登入失敗，再試一次！', true)
+        })
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
