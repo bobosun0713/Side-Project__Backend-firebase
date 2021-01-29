@@ -78,7 +78,7 @@ export default {
       margin-left: 15px;
       border-radius: 5px;
       border: 0;
-      background-color: $sub-color-blue;
+      background-color: map-get($theme-colors, light-blue);
       color: white;
     }
   }

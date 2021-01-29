@@ -78,7 +78,7 @@ export default {
         display: block;
         height: 3px;
         width: 30px;
-        background-color: $main-color;
+        background-color: map-get($theme-colors,dark-blue);
         border-radius: 10px;
         position: relative;
 
@@ -88,7 +88,7 @@ export default {
           display: block;
           height: 3px;
           width: 100%;
-          background-color: $main-color;
+          background-color: map-get($theme-colors,dark-blue);
           border-radius: 10px;
           position: absolute;
         }

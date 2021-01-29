@@ -237,7 +237,7 @@ export default {
     &__error {
       height: 20px;
       font-size: 12px;
-      color: $sub-color-red;
+      color: map-get($theme-colors, error);
     }
   }
 }

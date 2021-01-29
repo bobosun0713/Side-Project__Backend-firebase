@@ -1,5 +1,12 @@
-@import 'basic/color';
-@import 'basic/all';
-@import 'basic/table';
-@import 'basic/transition';
-@import 'basic/button';
+// helpers
+@import 'helpers/font';
+@import 'helpers/color';
+
+//base
+@import 'base/common';
+
+// component
+@import 'components/button';
+@import 'components/input';
+@import 'components/pagination';
+@import 'components/table';

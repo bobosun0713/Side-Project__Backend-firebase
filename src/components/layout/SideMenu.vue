@@ -4,7 +4,7 @@
     <div class="sidebar-logo">
       <img
         class="sidebar-logo__img"
-        src="../../assets/image/vueV3.png"
+        src="../../assets/image/vue.png"
         alt=""
         @click="goHome"
       />
@@ -73,7 +73,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  background-color: #34384e;
+  background-color: map-get($theme-colors, dark-blue);
   height: 100vh;
   width: 200px;
   transition: left 0.5s;
@@ -100,7 +100,7 @@ export default {
         display: block;
         font-size: 16px;
         transition: all 0.2s;
-        color: white;
+        color: map-get($theme-colors, light-white);
       }
     }
   }
@@ -108,11 +108,11 @@ export default {
 
 // 複選單
 .sub-menu {
-  background-color: $sub-color-blue;
+  background-color: map-get($theme-colors, light-blue);
   transition: all 0.5s;
 }
 .router-link-exact-active {
-  background-color: $sub-color-shallow_green;
+  background-color: map-get($theme-colors, light-green);
   border-left: 4px solid rgb(51, 245, 51);
 }
 </style>

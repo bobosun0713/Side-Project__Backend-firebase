@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="login-wrapper">
-      <img class="login-image" src="../assets/image/login-2.gif" alt="" />
+      <img class="login-image" src="../assets/image/login.gif" alt="" />
       <validation-observer
         ref="form"
         class="login-form"
@@ -87,7 +87,7 @@ export default {
 .login {
   width: 100%;
   height: 100vh;
-  background-color: $main-color-bg;
+  background-color: map-get($theme-colors, light-white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,7 +143,7 @@ export default {
         display: inline-block;
         padding-left: 15px;
         font-size: 12px;
-        color: $sub-color-red;
+        color: map-get($theme-colors, error);
       }
     }
 
@@ -154,7 +154,7 @@ export default {
       border: 0;
       border-radius: 20px;
       box-shadow: 1.5px 1.5px 3px rgb(163, 160, 160);
-      background-color: $sub-color-blue;
+      background-color: map-get($theme-colors, light-blue);
       color: white;
       transition: all 0.5s;
       &:active {

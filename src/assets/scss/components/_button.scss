@@ -4,7 +4,7 @@
   width: 120px;
   // margin-right: 25px;
   cursor: pointer;
-  background-color: $main-color;
+  background-color: map-get($theme-colors, dark-blue);
   border: 0;
   padding: 5px 10px;
   border-radius: 5px;
@@ -22,7 +22,7 @@
 .bo-button--logout {
   margin-right: 25px;
   cursor: pointer;
-  background-color: $main-color;
+  background-color: map-get($theme-colors, dark-blue);
   border: 0;
   padding: 5px 10px;
   border-radius: 5px;

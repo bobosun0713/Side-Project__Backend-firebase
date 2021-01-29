@@ -194,35 +194,4 @@ export default {
     }
   }
 }
-s
-// 分頁
-.pagination {
-  padding: 20px 0 0;
-  display: flex;
-  justify-content: center;
-
-  &__pages {
-    &__num {
-      font-weight: bold;
-      font-size: 1.125rem;
-      color: #41b883;
-
-      &:last-child {
-        color: #193152;
-      }
-    }
-  }
-
-  // 操作鈕
-  &__button {
-    cursor: pointer;
-    border: 0;
-    margin: 0 10px;
-    background-color: transparent;
-    transition: all 0.5s;
-    &:hover {
-      color: black;
-    }
-  }
-}
 </style>
