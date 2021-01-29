@@ -1,16 +1,14 @@
 <template>
-  <nav class="sidebar">
+  <nav class="side-menu">
     <!-- Logo -->
-    <div class="sidebar-logo">
-      <img
-        class="sidebar-logo__img"
-        src="../../assets/image/vue.png"
-        alt=""
-        @click="goHome"
-      />
-    </div>
+    <img
+      class="side-menu__logo"
+      src="../../assets/image/vue.png"
+      alt=""
+      @click="goHome"
+    />
     <!-- 側邊選單 -->
-    <ul class="sidebar-menu">
+    <ul class="side-menu__list">
       <side-menu-item
         v-for="(item, index) in SideMenuList"
         :key="index"
@@ -21,9 +19,9 @@
 </template>
 
 <script>
-import SideMenuItem from '@/components/layout/SideMenuItem.vue'
+import SideMenuItem from "@/components/layout/SideMenuItem.vue";
 export default {
-  name: 'SideMenu',
+  name: "SideMenu",
   components: {
     SideMenuItem,
   },
@@ -32,44 +30,44 @@ export default {
       isSideMenu: false,
       SideMenuList: [
         {
-          name: '文章管理',
-          icon: 'sticky-note',
+          name: "文章管理",
+          icon: "sticky-note",
           children: [
-            { name: '文章列表', icon: 'list-alt', path: '/article/list' },
-            { name: '新增文章', icon: 'edit', path: '/article/add' },
+            { name: "文章列表", icon: "list-alt", path: "/article/list" },
+            { name: "新增文章", icon: "edit", path: "/article/add" },
           ],
         },
         {
-          name: '商品管理',
-          icon: 'box',
+          name: "商品管理",
+          icon: "box",
           children: [
-            { name: '商品列表', icon: 'list-alt', path: '/123' },
-            { name: '新增商品', icon: 'cart-plus', path: '/123' },
+            { name: "商品列表", icon: "list-alt", path: "/123" },
+            { name: "新增商品", icon: "cart-plus", path: "/123" },
           ],
         },
         {
-          name: '管理員',
-          icon: 'user-alt',
+          name: "管理員",
+          icon: "user-alt",
           children: [
-            { name: '管理員列表', icon: 'list-alt', path: '/admin/list' },
-            { name: '新增管理員', icon: 'cart-plus', path: '/admin/add' },
+            { name: "管理員列表", icon: "list-alt", path: "/admin/list" },
+            { name: "新增管理員", icon: "cart-plus", path: "/admin/add" },
           ],
         },
-        { name: 'GitHub', icon: 'edit', path: '/search' },
+        { name: "GitHub", icon: "edit", path: "/search" },
       ],
-    }
+    };
   },
   methods: {
     goHome() {
-      this.$router.push('/')
+      this.$router.push("/");
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
 // sideMenu
-.sidebar {
+.side-menu {
   position: fixed;
   left: 0;
   top: 0;
@@ -78,39 +76,39 @@ export default {
   width: 200px;
   transition: left 0.5s;
 
-  &-logo {
-    text-align: center;
-    margin: 60px 0 30px;
-
-    &__img {
-      cursor: pointer;
-      border-radius: 100%;
-      background-color: white;
-      height: 80px;
-      width: 80px;
-      padding: 5px;
-    }
-  }
-
-  &-menu {
-    &-item {
-      overflow: hidden;
-      &__link {
-        padding: 10px 30px;
-        display: block;
-        font-size: 16px;
-        transition: all 0.2s;
-        color: map-get($theme-colors, light-white);
-      }
-    }
+  &__logo {
+    display: block;
+    border: 1px solid;
+    margin: 60px auto 30px;
+    cursor: pointer;
+    border-radius: 100%;
+    background-color: white;
+    height: 80px;
+    width: 80px;
+    padding: 5px;
   }
 }
 
-// 複選單
-.sub-menu {
-  background-color: map-get($theme-colors, light-blue);
-  transition: all 0.5s;
+// menu
+.menu-list {
+  &__item {
+    overflow: hidden;
+    &__link {
+      padding: 10px 30px;
+      display: block;
+      font-size: 16px;
+      transition: all 0.2s;
+      color: map-get($theme-colors, light-white);
+    }
+  }
+
+  // 下拉選單
+  &--sub {
+    background-color: map-get($theme-colors, light-blue);
+    transition: all 0.5s;
+  }
 }
+
 .router-link-exact-active {
   background-color: map-get($theme-colors, light-green);
   border-left: 4px solid rgb(51, 245, 51);
