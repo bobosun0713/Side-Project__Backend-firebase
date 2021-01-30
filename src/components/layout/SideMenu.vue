@@ -1,16 +1,14 @@
 <template>
-  <nav class="sidebar">
+  <nav class="side-menu">
     <!-- Logo -->
-    <div class="sidebar-logo">
-      <img
-        class="sidebar-logo__img"
-        src="../../assets/image/vue.png"
-        alt=""
-        @click="goHome"
-      />
-    </div>
+    <img
+      class="side-menu__logo"
+      src="../../assets/image/vue.png"
+      alt=""
+      @click="goHome"
+    />
     <!-- 側邊選單 -->
-    <ul class="sidebar-menu">
+    <ul class="side-menu__list">
       <side-menu-item
         v-for="(item, index) in SideMenuList"
         :key="index"
@@ -60,7 +58,7 @@ export default {
 
 <style lang="scss">
 // sideMenu
-.sidebar {
+.side-menu {
   position: fixed;
   left: 0;
   top: 0;
@@ -69,39 +67,39 @@ export default {
   width: 200px;
   transition: left 0.5s;
 
-  &-logo {
-    text-align: center;
-    margin: 60px 0 30px;
-
-    &__img {
-      cursor: pointer;
-      border-radius: 100%;
-      background-color: white;
-      height: 80px;
-      width: 80px;
-      padding: 5px;
-    }
-  }
-
-  &-menu {
-    &-item {
-      overflow: hidden;
-      &__link {
-        padding: 10px 30px;
-        display: block;
-        font-size: 16px;
-        transition: all 0.2s;
-        color: map-get($theme-colors, light-white);
-      }
-    }
+  &__logo {
+    display: block;
+    border: 1px solid;
+    margin: 60px auto 30px;
+    cursor: pointer;
+    border-radius: 100%;
+    background-color: white;
+    height: 80px;
+    width: 80px;
+    padding: 5px;
   }
 }
 
-// 複選單
-.sub-menu {
-  background-color: map-get($theme-colors, light-blue);
-  transition: all 0.5s;
+// menu
+.menu-list {
+  &__item {
+    overflow: hidden;
+    &__link {
+      padding: 10px 30px;
+      display: block;
+      font-size: 16px;
+      transition: all 0.2s;
+      color: map-get($theme-colors, light-white);
+    }
+  }
+
+  // 下拉選單
+  &--sub {
+    background-color: map-get($theme-colors, light-blue);
+    transition: all 0.5s;
+  }
 }
+
 .router-link-exact-active {
   background-color: map-get($theme-colors, light-green);
   border-left: 4px solid rgb(51, 245, 51);
