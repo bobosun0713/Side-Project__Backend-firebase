@@ -82,7 +82,6 @@ export default {
   mixins: [isLoading],
   data() {
     return {
-      action: '',
       articleId: 0,
       articleData: {
         title: '',
@@ -92,16 +91,22 @@ export default {
       },
     }
   },
-  mounted() {
-    this.action = this.$route.path.split('/')[2]
-    // 新增（創建id） 或 修改(讀取資料)
-    this.action === 'add' ? this.setArticleId() : this.editData()
+
+  watch: {
+    $route() {
+      this.$router.go(0)
+    },
   },
+  mounted() {
+    // 新增（創建id） 或 修改(讀取資料)
+    !this.$route.params.id ? this.setArticleId() : this.editData()
+  },
+
   methods: {
     SubmitAction() {
       this.$refs.form.validate().then((success) => {
         if (!success) return
-        this.action === 'add' ? this.addArticle() : this.editAction()
+        !this.$route.params.id ? this.addArticle() : this.editAction()
       })
     },
 
@@ -156,7 +161,7 @@ export default {
       this.upLoadImage()
       // close-loading
       this.loading.close()
-      collection.doc(this.$route.path.split('/')[3]).update(this.articleData)
+      collection.doc(this.$route.params.id).update(this.articleData)
       this.MessageDialog('success', '修改成功', true)
       this.$router.push('/article/list')
     },
@@ -164,7 +169,7 @@ export default {
     // 取得修改資料
     editData() {
       collection
-        .doc(this.$route.path.split('/')[3])
+        .doc(this.$route.params.id)
         .get()
         .then((doc) => {
           this.articleData = { ...doc.data() }
