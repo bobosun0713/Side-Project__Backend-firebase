@@ -161,18 +161,6 @@ export default {
       // 判斷按下篩選後，切換 computed totalPage函式調用哪個的陣列
       this.isSearch = !this.searchTitle ? false : true
     },
-
-    // 分頁控制按鈕
-    changeBtn(Num) {
-      let pageNum = this.nowPage + Num
-      if (pageNum < 1) {
-        this.nowPage = 1
-      } else if (pageNum > this.totalPage) {
-        this.nowPage = this.totalPage
-      } else {
-        this.nowPage = pageNum
-      }
-    },
   },
 }
 </script>

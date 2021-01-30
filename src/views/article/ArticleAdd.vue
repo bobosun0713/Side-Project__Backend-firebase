@@ -3,7 +3,7 @@
     ref="form"
     class="article-form"
     tag="form"
-    @submit.prevent="SubmitAction"
+    @submit.prevent="submitAction"
   >
     <!-- 標題 -->
     <validation-provider
@@ -82,7 +82,6 @@ export default {
   mixins: [isLoading],
   data() {
     return {
-      action: '',
       articleId: 0,
       articleData: {
         title: '',
@@ -92,16 +91,20 @@ export default {
       },
     }
   },
+  watch: {
+    $route(newValue) {
+      if (!newValue.params.id) return this.$router.go(0)
+    },
+  },
   mounted() {
-    this.action = this.$route.path.split('/')[2]
     // 新增（創建id） 或 修改(讀取資料)
-    this.action === 'add' ? this.setArticleId() : this.editData()
+    !this.$route.params.id ? this.setArticleId() : this.editData()
   },
   methods: {
-    SubmitAction() {
+    submitAction() {
       this.$refs.form.validate().then((success) => {
         if (!success) return
-        this.action === 'add' ? this.addArticle() : this.editAction()
+        !this.$route.params.id ? this.addArticle() : this.editAction()
       })
     },
 
@@ -118,6 +121,17 @@ export default {
       this.loading.close()
       this.MessageDialog('success', '新增成功', true)
       this.$router.push('/article/list')
+    },
+
+    // 取得照片數據
+    getImageFile(e) {
+      this.$refs.img.validate(e)
+      let imgFile = e.target.files[0]
+      let file = new FileReader()
+      file.readAsDataURL(imgFile)
+      file.onload = (e) => {
+        this.articleData.imgUrl = e.target.result
+      }
     },
 
     // 上傳圖片
@@ -138,37 +152,25 @@ export default {
         })
     },
 
-    // 取得照片數據
-    getImageFile(e) {
-      this.$refs.img.validate(e)
-      let imgFile = e.target.files[0]
-      let file = new FileReader()
-      file.readAsDataURL(imgFile)
-      file.onload = (e) => {
-        this.articleData.imgUrl = e.target.result
-      }
-    },
-
     // 修改
     editAction() {
       // loading
       this.isLoading()
       this.upLoadImage()
       // close-loading
-      this.loading.close()
-      collection.doc(this.$route.path.split('/')[3]).update(this.articleData)
-      this.MessageDialog('success', '修改成功', true)
+      collection.doc(this.$route.params.id).update(this.articleData)
       this.$router.push('/article/list')
+      this.loading.close()
+      this.MessageDialog('success', '修改成功', true)
     },
 
     // 取得修改資料
     editData() {
       collection
-        .doc(this.$route.path.split('/')[3])
+        .doc(this.$route.params.id)
         .get()
         .then((doc) => {
           this.articleData = { ...doc.data() }
-          // console.log('修改', this.articleData)
         })
     },
     // 創建id

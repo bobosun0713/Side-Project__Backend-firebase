@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      isOpenSideBar: false,
+      isToggleMenu: false,
     }
   },
   methods: {
@@ -37,7 +37,7 @@ export default {
       })
         .then(() => {
           User.signOut().then(() => {
-            this.$store.dispatch('removeUid')
+            this.$store.dispatch('signOut')
             this.MessageDialog('success', '已登出', false)
             this.$router.push('/login')
           })
@@ -47,7 +47,7 @@ export default {
         })
     },
     toggleOpen() {
-      this.isOpenSideBar = !this.isOpenSideBar
+      this.isToggleMenu = !this.isToggleMenu
       this.$emit('open-menu')
     },
   },
@@ -78,7 +78,7 @@ export default {
         display: block;
         height: 3px;
         width: 30px;
-        background-color: map-get($theme-colors,dark-blue);
+        background-color: map-get($theme-colors, dark-blue);
         border-radius: 10px;
         position: relative;
 
@@ -88,7 +88,7 @@ export default {
           display: block;
           height: 3px;
           width: 100%;
-          background-color: map-get($theme-colors,dark-blue);
+          background-color: map-get($theme-colors, dark-blue);
           border-radius: 10px;
           position: absolute;
         }

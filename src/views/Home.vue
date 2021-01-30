@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <side-menu :class="{ 'sidebar--active': isOpenMenu }"></side-menu>
-    <div class="backend" :class="{ 'backend--active': isOpenMenu }">
-      <home-header @open-menu="openMenu"></home-header>
+    <side-menu :class="{ 'sidebar--active': isToggleMenu }"></side-menu>
+    <div class="backend" :class="{ 'backend--active': isToggleMenu }">
+      <home-header @toggle-menu="toggleMenu"></home-header>
       <router-view></router-view>
     </div>
   </div>
@@ -20,12 +20,22 @@ export default {
   },
   data() {
     return {
-      isOpenMenu: false,
+      isToggleMenu: false,
+    }
+  },
+  computed: {
+    getUserInfo() {
+      return this.$store.getters.userInfo
+    },
+  },
+  mounted() {
+    if (this.getUserInfo) {
+      this.MessageDialog('success', '登入成功', false)
     }
   },
   methods: {
-    openMenu() {
-      this.isOpenMenu = !this.isOpenMenu
+    toggleMenu() {
+      this.isToggleMenu = !this.isToggleMenu
     },
   },
 }

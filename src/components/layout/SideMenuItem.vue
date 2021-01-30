@@ -33,7 +33,7 @@
           class="menu-arrow-down"
         ></font-awesome-icon>
       </a>
-      <ul ref="test" class="sub-menu" :style="{ height: childrenHight }">
+      <ul class="sub-menu" :style="{ height: childrenHight }">
         <side-menu-item
           v-for="(child, index) in item.children"
           :key="index"

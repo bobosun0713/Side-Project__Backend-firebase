@@ -1,34 +1,32 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-import '@/assets/js/element.js'
 import Cookies from 'js-cookie'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userUid: '',
+    userUID: '',
   },
+
   mutations: {
-    loginSuccess(state, UID) {
-      state.userUid = UID
-      Cookies.set('UID', state.userUid)
-      // console.log('state.userUid =>', state.userUid)
-      // console.log('cookie =>', Cookies.get('UID'))
+    SET_USER_INFO(state, UID) {
+      state.userUID = UID
+      Cookies.set('UID', state.userUID)
     },
-    logout(state) {
-      state.userUid = ''
+    REMOVE_USER_INFO(state) {
+      state.userUID = ''
       Cookies.remove('UID')
     },
   },
-  // 登入邏輯之後，更新頁面會員註冊時，再次重構把傳送會來資料由Vuex來傳送
   actions: {
-    loginAction({ commit }, UID) {
-      commit('loginSuccess', UID)
+    // 登入
+    signIn({ commit }, UID) {
+      commit('SET_USER_INFO', UID)
     },
-    removeUid({ commit }) {
-      commit('logout')
+    // 登出
+    signOut({ commit }) {
+      commit('REMOVE_USER_INFO')
     },
   },
 })

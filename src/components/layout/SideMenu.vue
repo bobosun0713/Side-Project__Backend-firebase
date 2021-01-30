@@ -29,7 +29,6 @@ export default {
   },
   data() {
     return {
-      isSideMenu: false,
       SideMenuList: [
         {
           name: '文章管理',
@@ -40,14 +39,6 @@ export default {
           ],
         },
         {
-          name: '商品管理',
-          icon: 'box',
-          children: [
-            { name: '商品列表', icon: 'list-alt', path: '/123' },
-            { name: '新增商品', icon: 'cart-plus', path: '/123' },
-          ],
-        },
-        {
           name: '管理員',
           icon: 'user-alt',
           children: [
@@ -55,7 +46,7 @@ export default {
             { name: '新增管理員', icon: 'cart-plus', path: '/admin/add' },
           ],
         },
-        { name: 'GitHub', icon: 'edit', path: '/search' },
+        { name: 'GitHub', icon: 'edit', path: '/google.com' },
       ],
     }
   },

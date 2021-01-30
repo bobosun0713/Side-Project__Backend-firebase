@@ -23,7 +23,10 @@ import '@/assets/js/editor.js'
 import '@/assets/js/fontawesome.js'
 
 // veeValidate 驗證表單
-import '@/assets/js/vee-vealidation.js'
+import '@/assets/js/vee-validation.js'
+
+// moment
+import '@/assets/js/moment.js'
 
 Vue.config.productionTip = false
 
