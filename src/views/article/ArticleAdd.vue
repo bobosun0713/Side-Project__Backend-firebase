@@ -32,23 +32,24 @@
     >
       <label class="article-form-group__title">圖片上傳</label>
       <div class="article-form-group__upload">
+        <img
+          v-for="(image, idx) in articleData.imgUrl"
+          :key="idx"
+          :src="image"
+          class="article-form-group__upload-img"
+        />
         <label class="article-form-group__upload__label" for="img_file">
-          <img
-            v-show="articleData.imgUrl"
-            class="article-form-group__upload__img"
-            :src="articleData.imgUrl"/>
+          <input
+            id="img_file"
+            type="file"
+            class="article-form-group__upload__file"
+            multiple="multiple"
+            @change="getImageFile"/>
           <font-awesome-icon
             icon="images"
             class="icon-upload"
           ></font-awesome-icon
         ></label>
-
-        <input
-          id="img_file"
-          type="file"
-          class="article-form-group__upload__file"
-          @change="getImageFile"
-        />
       </div>
       <p class="article-form-group__error">{{ errors[0] }}</p>
     </validation-provider>
@@ -87,7 +88,7 @@ export default {
         title: '',
         time: +new Date(),
         content: '',
-        imgUrl: '',
+        imgUrl: [],
       },
     }
   },
@@ -110,14 +111,16 @@ export default {
     },
 
     // 新增
-    addArticle() {
+    async addArticle() {
       // loading
       this.isLoading()
+
       // 上傳照片
-      this.upLoadImage()
+      await this.upLoadImage()
 
       // 取得完圖片網址，並新增這筆資料
       collection.doc(this.articleId).set(this.articleData)
+
       // close-loading
       this.loading.close()
       this.MessageDialog('success', '新增成功', true)
@@ -127,30 +130,34 @@ export default {
     // 取得照片數據
     getImageFile(e) {
       this.$refs.img.validate(e)
-      let imgFile = e.target.files[0]
-      let file = new FileReader()
-      file.readAsDataURL(imgFile)
-      file.onload = (e) => {
-        this.articleData.imgUrl = e.target.result
-      }
+      console.log(e.target.files)
+      let imgFile = e.target.files
+
+      imgFile.forEach((img) => {
+        let file = new FileReader()
+        file.readAsDataURL(img)
+        file.onload = (e) => {
+          this.articleData.imgUrl.push(e.target.result)
+        }
+      })
     },
 
     // 上傳圖片
     async upLoadImage() {
-      // 上傳到storage
-      await storageRef
-        .child('image/' + this.articleData.time)
-        .putString(this.articleData.imgUrl.split(',')[1], 'base64', {
-          contentType: 'image/jpg',
-        })
+      for (let i = 0; i < this.articleData.imgUrl.length; i++) {
+        await storageRef
+          .child('image/' + this.articleData.time + '-' + i)
+          .putString(this.articleData.imgUrl[i].split(',')[1], 'base64', {
+            contentType: 'image/jpg',
+          })
 
-      // 獲取到的url塞回資料裡
-      await storageRef
-        .child('image/' + this.articleData.time)
-        .getDownloadURL()
-        .then((downloadUrl) => {
-          this.articleData.imgUrl = downloadUrl
-        })
+        await storageRef
+          .child('image/' + this.articleData.time + '-' + i)
+          .getDownloadURL()
+          .then((downloadUrl) => {
+            this.articleData.imgUrl[i] = downloadUrl
+          })
+      }
     },
 
     // 修改
@@ -208,28 +215,28 @@ export default {
 
     // 圖片上傳
     &__upload {
-      border: 0.5px solid rgba(185, 183, 183, 0.533);
-      border-radius: 10px;
-      width: 150px;
-      height: 150px;
-      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+
+      &-img {
+        border: 0.5px solid rgba(185, 183, 183, 0.533);
+        border-radius: 10px;
+        width: 150px;
+        height: 150px;
+        margin: 5px;
+      }
 
       &__label {
-        top: 0;
-        left: 0;
-        position: absolute;
+        border: 0.5px solid rgba(185, 183, 183, 0.533);
+        border-radius: 10px;
         display: inline-block;
-        width: 100%;
-        height: 100%;
+        width: 150px;
+        height: 150px;
+        margin: 5px;
+
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      &__img {
-        top: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
       }
       &__file {
         display: none;

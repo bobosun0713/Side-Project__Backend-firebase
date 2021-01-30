@@ -44,7 +44,14 @@
               <button
                 type="text"
                 class="table-tbody__td__button"
-                @click="deleteMessage(item.title, item.id, item.time)"
+                @click="
+                  deleteMessage(
+                    item.title,
+                    item.id,
+                    item.time,
+                    item.imgUrl.length
+                  )
+                "
               >
                 <font-awesome-icon
                   icon="trash-alt"
@@ -142,14 +149,16 @@ export default {
     },
 
     // 刪除
-    deleteMessage(title, id, time) {
+    deleteMessage(title, id, time, imgLen) {
       this.$confirm(`刪除這篇『${title}』文章?`, '刪除通知', {
         confirmButtonText: '確定',
         cancelButtonText: '取消',
         type: 'warning',
       })
         .then(() => {
-          storageRef.child(`image/${time}`).delete()
+          for (let i = 0; i < imgLen; i++) {
+            storageRef.child(`image/${time}-${i}`).delete()
+          }
           collection.doc(id).delete()
           this.MessageDialog('success', '刪除成功!', false)
         })

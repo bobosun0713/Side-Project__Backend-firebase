@@ -33,11 +33,7 @@
           class="menu-arrow-down"
         ></font-awesome-icon>
       </a>
-<<<<<<< HEAD
-      <ul class="sub-menu" :style="{ height: childrenHight }">
-=======
       <ul class="menu-list--sub" :style="{ height: childrenHight }">
->>>>>>> 1af77c6e0c1300455194a7dce63b2078810ba0cf
         <side-menu-item
           v-for="(child, index) in item.children"
           :key="index"
@@ -50,47 +46,47 @@
 
 <script>
 export default {
-  name: "SideMenuItem",
+  name: 'SideMenuItem',
   props: {
     item: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
     },
     active: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   data() {
     return {
       isListOpen: false,
       itemLen: this.item.children,
-    };
+    }
   },
   computed: {
     nowPath() {
-      return this.$route.fullPath;
+      return this.$route.fullPath
     },
 
     childrenHight() {
-      return this.isListOpen ? `${41 * this.itemLen.length}px` : "0px";
+      return this.isListOpen ? `${41 * this.itemLen.length}px` : '0px'
     },
   },
 
   mounted() {
-    if (!this.itemLen) return;
+    if (!this.itemLen) return
     this.isListOpen = Boolean(
       this.itemLen.find((child) => child.path === this.nowPath)
-    );
+    )
   },
   methods: {
     toggleOpen() {
-      this.isListOpen = !this.isListOpen;
+      this.isListOpen = !this.isListOpen
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

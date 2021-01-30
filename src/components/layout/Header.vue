@@ -48,7 +48,7 @@ export default {
     },
     toggleOpen() {
       this.isToggleMenu = !this.isToggleMenu
-      this.$emit('open-menu')
+      this.$emit('toggle-menu')
     },
   },
 }
