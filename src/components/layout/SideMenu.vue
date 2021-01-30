@@ -27,7 +27,6 @@ export default {
   },
   data() {
     return {
-      isSideMenu: false,
       SideMenuList: [
         {
           name: '文章管理',
@@ -45,7 +44,7 @@ export default {
             { name: '新增管理員', icon: 'cart-plus', path: '/admin/add' },
           ],
         },
-        { name: 'GitHub', icon: 'edit', path: '/search' },
+        { name: 'GitHub', icon: 'edit', path: '/google.com' },
       ],
     }
   },

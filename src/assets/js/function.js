@@ -15,21 +15,6 @@ export const GetTimeMixin = {
   },
 }
 
-// 共用搜尋，需搭配外層資料 -- 以重構 - 沒用到
-export const SearchMixin = {
-  data() {
-    return {
-      mixinTitle: '',
-      mixinAry: [],
-    }
-  },
-  methods: {
-    SearchMixin(Data, Type) {
-      this.mixinAry = Data.filter((val) => val[Type].match(this.mixinTitle))
-    },
-  },
-}
-
 // 讀取時
 export const isLoading = {
   data() {

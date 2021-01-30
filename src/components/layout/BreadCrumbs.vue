@@ -49,7 +49,7 @@ export default {
 
   &__links {
     position: relative;
-    color: map-get($theme-colors,dark-blue);
+    color: map-get($theme-colors, dark-blue);
     font-size: 14px;
 
     &:first-child {

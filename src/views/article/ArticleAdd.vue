@@ -3,7 +3,7 @@
     ref="form"
     class="article-form"
     tag="form"
-    @submit.prevent="SubmitAction"
+    @submit.prevent="submitAction"
   >
     <!-- 標題 -->
     <validation-provider
@@ -91,10 +91,9 @@ export default {
       },
     }
   },
-
   watch: {
-    $route() {
-      this.$router.go(0)
+    $route(newValue) {
+      if (!newValue.params.id) return this.$router.go(0)
     },
   },
   mounted() {
@@ -103,7 +102,7 @@ export default {
   },
 
   methods: {
-    SubmitAction() {
+    submitAction() {
       this.$refs.form.validate().then((success) => {
         if (!success) return
         !this.$route.params.id ? this.addArticle() : this.editAction()
@@ -125,6 +124,17 @@ export default {
       this.$router.push('/article/list')
     },
 
+    // 取得照片數據
+    getImageFile(e) {
+      this.$refs.img.validate(e)
+      let imgFile = e.target.files[0]
+      let file = new FileReader()
+      file.readAsDataURL(imgFile)
+      file.onload = (e) => {
+        this.articleData.imgUrl = e.target.result
+      }
+    },
+
     // 上傳圖片
     async upLoadImage() {
       // 上傳到storage
@@ -143,27 +153,16 @@ export default {
         })
     },
 
-    // 取得照片數據
-    getImageFile(e) {
-      this.$refs.img.validate(e)
-      let imgFile = e.target.files[0]
-      let file = new FileReader()
-      file.readAsDataURL(imgFile)
-      file.onload = (e) => {
-        this.articleData.imgUrl = e.target.result
-      }
-    },
-
     // 修改
     editAction() {
       // loading
       this.isLoading()
       this.upLoadImage()
       // close-loading
-      this.loading.close()
       collection.doc(this.$route.params.id).update(this.articleData)
-      this.MessageDialog('success', '修改成功', true)
       this.$router.push('/article/list')
+      this.loading.close()
+      this.MessageDialog('success', '修改成功', true)
     },
 
     // 取得修改資料
@@ -173,7 +172,6 @@ export default {
         .get()
         .then((doc) => {
           this.articleData = { ...doc.data() }
-          // console.log('修改', this.articleData)
         })
     },
     // 創建id

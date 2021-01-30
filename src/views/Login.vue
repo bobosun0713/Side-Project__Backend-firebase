@@ -6,7 +6,7 @@
         ref="form"
         class="login-form"
         tag="form"
-        @submit.prevent="SubmitAction"
+        @submit.prevent="submitAction"
       >
         <h2 class="login-form-title">BoBo</h2>
         <validation-provider
@@ -59,24 +59,23 @@ export default {
   },
   methods: {
     // 送出
-    SubmitAction() {
+    submitAction() {
       this.$refs.form.validate().then((success) => {
         if (!success) return
-        this.SingIn()
+        this.signIn()
       })
     },
+
     // 登入函式
-    SingIn() {
+    signIn() {
       User.signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          // 成功登入 並傳入至vuex 存UID來當作登入判斷
-          let UID = User.currentUser.uid
-          this.$store.dispatch('loginAction', UID)
+          this.$store.dispatch('signIn', User.currentUser.uid)
           this.$router.push({ path: '/' })
-          this.MessageDialog('success', '登入成功', true)
+          this.MessageDialog('success', '登入成功', false)
         })
         .catch(() => {
-          this.MessageDialog('error', '登入失敗，再試一次！', true)
+          this.MessageDialog('error', '登入失敗，再試一次！', false)
         })
     },
   },
