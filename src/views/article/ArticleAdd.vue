@@ -19,7 +19,9 @@
         type="text"
         class="article-form-group__input bo-input"
       />
-      <p class="article-form-group__error">{{ errors[0] }}</p>
+      <p class="article-form-group__error">
+        {{ errors[0] }}
+      </p>
     </validation-provider>
     <!-- 圖片 -->
     <validation-provider
@@ -27,17 +29,23 @@
       ref="img"
       class="article-form-group"
       tag="div"
-      rules="required"
+      rules="image"
       mode="lazy"
     >
       <label class="article-form-group__title">圖片上傳</label>
       <div class="article-form-group__upload">
-        <img
+        <div
           v-for="(image, idx) in articleData.imgUrl"
           :key="idx"
-          :src="image"
-          class="article-form-group__upload-img"
-        />
+          class="article-form-group__upload-item"
+        >
+          <img :src="image" class="article-form-group__upload-item__img" />
+          <span
+            class="article-form-group__upload-item__button"
+            @click="deleteImg(image)"
+          ></span>
+        </div>
+
         <label class="article-form-group__upload__label" for="img_file">
           <input
             id="img_file"
@@ -50,6 +58,7 @@
             class="icon-upload"
           ></font-awesome-icon
         ></label>
+        <input v-model="articleData.imgUrl" type="hidden" />
       </div>
       <p class="article-form-group__error">{{ errors[0] }}</p>
     </validation-provider>
@@ -84,6 +93,7 @@ export default {
   data() {
     return {
       articleId: 0,
+      deleteInfo: [],
       articleData: {
         title: '',
         time: +new Date(),
@@ -114,13 +124,10 @@ export default {
     async addArticle() {
       // loading
       this.isLoading()
-
       // 上傳照片
       await this.upLoadImage()
-
       // 取得完圖片網址，並新增這筆資料
       collection.doc(this.articleId).set(this.articleData)
-
       // close-loading
       this.loading.close()
       this.MessageDialog('success', '新增成功', true)
@@ -129,10 +136,7 @@ export default {
 
     // 取得照片數據
     getImageFile(e) {
-      this.$refs.img.validate(e)
-      console.log(e.target.files)
       let imgFile = e.target.files
-
       imgFile.forEach((img) => {
         let file = new FileReader()
         file.readAsDataURL(img)
@@ -145,29 +149,37 @@ export default {
     // 上傳圖片
     async upLoadImage() {
       for (let i = 0; i < this.articleData.imgUrl.length; i++) {
-        await storageRef
-          .child('image/' + this.articleData.time + '-' + i)
-          .putString(this.articleData.imgUrl[i].split(',')[1], 'base64', {
-            contentType: 'image/jpg',
-          })
+        let src = 'data:image'
+        if (this.articleData.imgUrl[i].indexOf(src) !== -1) {
+          console.log('進入')
+          await storageRef
+            .child('image/' + this.articleData.time + '-' + i)
+            .putString(this.articleData.imgUrl[i].split(',')[1], 'base64', {
+              contentType: 'image/jpg',
+            })
 
-        await storageRef
-          .child('image/' + this.articleData.time + '-' + i)
-          .getDownloadURL()
-          .then((downloadUrl) => {
-            this.articleData.imgUrl[i] = downloadUrl
-          })
+          await storageRef
+            .child('image/' + this.articleData.time + '-' + i)
+            .getDownloadURL()
+            .then((downloadUrl) => {
+              this.articleData.imgUrl[i] = downloadUrl
+            })
+        }
       }
     },
 
     // 修改
-    editAction() {
+    async editAction() {
+      if (this.articleData.imgUrl.length === 0) {
+        this.$refs.img.validate()
+      }
       // loading
       this.isLoading()
-      this.upLoadImage()
-      // close-loading
+      await this.upLoadImage()
+
       collection.doc(this.$route.params.id).update(this.articleData)
       this.$router.push('/article/list')
+      // close-loading
       this.loading.close()
       this.MessageDialog('success', '修改成功', true)
     },
@@ -181,12 +193,18 @@ export default {
           this.articleData = { ...doc.data() }
         })
     },
+
     // 創建id
     setArticleId() {
       collectionOrder.get().then((doc) => {
         let maxId = Math.max(...doc.docs.map((val) => val.id))
         this.articleId = maxId <= 0 ? '1' : String(maxId + 1)
       })
+    },
+
+    deleteImg(data) {
+      let deleteIndex = this.articleData.imgUrl.findIndex((img) => img === data)
+      this.articleData.imgUrl.splice(deleteIndex, 1)
     },
   },
 }
@@ -217,13 +235,52 @@ export default {
     &__upload {
       display: flex;
       flex-wrap: wrap;
+      &-item {
+        position: relative;
 
-      &-img {
-        border: 0.5px solid rgba(185, 183, 183, 0.533);
-        border-radius: 10px;
-        width: 150px;
-        height: 150px;
-        margin: 5px;
+        &__img {
+          border: 0.5px solid rgba(185, 183, 183, 0.533);
+          border-radius: 10px;
+          width: 150px;
+          height: 150px;
+          margin: 5px;
+        }
+
+        &__button {
+          cursor: pointer;
+          top: 12px;
+          right: 12px;
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          position: absolute;
+          transition: transform 1s;
+
+          &:hover {
+            transform: rotate(360deg);
+          }
+
+          &::before,
+          &::after {
+            content: '';
+            position: absolute;
+            display: block;
+            height: 3px;
+            width: 80%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            transform: rotate(45deg);
+            background-color: black;
+          }
+
+          &::after {
+            transform: rotate(-45deg);
+          }
+        }
       }
 
       &__label {
@@ -248,6 +305,21 @@ export default {
       height: 20px;
       font-size: 12px;
       color: map-get($theme-colors, error);
+      animation: error 1s ease-in;
+    }
+
+    &__error--animation {
+      animation: error 10s ease-in-out;
+    }
+    @keyframes error {
+      0% {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
   }
 }

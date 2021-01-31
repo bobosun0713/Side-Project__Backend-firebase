@@ -4,11 +4,10 @@ import Cookies from 'js-cookie'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+const member = {
   state: {
     userUID: '',
   },
-
   mutations: {
     SET_USER_INFO(state, UID) {
       state.userUID = UID
@@ -28,6 +27,15 @@ const store = new Vuex.Store({
     signOut({ commit }) {
       commit('REMOVE_USER_INFO')
     },
+  },
+}
+
+const article = {}
+
+const store = new Vuex.Store({
+  modules: {
+    member,
+    article,
   },
 })
 

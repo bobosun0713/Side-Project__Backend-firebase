@@ -22,3 +22,8 @@ extend('required', {
   ...rules.required,
   message: '欄位不能為空',
 })
+
+extend('image', {
+  ...rules.required,
+  message: '至少上傳一張圖片',
+})
