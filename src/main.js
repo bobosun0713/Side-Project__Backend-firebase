@@ -6,9 +6,6 @@ import store from './store'
 // 引入共用sass
 import '@/assets/scss/main.scss'
 
-// 共用method / computed
-import '@/assets/js/function.js'
-
 // firebase 資料庫
 import { firestorePlugin } from 'vuefire'
 Vue.use(firestorePlugin)

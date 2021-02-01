@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { isLoading } from '@/assets/js/function.js'
+import isLoading from '@/assets/js/loading.js'
 import { User, UserCollection } from '@/db'
 export default {
   name: 'AdminAdd',

@@ -19,9 +19,11 @@
         type="text"
         class="article-form-group__input bo-input"
       />
-      <p class="article-form-group__error">
-        {{ errors[0] }}
-      </p>
+      <transition name="error">
+        <p v-if="errors[0]" class="error__message">
+          {{ errors[0] }}
+        </p>
+      </transition>
     </validation-provider>
     <!-- 圖片 -->
     <validation-provider
@@ -60,7 +62,11 @@
         ></label>
         <input v-model="articleData.imgUrl" type="hidden" />
       </div>
-      <p class="article-form-group__error">{{ errors[0] }}</p>
+      <transition name="error">
+        <p v-if="errors[0]" class="error__message">
+          {{ errors[0] }}
+        </p>
+      </transition>
     </validation-provider>
     <!-- 內容 -->
     <validation-provider
@@ -72,7 +78,11 @@
     >
       <label class="article-form-group__title" for="">文章標題</label>
       <editor v-model="articleData.content"></editor>
-      <p class="article-form-group__error">{{ errors[0] }}</p>
+      <transition name="error">
+        <p v-if="errors[0]" class="error__message">
+          {{ errors[0] }}
+        </p>
+      </transition>
     </validation-provider>
     <!-- 按鈕 -->
     <button class="bo-button">送出</button>
@@ -82,7 +92,7 @@
 <script>
 import Editor from '@/components/article/Editor.vue'
 import { collection, storageRef, collectionOrder } from '@/db'
-import { isLoading } from '@/assets/js/function.js'
+import isLoading from '@/assets/js/loading.js'
 
 export default {
   name: 'ArticleAdd',
@@ -220,7 +230,8 @@ export default {
   &-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    position: relative;
 
     &__title {
       font-weight: 700;
@@ -301,26 +312,12 @@ export default {
     }
 
     // 錯誤訊息
-    &__error {
-      height: 20px;
-      font-size: 12px;
-      color: map-get($theme-colors, error);
-      animation: error 1s ease-in;
-    }
-
-    &__error--animation {
-      animation: error 10s ease-in-out;
-    }
-    @keyframes error {
-      0% {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+    // &__error {
+    //   height: 20px;
+    //   font-size: 12px;
+    //   transform: rotateX(-90deg);
+    //   color: map-get($theme-colors, error);
+    // }
   }
 }
 </style>

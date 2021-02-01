@@ -22,7 +22,11 @@
             type="text"
             placeholder="帳號"
           />
-          <span class="login-form-group__error">{{ errors[0] }}</span>
+          <transition name="error">
+            <p v-if="errors[0]" class="error__message login-form-group__error">
+              {{ errors[0] }}
+            </p>
+          </transition>
         </validation-provider>
 
         <validation-provider
@@ -35,10 +39,14 @@
           <input
             v-model="password"
             class="login-form-group__input"
-            type="text"
+            type="password"
             placeholder="密碼"
           />
-          <span class="login-form-group__error">{{ errors[0] }}</span>
+          <transition name="error">
+            <p v-if="errors[0]" class="error__message login-form-group__error">
+              {{ errors[0] }}
+            </p>
+          </transition>
         </validation-provider>
 
         <button class="login-form-button">LOGIN</button>
@@ -125,7 +133,8 @@ export default {
 
     &-group {
       width: 230px;
-      margin-bottom: 10px;
+      position: relative;
+      margin-bottom: 30px;
 
       // 輸入框
       &__input {
@@ -139,10 +148,7 @@ export default {
 
       // 錯誤訊息
       &__error {
-        display: inline-block;
         padding-left: 15px;
-        font-size: 12px;
-        color: map-get($theme-colors, error);
       }
     }
 

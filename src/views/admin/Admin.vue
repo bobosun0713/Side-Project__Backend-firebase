@@ -15,7 +15,9 @@
           <tr v-for="(item, index) in adminData" :key="index">
             <td class="table-tbody__td">{{ item.name }}</td>
             <td class="table-tbody__td">{{ item.email }}</td>
-            <td class="table-tbody__td">{{ getDate(item.time) }}</td>
+            <td class="table-tbody__td">
+              {{ item.time | dateFormat('YYYY-MM-DD HH:mm') }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -25,7 +27,7 @@
 
 <script>
 import { UserCollection } from '@/db'
-import { isLoading, GetTimeMixin } from '@/assets/js/function.js'
+import isLoading from '@/assets/js/loading.js'
 
 import SearchForm from '@/components/SearchFrom.vue'
 export default {
@@ -33,7 +35,7 @@ export default {
   components: {
     SearchForm,
   },
-  mixins: [isLoading, GetTimeMixin],
+  mixins: [isLoading],
   data() {
     return {
       adminData: [],

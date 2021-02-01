@@ -12,7 +12,7 @@
             <th class="table-thead__th">文章編號</th>
             <th class="table-thead__th">刊登時間</th>
             <th class="table-thead__th">文章標題</th>
-            <th class="table-thead__th">文章內容</th>
+            <!-- <th class="table-thead__th">文章內容</th> -->
             <th class="table-thead__th">文章圖片</th>
             <th class="table-thead__th">操作</th>
           </tr>
@@ -22,12 +22,15 @@
           <tr v-for="(item, index) in pageList" :key="index">
             <td class="table-tbody__td">{{ item.id }}</td>
             <td class="table-tbody__td">
-              {{ getDate(item.time) }}
+              {{ item.time | dateFormat('YYYY-MM-DD HH:mm') }}
             </td>
             <td class="table-tbody__td">
               {{ item.title }}
             </td>
-            <td class="table-tbody__td" v-html="item.content"></td>
+            <!-- <td
+              class="table-tbody__td table-tbody__td__text"
+              v-html="item.content"
+            ></td> -->
             <td class="table-tbody__td">
               <img class="table-tbody__td__img" alt="" :src="item.imgUrl" />
             </td>
@@ -95,15 +98,15 @@
 
 <script>
 import { collection, storageRef, collectionOrder } from '@/db'
-import { isLoading, GetTimeMixin } from '@/assets/js/function.js'
-
+import isLoading from '@/assets/js/loading.js'
 import SearchForm from '@/components/SearchFrom.vue'
+
 export default {
   name: 'ArticleList',
   components: {
     SearchForm,
   },
-  mixins: [isLoading, GetTimeMixin],
+  mixins: [isLoading],
   data() {
     return {
       // 總資料

@@ -15,3 +15,5 @@ export const isLoading = {
     },
   },
 }
+
+export default isLoading
