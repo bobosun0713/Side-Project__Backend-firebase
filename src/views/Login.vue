@@ -17,7 +17,7 @@
           mode="lazy"
         >
           <input
-            v-model="email"
+            v-model.trim="email"
             class="login-form-group__input"
             type="text"
             placeholder="帳號"
@@ -37,7 +37,7 @@
           mode="lazy"
         >
           <input
-            v-model="password"
+            v-model.trim="password"
             class="login-form-group__input"
             type="password"
             placeholder="密碼"
@@ -56,9 +56,11 @@
 </template>
 
 <script>
+import MessageDialog from '@/assets/js/message.js'
 import { User } from '@/db'
 export default {
   name: 'Login',
+  mixins: [MessageDialog],
   data() {
     return {
       email: '',

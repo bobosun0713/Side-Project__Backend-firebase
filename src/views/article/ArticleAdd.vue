@@ -92,14 +92,15 @@
 <script>
 import Editor from '@/components/article/Editor.vue'
 import { collection, storageRef, collectionOrder } from '@/db'
-import isLoading from '@/assets/js/loading.js'
+import IsLoading from '@/assets/js/loading.js'
+import MessageDialog from '@/assets/js/message.js'
 
 export default {
   name: 'ArticleAdd',
   components: {
     Editor,
   },
-  mixins: [isLoading],
+  mixins: [IsLoading, MessageDialog],
   data() {
     return {
       articleId: 0,
@@ -112,6 +113,7 @@ export default {
       },
     }
   },
+
   watch: {
     $route(newValue) {
       if (!newValue.params.id) return this.$router.go(0)
@@ -133,7 +135,7 @@ export default {
     // 新增
     async addArticle() {
       // loading
-      this.isLoading()
+      this.IsLoading()
       // 上傳照片
       await this.upLoadImage()
       // 取得完圖片網址，並新增這筆資料
@@ -181,7 +183,7 @@ export default {
     // 修改
     async editAction() {
       // loading
-      this.isLoading()
+      this.IsLoading()
       await this.upLoadImage()
 
       collection.doc(this.$route.params.id).update(this.articleData)

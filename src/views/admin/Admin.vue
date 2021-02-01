@@ -27,7 +27,8 @@
 
 <script>
 import { UserCollection } from '@/db'
-import isLoading from '@/assets/js/loading.js'
+import IsLoading from '@/assets/js/loading.js'
+import MessageDialog from '@/assets/js/message.js'
 
 import SearchForm from '@/components/SearchFrom.vue'
 export default {
@@ -35,14 +36,14 @@ export default {
   components: {
     SearchForm,
   },
-  mixins: [isLoading],
+  mixins: [IsLoading, MessageDialog],
   data() {
     return {
       adminData: [],
     }
   },
   mounted() {
-    this.isLoading()
+    this.IsLoading()
     this.$bind('adminData', UserCollection).then(() => {
       this.loading.close()
     })

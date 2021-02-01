@@ -93,7 +93,8 @@
 
 <script>
 import { collection, storageRef, collectionOrder } from '@/db'
-import isLoading from '@/assets/js/loading.js'
+import IsLoading from '@/assets/js/loading.js'
+import MessageDialog from '@/assets/js/message.js'
 import SearchForm from '@/components/SearchFrom.vue'
 
 export default {
@@ -101,7 +102,7 @@ export default {
   components: {
     SearchForm,
   },
-  mixins: [isLoading],
+  mixins: [IsLoading, MessageDialog],
   data() {
     return {
       // 總資料
@@ -134,7 +135,7 @@ export default {
   },
   mounted() {
     // 取得資料
-    this.isLoading()
+    this.IsLoading()
     this.$bind('articleData', collectionOrder).then(() => {
       this.loading.close()
     })

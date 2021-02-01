@@ -73,11 +73,12 @@
 </template>
 
 <script>
-import isLoading from '@/assets/js/loading.js'
+import IsLoading from '@/assets/js/loading.js'
+import MessageDialog from '@/assets/js/message.js'
 import { User, UserCollection } from '@/db'
 export default {
   name: 'AdminAdd',
-  mixins: [isLoading],
+  mixins: [IsLoading, MessageDialog],
   data() {
     return {
       adminData: {
@@ -93,7 +94,7 @@ export default {
     addAdmin() {
       this.$refs.form.validate().then((success) => {
         if (!success) return
-        this.isLoading()
+        this.IsLoading()
         User.createUserWithEmailAndPassword(
           this.adminData.email,
           this.adminData.password

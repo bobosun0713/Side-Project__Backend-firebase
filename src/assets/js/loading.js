@@ -1,11 +1,11 @@
-export const isLoading = {
+export const IsLoading = {
   data() {
     return {
       loading: null,
     }
   },
   methods: {
-    isLoading() {
+    IsLoading() {
       this.loading = this.$loading({
         lock: true,
         text: 'Loading',
@@ -16,4 +16,4 @@ export const isLoading = {
   },
 }
 
-export default isLoading
+export default IsLoading
