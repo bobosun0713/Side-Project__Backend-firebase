@@ -16,6 +16,8 @@
 
 <script>
 import BreadCrumb from '@/components/layout/BreadCrumbs.vue'
+import MessageDialog from '@/assets/js/message.js'
+
 import { User } from '@/db'
 
 export default {
@@ -23,6 +25,7 @@ export default {
   components: {
     BreadCrumb,
   },
+  mixins: [MessageDialog],
   data() {
     return {
       isToggleMenu: false,

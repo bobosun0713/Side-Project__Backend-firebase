@@ -1,25 +1,19 @@
 <template>
   <li class="menu-list__item">
     <!-- 一 -->
-    <router-link
-      v-if="!itemLen"
-      :to="item.path"
-      class="menu-list__item__link"
-      active-class="active"
-      :default-active="this.$route.path"
-    >
+    <router-link v-if="!itemLen" :to="item.path" class="menu-list__item__link">
       <font-awesome-icon
         :icon="item.icon"
         class="menu-icon"
       ></font-awesome-icon>
-      {{ item.name }}
+      <span>{{ item.name }}</span>
     </router-link>
 
     <!-- 二 -->
     <template v-else>
       <a
         class="menu-list__item__link"
-        :class="{ 'menu-item__link--active': isListOpen }"
+        :class="{ 'menu-list__item__link--active': isListOpen }"
         href="javascript:;"
         @click="toggleOpen"
       >
@@ -27,7 +21,7 @@
           :icon="item.icon"
           class="menu-icon"
         ></font-awesome-icon>
-        {{ item.name }}
+        <span>{{ item.name }}</span>
         <font-awesome-icon
           icon="chevron-right"
           class="menu-arrow-down"
@@ -98,12 +92,12 @@ export default {
       padding: 10px 30px;
       display: block;
       font-size: 16px;
-      transition: all 0.2s;
+      transition: all 1s;
       color: map-get($theme-colors, light-white);
-    }
-    &--active {
-      > .menu-arrow-down {
-        transform: rotate(90deg);
+      &--active {
+        > .menu-arrow-down {
+          transform: rotate(90deg);
+        }
       }
     }
   }
@@ -113,5 +107,11 @@ export default {
     background-color: map-get($theme-colors, light-blue);
     transition: all 0.5s;
   }
+}
+
+.menu-list__item__link--close {
+  padding: 10px 10px;
+  text-align: right;
+  font-size: 18px;
 }
 </style>

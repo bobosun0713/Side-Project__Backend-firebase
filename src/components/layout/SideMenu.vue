@@ -7,8 +7,9 @@
       alt=""
       @click="goHome"
     />
+    <span class="test">BACKEND</span>
     <!-- 側邊選單 -->
-    <ul class="side-menu__list">
+    <ul class="menu-list">
       <side-menu-item
         v-for="(item, index) in SideMenuList"
         :key="index"
@@ -33,7 +34,7 @@ export default {
           icon: 'sticky-note',
           children: [
             { name: '文章列表', icon: 'list-alt', path: '/article/list' },
-            { name: '新增文章', icon: 'edit', path: '/article/add' },
+            { name: '新增文章', icon: 'pencil-alt', path: '/article/add' },
           ],
         },
         {
@@ -41,10 +42,10 @@ export default {
           icon: 'user-alt',
           children: [
             { name: '管理員列表', icon: 'list-alt', path: '/admin/list' },
-            { name: '新增管理員', icon: 'cart-plus', path: '/admin/add' },
+            { name: '新增管理員', icon: 'pencil-alt', path: '/admin/add' },
           ],
         },
-        { name: 'GitHub', icon: 'edit', path: '/google.com' },
+        { name: 'GitHub', icon: 'code-branch', path: '/google.com' },
       ],
     }
   },
@@ -78,6 +79,19 @@ export default {
     width: 80px;
     padding: 5px;
   }
+}
+
+// 測試用
+.test {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  display: none;
+  margin-left: auto;
+  margin-right: 10px;
+  letter-spacing: 2px;
 }
 
 .router-link-exact-active {
