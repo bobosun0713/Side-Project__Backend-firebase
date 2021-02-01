@@ -80,26 +80,6 @@ export default {
   }
 }
 
-// menu
-.menu-list {
-  &__item {
-    overflow: hidden;
-    &__link {
-      padding: 10px 30px;
-      display: block;
-      font-size: 16px;
-      transition: all 0.2s;
-      color: map-get($theme-colors, light-white);
-    }
-  }
-
-  // 下拉選單
-  &--sub {
-    background-color: map-get($theme-colors, light-blue);
-    transition: all 0.5s;
-  }
-}
-
 .router-link-exact-active {
   background-color: map-get($theme-colors, light-green);
   border-left: 4px solid rgb(51, 245, 51);

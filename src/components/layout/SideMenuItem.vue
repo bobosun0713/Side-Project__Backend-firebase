@@ -19,7 +19,7 @@
     <template v-else>
       <a
         class="menu-list__item__link"
-        :class="{ 'sidebar-menu-item__link--active': isListOpen }"
+        :class="{ 'menu-item__link--active': isListOpen }"
         href="javascript:;"
         @click="toggleOpen"
       >
@@ -90,9 +90,28 @@ export default {
 </script>
 
 <style lang="scss">
-.sidebar-menu-item__link--active {
-  > .menu-arrow-down {
-    transform: rotate(90deg);
+// menu
+.menu-list {
+  &__item {
+    overflow: hidden;
+    &__link {
+      padding: 10px 30px;
+      display: block;
+      font-size: 16px;
+      transition: all 0.2s;
+      color: map-get($theme-colors, light-white);
+    }
+    &--active {
+      > .menu-arrow-down {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  // 下拉選單
+  &--sub {
+    background-color: map-get($theme-colors, light-blue);
+    transition: all 0.5s;
   }
 }
 </style>

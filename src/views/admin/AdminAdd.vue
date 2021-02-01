@@ -2,7 +2,7 @@
   <div class="admin-form">
     <validation-observer
       ref="form"
-      class="admin-form__content"
+      class="admin-form__container"
       tag="form"
       @submit.prevent="addAdmin"
     >
@@ -20,7 +20,11 @@
           class="admin-form__group__input bo-input"
           placeholder="請輸入名稱"
         />
-        <p class="admin-form__error">{{ errors[0] }}</p>
+        <transition name="error">
+          <p v-if="errors[0]" class="error__message">
+            {{ errors[0] }}
+          </p>
+        </transition>
       </validation-provider>
       <validation-provider
         v-slot="{ errors }"
@@ -36,7 +40,11 @@
           class="admin-form__group__input bo-input"
           placeholder="請輸入Email"
         />
-        <p class="admin-form__error">{{ errors[0] }}</p>
+        <transition name="error">
+          <p v-if="errors[0]" class="error__message">
+            {{ errors[0] }}
+          </p>
+        </transition>
       </validation-provider>
       <validation-provider
         v-slot="{ errors }"
@@ -52,7 +60,11 @@
           class="admin-form__group__input bo-input"
           placeholder="請輸入密碼"
         />
-        <p class="admin-form__error">{{ errors[0] }}</p>
+        <transition name="error">
+          <p v-if="errors[0]" class="error__message">
+            {{ errors[0] }}
+          </p>
+        </transition>
       </validation-provider>
       <!-- 按鈕 -->
       <button class="bo-button">新增</button>
@@ -109,33 +121,23 @@ export default {
 <style lang="scss" scoped>
 .admin-form {
   padding: 30px 35px;
-
-  &__content {
+  &__container {
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.548);
     box-shadow: 0 0 7px rgb(206, 201, 201);
     border-radius: 15px;
-
-    .admin-form__group {
-      // border: 1px solid red;
-      margin-bottom: 10px;
-
-      &__title {
-        display: inline-block;
-        margin-bottom: 10px;
-      }
-
-      &__input {
-        width: 100%;
-      }
-    }
   }
+}
 
-  //錯誤訊息
-  &__error {
-    height: 20px;
-    font-size: 12px;
-    color: map-get($theme-colors, error);
+.admin-form__group {
+  margin-bottom: 30px;
+  position: relative;
+  &__title {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  &__input {
+    width: 100%;
   }
 }
 </style>
