@@ -180,9 +180,6 @@ export default {
 
     // 修改
     async editAction() {
-      if (this.articleData.imgUrl.length === 0) {
-        this.$refs.img.validate()
-      }
       // loading
       this.isLoading()
       await this.upLoadImage()
@@ -250,7 +247,7 @@ export default {
         position: relative;
 
         &__img {
-          border: 0.5px solid rgba(185, 183, 183, 0.533);
+          border: 0.5px solid map-get($theme-colors, border);
           border-radius: 10px;
           width: 150px;
           height: 150px;
@@ -295,12 +292,13 @@ export default {
       }
 
       &__label {
-        border: 0.5px solid rgba(185, 183, 183, 0.533);
+        border: 0.5px solid map-get($theme-colors, border);
         border-radius: 10px;
         display: inline-block;
         width: 150px;
         height: 150px;
         margin: 5px;
+        cursor: pointer;
 
         display: flex;
         align-items: center;
@@ -310,14 +308,6 @@ export default {
         display: none;
       }
     }
-
-    // 錯誤訊息
-    // &__error {
-    //   height: 20px;
-    //   font-size: 12px;
-    //   transform: rotateX(-90deg);
-    //   color: map-get($theme-colors, error);
-    // }
   }
 }
 </style>

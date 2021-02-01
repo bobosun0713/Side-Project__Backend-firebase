@@ -48,12 +48,7 @@
                 type="text"
                 class="table-tbody__td__button"
                 @click="
-                  deleteMessage(
-                    item.title,
-                    item.id,
-                    item.time,
-                    item.imgUrl.length
-                  )
+                  deleteMessage(item.title, item.id, item.time, item.imgUrl)
                 "
               >
                 <font-awesome-icon
@@ -159,9 +154,9 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          for (let i = 0; i < imgLen; i++) {
+          imgLen.forEach((img, i) =>
             storageRef.child(`image/${time}-${i}`).delete()
-          }
+          )
           collection.doc(id).delete()
           this.MessageDialog('success', '刪除成功!', false)
         })
