@@ -49,14 +49,14 @@
           </transition>
         </validation-provider>
 
-        <button class="login-form-button">LOGIN</button>
+        <button class="bo-button--login bo-button--blue">LOGIN</button>
       </validation-observer>
     </div>
   </div>
 </template>
 
 <script>
-import MessageDialog from '@/assets/js/message.js'
+import MessageDialog from '@/js/message.js'
 import { User } from '@/db'
 export default {
   name: 'Login',
@@ -105,10 +105,10 @@ export default {
     width: 700px;
     display: flex;
     justify-content: center;
-    background-color: white;
+    background-color: map-get($theme-colors, 'white');
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 5px 5px 8px rgb(223, 219, 219);
+    box-shadow: 5px 5px 8px map-get($theme-colors, shadow);
   }
 
   // 圖片
@@ -160,9 +160,9 @@ export default {
       padding: 9px 20px;
       border: 0;
       border-radius: 20px;
-      box-shadow: 1.5px 1.5px 3px rgb(163, 160, 160);
+      box-shadow: 1.5px 1.5px 3px map-get($theme-colors, shadow);
       background-color: map-get($theme-colors, light-blue);
-      color: white;
+      color: map-get($theme-colors, 'white');
       transition: all 0.5s;
       &:active {
         transform: translateY(1.5px);

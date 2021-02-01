@@ -69,7 +69,7 @@ export default {
     //測試
     &__item {
       &__link {
-        padding: 10px 15px;
+        padding: 10px 17px;
         text-align: right;
         span {
           display: none;

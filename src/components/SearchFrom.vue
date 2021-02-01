@@ -8,7 +8,7 @@
         class="search-form-content__input bo-input"
         :placeholder="title + '名稱'"
       />
-      <button class="search-form-content__button" @click="clickSubmit">
+      <button class="bo-button bo-button--blue" @click="clickSubmit">
         搜尋
       </button>
     </div>
@@ -49,16 +49,16 @@ export default {
 <style lang="scss" scoped>
 .search-form {
   width: 100%;
-  background-color: white;
+  background-color: map-get($theme-colors, 'white');
   border-radius: 10px;
-  box-shadow: 0 0 7px rgb(206, 201, 201);
+  box-shadow: 0 0 7px map-get($theme-colors, shadow);
   margin-bottom: 30px;
   padding: 0 30px;
 
   &-title {
     font-size: 18px;
     padding: 15px 0;
-    border-bottom: 1px solid rgb(202, 201, 201);
+    border-bottom: 1px solid map-get($theme-colors, shadow);
   }
 
   &-content {
@@ -68,18 +68,7 @@ export default {
     // 輸入框
     &__input {
       width: 100%;
-    }
-
-    // 按鈕
-    &__button {
-      cursor: pointer;
-      padding: 5px 10px;
-      width: 100px;
-      margin-left: 15px;
-      border-radius: 5px;
-      border: 0;
-      background-color: map-get($theme-colors, light-blue);
-      color: white;
+      margin-right: 15px;
     }
   }
 }

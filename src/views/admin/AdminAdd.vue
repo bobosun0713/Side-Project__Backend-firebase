@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import IsLoading from '@/assets/js/loading.js'
-import MessageDialog from '@/assets/js/message.js'
+import IsLoading from '@/js/loading.js'
+import MessageDialog from '@/js/message.js'
 import { User, UserCollection } from '@/db'
 export default {
   name: 'AdminAdd',
@@ -124,8 +124,8 @@ export default {
   padding: 30px 35px;
   &__container {
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.548);
-    box-shadow: 0 0 7px rgb(206, 201, 201);
+    background-color: map-get($theme-colors, 'white');
+    box-shadow: 0 0 7px map-get($theme-colors, shadow);
     border-radius: 15px;
   }
 }
@@ -135,6 +135,7 @@ export default {
   position: relative;
   &__title {
     display: inline-block;
+    font-weight: bold;
     margin-bottom: 10px;
   }
   &__input {

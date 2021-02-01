@@ -2,15 +2,15 @@
 .table {
   width: 100%;
   max-width: 100%;
-  border: 1px solid #35495e;
-  background-color: white;
+  border: 1px solid map-get($theme-colors, dark-blue);
+  background-color: map-get($theme-colors, "white");
   border-collapse: collapse;
   text-align: center;
 
   // 表頭
   &-thead {
-    background-color: #35495e;
-    color: #fff;
+    background-color: map-get($theme-colors, dark-blue);
+    color: map-get($theme-colors, "white");
     font-size: 1.125rem;
 
     &__th {
@@ -18,7 +18,7 @@
       width: calc(100% / 6);
 
       &:not(:first-child) {
-        border-left: 1px solid white;
+        border-left: 1px solid map-get($theme-colors, "white");
       }
     }
   }
@@ -26,8 +26,8 @@
   &-tbody {
     &__td {
       padding: 10px 10px;
-      border-bottom: 1px solid #354951;
-      border-left: 1px solid #354951;
+      border-bottom: 1px solid map-get($theme-colors, dark-blue);
+      border-left: 1px solid map-get($theme-colors, dark-blue);
       text-overflow: ellipsis;
       overflow: hidden;
 

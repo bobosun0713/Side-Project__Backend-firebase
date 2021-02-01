@@ -25,12 +25,12 @@ export default {
     &__title {
       font-size: 5rem;
       color: #41b883;
-      text-shadow: 0px 0px 6px rgba(201, 189, 189, 0.7);
+      text-shadow: 0px 0px 6px map-get($theme-colors, shadow);
     }
 
     &__subtitle {
       color: #35495e;
-      text-shadow: 0px 0px 6px rgba(237, 234, 234, 0.7);
+      text-shadow: 0px 0px 6px map-get($theme-colors, shadow);
       font-size: 1.75rem;
     }
   }

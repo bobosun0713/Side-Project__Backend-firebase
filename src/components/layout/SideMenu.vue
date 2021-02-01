@@ -7,7 +7,7 @@
       alt=""
       @click="goHome"
     />
-    <span class="side-menu__text">BACKEND</span>
+    <div class="side-menu__text" @click="goHome">BACKEND</div>
     <!-- 側邊選單 -->
     <ul class="menu-list">
       <side-menu-item
@@ -74,21 +74,22 @@ export default {
     margin: 60px auto 30px;
     cursor: pointer;
     border-radius: 100%;
-    background-color: white;
+    background-color: map-get($theme-colors, 'white');
     height: 80px;
     width: 80px;
     padding: 5px;
   }
 
   &__text {
-    color: white;
+    color: map-get($theme-colors, 'white');
+    cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
     writing-mode: vertical-lr;
     text-orientation: mixed;
     display: none;
     margin-left: auto;
-    margin-right: 10px;
+    margin-right: 14px;
     letter-spacing: 2px;
   }
 }

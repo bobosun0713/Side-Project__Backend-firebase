@@ -1,6 +1,6 @@
 <template>
   <div class="admin">
-    <search-form :title="'管理員'"></search-form>
+    <search-form :title="'管理員'" @search-value="searchValue"></search-form>
     <div class="admin-list">
       <h2 class="admin-list__title">管理員列表</h2>
       <table class="table admin-list__table">
@@ -11,13 +11,18 @@
             <th class="table-thead__th">創建時間</th>
           </tr>
         </thead>
-        <tbody class="table-tbody">
-          <tr v-for="(item, index) in adminData" :key="index">
+        <tbody v-if="adminList.length !== 0" class="table-tbody">
+          <tr v-for="(item, index) in adminList" :key="index">
             <td class="table-tbody__td">{{ item.name }}</td>
             <td class="table-tbody__td">{{ item.email }}</td>
             <td class="table-tbody__td">
               {{ item.time | dateFormat('YYYY-MM-DD HH:mm') }}
             </td>
+          </tr>
+        </tbody>
+        <tbody v-else class="table-tbody">
+          <tr>
+            <td class="table-tbody__td" colspan="6">無此管理員</td>
           </tr>
         </tbody>
       </table>
@@ -27,8 +32,8 @@
 
 <script>
 import { UserCollection } from '@/db'
-import IsLoading from '@/assets/js/loading.js'
-import MessageDialog from '@/assets/js/message.js'
+import IsLoading from '@/js/loading.js'
+import MessageDialog from '@/js/message.js'
 
 import SearchForm from '@/components/SearchFrom.vue'
 export default {
@@ -40,13 +45,24 @@ export default {
   data() {
     return {
       adminData: [],
+      searchName: '',
     }
+  },
+  computed: {
+    adminList() {
+      return this.adminData.filter((val) => val.name.match(this.searchName))
+    },
   },
   mounted() {
     this.IsLoading()
     this.$bind('adminData', UserCollection).then(() => {
       this.loading.close()
     })
+  },
+  methods: {
+    searchValue(value) {
+      this.searchName = value
+    },
   },
 }
 </script>
@@ -58,7 +74,7 @@ export default {
 // list
 .admin-list {
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.548);
+  background-color: white;
   box-shadow: 0 0 7px rgb(206, 201, 201);
   border-radius: 15px;
 

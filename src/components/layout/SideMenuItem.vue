@@ -92,8 +92,8 @@ export default {
       padding: 10px 30px;
       display: block;
       font-size: 16px;
-      transition: all 0.5s;
-      color: map-get($theme-colors, light-white);
+      transition: all 0.2s;
+      color: map-get($theme-colors, 'white');
       &--active {
         > .menu-arrow-down {
           transform: rotate(90deg);

@@ -92,8 +92,8 @@
 <script>
 import Editor from '@/components/article/Editor.vue'
 import { collection, storageRef, collectionOrder } from '@/db'
-import IsLoading from '@/assets/js/loading.js'
-import MessageDialog from '@/assets/js/message.js'
+import IsLoading from '@/js/loading.js'
+import MessageDialog from '@/js/message.js'
 
 export default {
   name: 'ArticleAdd',
@@ -223,7 +223,7 @@ export default {
 .article-form {
   margin: 30px 35px;
   padding: 20px 25px;
-  background-color: white;
+  background-color: map-get($theme-colors, 'white');
   border-radius: 15px;
 
   &-group {

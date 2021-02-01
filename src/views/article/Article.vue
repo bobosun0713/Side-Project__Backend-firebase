@@ -59,13 +59,11 @@
             </td>
           </tr>
         </tbody>
-        <template v-else>
-          <tbody class="table-tbody">
-            <tr>
-              <td class="table-tbody__td" colspan="6">無此文章</td>
-            </tr>
-          </tbody>
-        </template>
+        <tbody v-else class="table-tbody">
+          <tr>
+            <td class="table-tbody__td" colspan="6">無此文章</td>
+          </tr>
+        </tbody>
       </table>
 
       <!-- 分頁器 -->
@@ -93,8 +91,8 @@
 
 <script>
 import { collection, storageRef, collectionOrder } from '@/db'
-import IsLoading from '@/assets/js/loading.js'
-import MessageDialog from '@/assets/js/message.js'
+import IsLoading from '@/js/loading.js'
+import MessageDialog from '@/js/message.js'
 import SearchForm from '@/components/SearchFrom.vue'
 
 export default {
@@ -180,8 +178,8 @@ export default {
 
   &-list {
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.548);
-    box-shadow: 0 0 7px rgb(206, 201, 201);
+    background-color: map-get($theme-colors, 'white');
+    box-shadow: 0 0 7px map-get($theme-colors, shadow);
     border-radius: 15px;
 
     // 標題
