@@ -48,18 +48,23 @@
           ></span>
         </div>
 
-        <label class="article-form-group__upload__label" for="img_file">
-          <input
-            id="img_file"
-            type="file"
-            class="article-form-group__upload__file"
-            multiple="multiple"
-            @change="getImageFile"/>
+        <label
+          v-if="articleData.imgUrl.length !== 10"
+          class="article-form-group__upload__label"
+          for="img_file"
+        >
           <font-awesome-icon
             icon="images"
             class="icon-upload"
           ></font-awesome-icon
         ></label>
+        <input
+          id="img_file"
+          type="file"
+          class="article-form-group__upload__file"
+          multiple="multiple"
+          @change="getImageFile"
+        />
         <input v-model="articleData.imgUrl" type="hidden" />
       </div>
       <transition name="error">
@@ -85,7 +90,7 @@
       </transition>
     </validation-provider>
     <!-- 按鈕 -->
-    <button class="bo-button">送出</button>
+    <button class="bo-button bo-button--dark-blue">送出</button>
   </validation-observer>
 </template>
 
