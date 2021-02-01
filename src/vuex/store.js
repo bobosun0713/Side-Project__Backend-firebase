@@ -30,12 +30,9 @@ const member = {
   },
 }
 
-const article = {}
-
 const store = new Vuex.Store({
   modules: {
     member,
-    article,
   },
 })
 

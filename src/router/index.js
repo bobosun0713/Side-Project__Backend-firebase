@@ -12,7 +12,7 @@ import Admin from '@/views/admin/Admin'
 import AdminAdd from '@/views/admin/AdminAdd'
 
 // vuex
-import store from '@/store'
+import store from '@/vuex/store'
 import Cookies from 'js-cookie'
 
 Vue.use(VueRouter)
