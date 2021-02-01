@@ -56,7 +56,7 @@
         <label for="" class="admin-form__group__title">管理員密碼</label>
         <input
           v-model="adminData.password"
-          type="text"
+          type="password"
           class="admin-form__group__input bo-input"
           placeholder="請輸入密碼"
         />
