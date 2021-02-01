@@ -7,7 +7,7 @@
       alt=""
       @click="goHome"
     />
-    <span class="test">BACKEND</span>
+    <span class="side-menu__text">BACKEND</span>
     <!-- 側邊選單 -->
     <ul class="menu-list">
       <side-menu-item
@@ -79,19 +79,18 @@ export default {
     width: 80px;
     padding: 5px;
   }
-}
 
-// 測試用
-.test {
-  color: white;
-  text-transform: uppercase;
-  font-weight: bold;
-  writing-mode: vertical-lr;
-  text-orientation: mixed;
-  display: none;
-  margin-left: auto;
-  margin-right: 10px;
-  letter-spacing: 2px;
+  &__text {
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    display: none;
+    margin-left: auto;
+    margin-right: 10px;
+    letter-spacing: 2px;
+  }
 }
 
 .router-link-exact-active {

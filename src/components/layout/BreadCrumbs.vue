@@ -43,8 +43,8 @@ export default {
 .breadcrumb {
   display: flex;
   padding: 10px 25px;
-  border-top: 1px solid rgb(226, 220, 220);
-  border-bottom: 1px solid rgb(226, 220, 220);
+  border-top: 1px solid map-get($theme-colors, border);
+  border-bottom: 1px solid map-get($theme-colors, border);
   flex-basis: 100%;
 
   &__links {
@@ -65,7 +65,7 @@ export default {
         left: -13.5px;
         font-size: 10px;
         top: 1.5px;
-        color: rgb(180, 176, 176);
+        color: map-get($theme-colors, light-gray);
       }
     }
   }

@@ -55,20 +55,18 @@ export default {
   }
 }
 
+// 收縮
 .side-menu--active {
   left: -150px;
-
   .side-menu__logo {
     display: none;
   }
-  // 測試用
-  .test {
+  .side-menu__text {
     display: block;
     padding: 20px 0 20px;
   }
   .menu-list {
     //測試
-
     &__item {
       &__link {
         padding: 10px 15px;

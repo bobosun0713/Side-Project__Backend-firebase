@@ -108,10 +108,4 @@ export default {
     transition: all 0.5s;
   }
 }
-
-.menu-list__item__link--close {
-  padding: 10px 10px;
-  text-align: right;
-  font-size: 18px;
-}
 </style>
