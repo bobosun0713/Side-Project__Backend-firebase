@@ -74,10 +74,13 @@
             class="pagination-icon"
           ></font-awesome-icon>
         </button>
+
+        <!-- 此後 -->
         <div v-show="totalPage !== 0" class="pagination__pages">
           <span class="pagination__pages__num">{{ nowPage }}</span>
           <span class="pagination__pages__num"> / {{ totalPage }}</span>
         </div>
+
         <button class="pagination__button" @click="changeBtn(1)">
           <font-awesome-icon
             icon="chevron-circle-right"
@@ -85,6 +88,14 @@
           ></font-awesome-icon>
         </button>
       </div>
+
+      <!-- 測試分頁 -->
+      <pagination
+        :page-data="articleData"
+        :now-page="nowPage"
+        :par-page="perPage"
+        @total-page-num="test"
+      ></pagination>
     </div>
   </div>
 </template>
@@ -95,10 +106,14 @@ import IsLoading from '@/js/loading.js'
 import MessageDialog from '@/js/message.js'
 import SearchForm from '@/components/SearchFrom.vue'
 
+// 測試
+import Pagination from '@/components/Pagination.vue'
+
 export default {
   name: 'ArticleList',
   components: {
     SearchForm,
+    Pagination,
   },
   mixins: [IsLoading, MessageDialog],
   data() {
@@ -112,7 +127,7 @@ export default {
 
       // 分頁
       nowPage: 1,
-      perPage: 8,
+      perPage: 6,
     }
   },
   computed: {
@@ -167,6 +182,22 @@ export default {
       this.searchTitle = value
       // 判斷按下篩選後，切換 computed totalPage函式調用哪個的陣列
       this.isSearch = !this.searchTitle ? false : true
+    },
+
+    changeBtn(Num) {
+      let pageNum = this.nowPage + Num
+      if (pageNum < 1) {
+        this.nowPage = 1
+      } else if (pageNum > this.totalPage) {
+        this.nowPage = this.totalPage
+      } else {
+        this.nowPage = pageNum
+      }
+    },
+
+    test(num) {
+      this.nowPage = num
+      console.log(num)
     },
   },
 }

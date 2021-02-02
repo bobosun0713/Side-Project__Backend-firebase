@@ -11,6 +11,8 @@ import ArticleAdd from '@/views/article/ArticleAdd'
 import Admin from '@/views/admin/Admin'
 import AdminAdd from '@/views/admin/AdminAdd'
 
+import Pagination from '@/components/Pagination.vue'
+
 // vuex
 import store from '@/vuex/store'
 import Cookies from 'js-cookie'
@@ -123,6 +125,11 @@ const routes = [
           ],
         },
       },
+      {
+        path: '/pagination',
+        name: 'Pagination',
+        component: Pagination,
+      },
     ],
   },
   {
@@ -145,6 +152,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
   let User = store.state.userUid || Cookies.get('UID')
   if (to.meta.requiresAuth) {
     if (!User) {

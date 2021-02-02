@@ -45,7 +45,7 @@ export default {
             { name: '新增管理員', icon: 'pencil-alt', path: '/admin/add' },
           ],
         },
-        { name: 'GitHub', icon: 'code-branch', path: '/google.com' },
+        { name: 'GitHub', icon: 'code-branch', path: '/pagination' },
       ],
     }
   },

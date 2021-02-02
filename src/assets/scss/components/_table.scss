@@ -3,22 +3,26 @@
   width: 100%;
   max-width: 100%;
   border: 1px solid map-get($theme-colors, dark-blue);
-  background-color: map-get($theme-colors, "white");
+  background-color: map-get($theme-colors, 'white');
   border-collapse: collapse;
   text-align: center;
 
   // 表頭
   &-thead {
     background-color: map-get($theme-colors, dark-blue);
-    color: map-get($theme-colors, "white");
+    color: map-get($theme-colors, 'white');
     font-size: 1.125rem;
 
     &__th {
       padding: 16px 0;
-      width: calc(100% / 6);
+      width: calc(100% / 6 - 100px);
 
+      // 第一個thead
+      &:first-child {
+        width: 100px;
+      }
       &:not(:first-child) {
-        border-left: 1px solid map-get($theme-colors, "white");
+        border-left: 1px solid map-get($theme-colors, 'white');
       }
     }
   }
@@ -31,22 +35,13 @@
       text-overflow: ellipsis;
       overflow: hidden;
 
-      > p {
-        width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-      }
-
       &:first-child {
         font-weight: bold;
         font-size: 1.125rem;
       }
 
       &__img {
-        width: 100px;
+        width: 65px;
       }
 
       // 按鈕
