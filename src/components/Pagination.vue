@@ -1,6 +1,6 @@
 <template>
   <div class="bo-pagination">
-    <button class="bo-pagination__button" type="button" @click="changePage(-1)">
+    <button class="bo-pagination__button" type="button" @click="prevPage">
       <font-awesome-icon
         icon="angle-left"
         class="pagination-icon"
@@ -9,19 +9,23 @@
     <!-- 左 -->
 
     <ul class="bo-pager">
+      <!-- <li v-if="nowPage > viewPage" class="bo-pager__number">1</li> -->
       <li
         v-for="page in pagers"
         :key="page"
         class="bo-pager__number"
         :class="{ 'bo-pager__number--active': nowPage === page }"
-        @click="test(page)"
+        @click="clickPageNum(page)"
       >
         {{ page }}
       </li>
+      <!-- <li v-if="nowPage !== totalPage" class="bo-pager__number">
+        {{ totalPage }}
+      </li> -->
     </ul>
 
     <!-- 右 -->
-    <button class="bo-pagination__button" type="button" @click="changePage(1)">
+    <button class="bo-pagination__button" type="button" @click="nextPage">
       <font-awesome-icon
         icon="angle-right"
         class="pagination-icon"
@@ -38,15 +42,13 @@ export default {
       type: Number,
       default: 1,
     },
-    parPage: {
+    totalPage: {
       type: Number,
-      default: 4,
+      default: 0,
     },
-    pageData: {
-      type: Array,
-      default() {
-        return []
-      },
+    viewPage: {
+      type: Number,
+      default: 0,
     },
   },
   data() {
@@ -55,44 +57,43 @@ export default {
     }
   },
   computed: {
-    totalPage() {
-      return Math.ceil(this.pageData.length / this.parPage)
+    // 判斷起始值
+    starPage() {
+      if (this.nowPage === 1) {
+        // 當等於1時，避免顯示出現0，跟判斷else有相互關西。
+        return 1
+      } else if (this.nowPage === this.totalPage) {
+        // 當nowPage等於總頁數時，把起始值 - 預設顯示值，再加上+1 是為了跑pager迴圈讓畫面固定在範圍內
+        return this.nowPage - this.viewPage + 1
+      } else {
+        // -1 讓active 固定在中間
+        return this.nowPage - 1
+      }
+    },
+
+    endPage() {
+      console.log('endPage =>', this.starPage + this.viewPage - 1)
+      return this.starPage + this.viewPage - 1
     },
 
     pagers() {
-      // v1 版本 待改良
-      const arrayNum = []
-      if (this.nowPage > 3) {
-        for (let i = 4; i <= this.totalPage; i++) {
-          arrayNum.push(i)
-        }
-      } else {
-        for (let i = 1; i <= this.totalPage - 3; i++) {
-          arrayNum.push(i)
-        }
+      let arrayNum = []
+      for (let i = this.starPage; i <= this.endPage; i++) {
+        arrayNum.push(i)
       }
-
-      // v2 版本 即將量產
-
       return arrayNum
     },
   },
   methods: {
-    test(num) {
+    clickPageNum(num) {
       this.currentNum = num
       this.$emit('total-page-num', num)
     },
-    changePage(num) {
-      let pageNum = this.currentNum + num
-      if (pageNum < 1) {
-        this.currentNum = 1
-      } else if (pageNum > this.totalPage) {
-        this.currentNum = this.totalPage
-      } else {
-        this.currentNum = pageNum
-      }
-
-      this.$emit('total-page-num', this.currentNum)
+    prevPage() {
+      this.$emit('total-page-num', this.nowPage - 1)
+    },
+    nextPage() {
+      this.$emit('total-page-num', this.nowPage + 1)
     },
   },
 }
@@ -100,7 +101,7 @@ export default {
 
 <style lang="scss" scoped>
 .bo-pagination {
-  margin: 0 auto;
+  margin: 20px auto 0;
   width: 300px;
   background-color: white;
   padding: 10px 20px;

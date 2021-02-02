@@ -67,7 +67,7 @@
       </table>
 
       <!-- 分頁器 -->
-      <div v-if="pageList.length !== 0" class="pagination">
+      <!-- <div v-if="pageList.length !== 0" class="pagination">
         <button class="pagination__button" @click="changeBtn(-1)">
           <font-awesome-icon
             icon="chevron-circle-left"
@@ -75,7 +75,6 @@
           ></font-awesome-icon>
         </button>
 
-        <!-- 此後 -->
         <div v-show="totalPage !== 0" class="pagination__pages">
           <span class="pagination__pages__num">{{ nowPage }}</span>
           <span class="pagination__pages__num"> / {{ totalPage }}</span>
@@ -87,13 +86,14 @@
             class="pagination-icon"
           ></font-awesome-icon>
         </button>
-      </div>
+      </div> -->
 
       <!-- 測試分頁 -->
       <pagination
-        :page-data="articleData"
+        :total-page="totalPage"
         :now-page="nowPage"
         :par-page="perPage"
+        :view-page="3"
         @total-page-num="test"
       ></pagination>
     </div>
