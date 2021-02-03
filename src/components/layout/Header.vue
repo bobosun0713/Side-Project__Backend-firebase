@@ -75,6 +75,7 @@ export default {
 
     // button
     &-button {
+      margin: auto 0;
       padding: 10px 0;
       height: 30px;
       cursor: pointer;
