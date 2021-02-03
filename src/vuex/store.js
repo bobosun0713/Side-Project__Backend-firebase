@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 Vue.use(Vuex)
 
-const member = {
+const store = new Vuex.Store({
   state: {
     userUID: '',
   },
@@ -27,12 +27,6 @@ const member = {
     signOut({ commit }) {
       commit('REMOVE_USER_INFO')
     },
-  },
-}
-
-const store = new Vuex.Store({
-  modules: {
-    member,
   },
 })
 
