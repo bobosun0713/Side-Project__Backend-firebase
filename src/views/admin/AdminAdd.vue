@@ -67,7 +67,7 @@
         </transition>
       </validation-provider>
       <!-- 按鈕 -->
-      <button class="bo-button">新增</button>
+      <button class="bo-button bo-button--dark-blue">新增</button>
     </validation-observer>
   </div>
 </template>

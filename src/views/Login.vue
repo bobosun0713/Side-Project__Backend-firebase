@@ -108,7 +108,7 @@ export default {
     background-color: map-get($theme-colors, light);
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 5px 5px 8px map-get($theme-colors, shadow);
+    box-shadow: 5px 5px 15px map-get($theme-colors, shadow);
   }
 
   // 圖片
