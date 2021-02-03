@@ -32,8 +32,8 @@
 
 <script>
 import { UserCollection } from '@/db'
-import IsLoading from '@/js/loading.js'
-import MessageDialog from '@/js/message.js'
+import IsLoading from '@/mixin/loading.js'
+import MessageDialog from '@/mixin/message.js'
 
 import SearchForm from '@/components/SearchFrom.vue'
 export default {
@@ -74,7 +74,7 @@ export default {
 // list
 .admin-list {
   padding: 30px;
-  background-color: white;
+  background-color: map-get($theme-colors, light);
   box-shadow: 0 0 7px rgb(206, 201, 201);
   border-radius: 15px;
 

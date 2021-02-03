@@ -55,7 +55,7 @@ export default {
   }
 }
 
-// 收縮
+// 收合
 .side-menu--active {
   left: -150px;
   .side-menu__logo {

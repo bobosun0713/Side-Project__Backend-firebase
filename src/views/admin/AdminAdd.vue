@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import IsLoading from '@/js/loading.js'
-import MessageDialog from '@/js/message.js'
+import IsLoading from '@/mixin/loading.js'
+import MessageDialog from '@/mixin/message.js'
 import { User, UserCollection } from '@/db'
 export default {
   name: 'AdminAdd',
@@ -124,7 +124,7 @@ export default {
   padding: 30px 35px;
   &__container {
     padding: 30px;
-    background-color: map-get($theme-colors, 'white');
+    background-color: map-get($theme-colors, light);
     box-shadow: 0 0 7px map-get($theme-colors, shadow);
     border-radius: 15px;
   }

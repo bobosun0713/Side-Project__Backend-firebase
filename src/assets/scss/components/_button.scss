@@ -1,7 +1,6 @@
 // button
 .bo-button {
   display: block;
-  margin: 0 auto;
   width: 120px;
   font-size: 14px;
   cursor: pointer;
@@ -11,9 +10,11 @@
   border-radius: 5px;
   font-weight: 600;
   box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
-  transition: transform, box-shadow 0.3s;
+  transition: all 0.3s;
 
-  &:active {
+  &:active,
+  &:hover {
+    background-color: map-get($theme-colors, light-green);
     transform: translateY(0.5px);
     box-shadow: 0 0 0;
   }
@@ -32,12 +33,12 @@
   &--blue {
     box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
     background-color: map-get($theme-colors, light-blue);
-    color: map-get($theme-colors, 'white');
+    color: map-get($theme-colors, light);
   }
 
   &--dark-blue {
     box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
     background-color: map-get($theme-colors, dark-blue);
-    color: map-get($theme-colors, 'white');
+    color: map-get($theme-colors, light);
   }
 }

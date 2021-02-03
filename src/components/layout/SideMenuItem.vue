@@ -93,7 +93,7 @@ export default {
       display: block;
       font-size: 16px;
       transition: all 0.2s;
-      color: map-get($theme-colors, 'white');
+      color: map-get($theme-colors, light);
       &--active {
         > .menu-arrow-down {
           transform: rotate(90deg);

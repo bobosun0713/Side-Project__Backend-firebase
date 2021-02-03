@@ -3,15 +3,15 @@
   width: 100%;
   max-width: 100%;
   border: 1px solid map-get($theme-colors, dark-blue);
-  background-color: map-get($theme-colors, 'white');
+  background-color: map-get($theme-colors, light);
   border-collapse: collapse;
   text-align: center;
 
   // 表頭
-  &-thead {
+  &-header {
     background-color: map-get($theme-colors, dark-blue);
-    color: map-get($theme-colors, 'white');
-    font-size: 1.125rem;
+    color: map-get($theme-colors, light);
+    font-size: 1rem;
 
     &__th {
       padding: 16px 0;
@@ -22,27 +22,28 @@
         width: 100px;
       }
       &:not(:first-child) {
-        border-left: 1px solid map-get($theme-colors, 'white');
+        border-left: 1px solid map-get($theme-colors, light);
       }
     }
   }
 
-  &-tbody {
+  &-body {
     &__td {
       padding: 10px 10px;
       border-bottom: 1px solid map-get($theme-colors, dark-blue);
       border-left: 1px solid map-get($theme-colors, dark-blue);
       text-overflow: ellipsis;
       overflow: hidden;
+      height: 65px;
+      font-size: 0.875rem;
 
       &:first-child {
         font-weight: bold;
-        font-size: 1.125rem;
       }
 
       &__img {
         width: 65px;
-        height: 65px;
+        height: 100%;
       }
 
       // 按鈕

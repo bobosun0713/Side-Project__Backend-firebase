@@ -11,19 +11,19 @@ import { firestorePlugin } from 'vuefire'
 Vue.use(firestorePlugin)
 
 // 引用element ui
-import '@/js/element.js'
+import '@/plugin/element.js'
 
 // editor 編輯器
-import '@/js/editor.js'
+import '@/plugin/editor.js'
 
 // fontawesome
-import '@/js/fontawesome.js'
+import '@/plugin/fontawesome.js'
 
 // veeValidate 驗證表單
-import '@/js/vee-validation.js'
+import '@/plugin/vee-validation.js'
 
 // moment
-import '@/js/moment.js'
+import '@/plugin/moment.js'
 
 Vue.config.productionTip = false
 

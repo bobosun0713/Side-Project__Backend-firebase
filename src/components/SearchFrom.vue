@@ -49,7 +49,7 @@ export default {
 <style lang="scss" scoped>
 .search-form {
   width: 100%;
-  background-color: map-get($theme-colors, 'white');
+  background-color: map-get($theme-colors, light);
   border-radius: 10px;
   box-shadow: 0 0 7px map-get($theme-colors, shadow);
   margin-bottom: 30px;

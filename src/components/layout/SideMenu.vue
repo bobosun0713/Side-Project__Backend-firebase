@@ -74,14 +74,14 @@ export default {
     margin: 60px auto 30px;
     cursor: pointer;
     border-radius: 100%;
-    background-color: map-get($theme-colors, 'white');
+    background-color: map-get($theme-colors , light );
     height: 80px;
     width: 80px;
     padding: 5px;
   }
 
   &__text {
-    color: map-get($theme-colors, 'white');
+    color: map-get($theme-colors , light );
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;

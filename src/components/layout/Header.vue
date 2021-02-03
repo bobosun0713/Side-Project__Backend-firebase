@@ -6,7 +6,10 @@
         <span class="header-control-button__line"></span>
       </button>
       <!-- logout -->
-      <button class="bo-button--login bo-button--dark-blue" @click="signOut">
+      <button
+        class="bo-button bo-button--login bo-button--dark-blue"
+        @click="signOut"
+      >
         Sign Out
       </button>
     </div>
@@ -16,7 +19,7 @@
 
 <script>
 import BreadCrumb from '@/components/layout/BreadCrumbs.vue'
-import MessageDialog from '@/js/message.js'
+import MessageDialog from '@/mixin/message.js'
 
 import { User } from '@/db'
 
@@ -59,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background-color: map-get($theme-colors, 'white');
+  background-color: map-get($theme-colors, light);
   position: sticky;
   top: 0;
   z-index: 1;

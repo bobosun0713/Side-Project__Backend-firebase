@@ -7,36 +7,36 @@
     <div class="article-list">
       <h2 class="article-list__title">文章列表</h2>
       <table class="table article-list__table">
-        <thead class="table-thead">
+        <thead class="table-header">
           <tr>
-            <th class="table-thead__th">文章編號</th>
-            <th class="table-thead__th">刊登時間</th>
-            <th class="table-thead__th">文章標題</th>
-            <!-- <th class="table-thead__th">文章內容</th> -->
-            <th class="table-thead__th">文章圖片</th>
-            <th class="table-thead__th">操作</th>
+            <th class="table-header__th">文章編號</th>
+            <th class="table-header__th">刊登時間</th>
+            <th class="table-header__th">文章標題</th>
+            <!-- <th class="table-theader__th">文章內容</th> -->
+            <th class="table-header__th">文章圖片</th>
+            <th class="table-header__th">操作</th>
           </tr>
         </thead>
 
-        <tbody v-if="pageList.length !== 0" class="table-tbody">
+        <tbody v-if="pageList.length !== 0" class="table-body">
           <tr v-for="(item, index) in pageList" :key="index">
-            <td class="table-tbody__td">{{ item.id }}</td>
-            <td class="table-tbody__td">
+            <td class="table-body__td">{{ item.id }}</td>
+            <td class="table-body__td">
               {{ item.time | dateFormat('YYYY-MM-DD HH:mm') }}
             </td>
-            <td class="table-tbody__td">
+            <td class="table-body__td">
               {{ item.title }}
             </td>
             <!-- <td
-              class="table-tbody__td table-tbody__td__text"
+              class="table-body__td table-body__td__text"
               v-html="item.content"
             ></td> -->
-            <td class="table-tbody__td">
-              <img class="table-tbody__td__img" alt="" :src="item.imgUrl" />
+            <td class="table-body__td">
+              <img class="table-body__td__img" alt="" :src="item.imgUrl" />
             </td>
-            <td class="table-tbody__td">
+            <td class="table-body__td">
               <button
-                class="table-tbody__td__button"
+                class="table-body__td__button"
                 @click="editAction(item.id)"
               >
                 <font-awesome-icon
@@ -46,7 +46,7 @@
               </button>
               <button
                 type="text"
-                class="table-tbody__td__button"
+                class="table-body__td__button"
                 @click="
                   deleteMessage(item.title, item.id, item.time, item.imgUrl)
                 "
@@ -59,9 +59,9 @@
             </td>
           </tr>
         </tbody>
-        <tbody v-else class="table-tbody">
+        <tbody v-else class="table-body">
           <tr>
-            <td class="table-tbody__td" colspan="6">無此文章</td>
+            <td class="table-body__td" colspan="6">無此文章</td>
           </tr>
         </tbody>
       </table>
@@ -101,8 +101,8 @@
 
 <script>
 import { collection, storageRef, collectionOrder } from '@/db'
-import IsLoading from '@/js/loading.js'
-import MessageDialog from '@/js/message.js'
+import IsLoading from '@/mixin/loading.js'
+import MessageDialog from '@/mixin/message.js'
 import SearchForm from '@/components/SearchFrom.vue'
 
 // 測試
@@ -126,7 +126,7 @@ export default {
 
       // 分頁
       nowPage: 1,
-      perPage: 5,
+      perPage: 8,
     }
   },
   computed: {
@@ -178,6 +178,7 @@ export default {
 
     // 搜尋按鈕
     searchValue(value) {
+      this.nowPage = 1
       this.searchTitle = value
       // 判斷按下篩選後，切換 computed totalPage函式調用哪個的陣列
       this.isSearch = !this.searchTitle ? false : true
@@ -207,7 +208,7 @@ export default {
 
   &-list {
     padding: 30px;
-    background-color: map-get($theme-colors, 'white');
+    background-color: map-get($theme-colors, light);
     box-shadow: 0 0 7px map-get($theme-colors, shadow);
     border-radius: 15px;
 

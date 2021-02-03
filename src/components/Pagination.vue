@@ -78,7 +78,7 @@ export default {
     },
 
     endPage() {
-      console.log('endPage =>', this.startPage + this.viewPage - 1)
+      //   console.log('endPage =>', this.startPage + this.viewPage - 1)
       return this.startPage + this.viewPage - 1
     },
 
@@ -87,7 +87,7 @@ export default {
       for (let i = this.startPage; i <= this.endPage; i++) {
         arrayNum.push(i)
       }
-      return arrayNum
+      return this.totalPage === 1 ? 1 : this.totalPage === 0 ? 0 : arrayNum
     },
   },
   methods: {
@@ -142,11 +142,12 @@ export default {
   color: #343a4c;
   width: 70%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 
   &__number {
     width: 20px;
     height: 20px;
+    margin: 0 5px;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
@@ -159,6 +160,7 @@ export default {
     // 快速上下頁
     &--quickprev,
     &--quicknext {
+      cursor: no-drop;
       position: relative;
       &::before {
         font-family: element-icons;

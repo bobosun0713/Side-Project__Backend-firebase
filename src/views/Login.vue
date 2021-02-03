@@ -14,7 +14,6 @@
           class="login-form-group"
           tag="div"
           rules="required|email"
-          mode="lazy"
         >
           <input
             v-model.trim="email"
@@ -34,7 +33,6 @@
           class="login-form-group"
           tag="div"
           rules="required|password"
-          mode="lazy"
         >
           <input
             v-model.trim="password"
@@ -49,14 +47,16 @@
           </transition>
         </validation-provider>
 
-        <button class="bo-button--login bo-button--blue">LOGIN</button>
+        <button class="bo-button bo-button--login bo-button--blue">
+          LOGIN
+        </button>
       </validation-observer>
     </div>
   </div>
 </template>
 
 <script>
-import MessageDialog from '@/js/message.js'
+import MessageDialog from '@/mixin/message.js'
 import { User } from '@/db'
 export default {
   name: 'Login',
@@ -96,7 +96,7 @@ export default {
 .login {
   width: 100%;
   height: 100vh;
-  background-color: map-get($theme-colors, light-white);
+  background-color: map-get($theme-colors, light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +105,7 @@ export default {
     width: 700px;
     display: flex;
     justify-content: center;
-    background-color: map-get($theme-colors, 'white');
+    background-color: map-get($theme-colors, light);
     padding: 25px;
     border-radius: 15px;
     box-shadow: 5px 5px 8px map-get($theme-colors, shadow);
@@ -162,7 +162,7 @@ export default {
       border-radius: 20px;
       box-shadow: 1.5px 1.5px 3px map-get($theme-colors, shadow);
       background-color: map-get($theme-colors, light-blue);
-      color: map-get($theme-colors, 'white');
+      color: map-get($theme-colors, light);
       transition: all 0.5s;
       &:active {
         transform: translateY(1.5px);
