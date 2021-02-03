@@ -1,5 +1,5 @@
 <template>
-  <nav class="side-menu">
+  <nav class="side-menu" :class="{ active: isToggleMenu }">
     <!-- Logo -->
     <img
       class="side-menu__logo"
@@ -25,6 +25,12 @@ export default {
   name: 'SideMenu',
   components: {
     SideMenuItem,
+  },
+  props: {
+    isToggleMenu: {
+      type: Boolean,
+      require: true,
+    },
   },
   data() {
     return {
@@ -74,14 +80,14 @@ export default {
     margin: 60px auto 30px;
     cursor: pointer;
     border-radius: 100%;
-    background-color: map-get($theme-colors , light );
+    background-color: map-get($theme-colors, light);
     height: 80px;
     width: 80px;
     padding: 5px;
   }
 
   &__text {
-    color: map-get($theme-colors , light );
+    color: map-get($theme-colors, light);
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
@@ -91,6 +97,34 @@ export default {
     margin-left: auto;
     margin-right: 14px;
     letter-spacing: 2px;
+  }
+
+  // 收合
+  &.active {
+    left: -150px;
+    .side-menu__logo {
+      display: none;
+    }
+    .side-menu__text {
+      display: block;
+      padding: 20px 0 20px;
+    }
+    .menu-list__item {
+      &__link {
+        padding: 10px 17px;
+        text-align: right;
+        &-text {
+          display: none;
+        }
+        .menu-icon {
+          margin-right: 0;
+          font-size: 18px;
+        }
+        .menu-arrow-down {
+          display: none;
+        }
+      }
+    }
   }
 }
 

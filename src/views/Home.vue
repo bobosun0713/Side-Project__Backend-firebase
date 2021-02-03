@@ -1,10 +1,6 @@
 <template>
   <div class="home">
-    <side-menu
-      :class="{
-        'side-menu--active': isToggleMenu,
-      }"
-    ></side-menu>
+    <side-menu :is-toggle-menu="isToggleMenu"></side-menu>
     <div class="backend" :class="{ 'backend--active': isToggleMenu }">
       <home-header @toggle-menu="toggleMenu"></home-header>
       <router-view></router-view>
@@ -52,37 +48,6 @@ export default {
 
   &--active {
     margin-left: 50px;
-  }
-}
-
-// 收合
-.side-menu--active {
-  left: -150px;
-  .side-menu__logo {
-    display: none;
-  }
-  .side-menu__text {
-    display: block;
-    padding: 20px 0 20px;
-  }
-  .menu-list {
-    //測試
-    &__item {
-      &__link {
-        padding: 10px 17px;
-        text-align: right;
-        span {
-          display: none;
-        }
-        .menu-icon {
-          margin-right: 0;
-          font-size: 18px;
-        }
-        .menu-arrow-down {
-          display: none;
-        }
-      }
-    }
   }
 }
 </style>

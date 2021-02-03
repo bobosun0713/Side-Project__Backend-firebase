@@ -6,22 +6,17 @@
         :icon="item.icon"
         class="menu-icon"
       ></font-awesome-icon>
-      <span>{{ item.name }}</span>
+      <span class="menu-list__item__link-text">{{ item.name }}</span>
     </router-link>
 
     <!-- 二 -->
     <template v-else>
-      <a
-        class="menu-list__item__link"
-        :class="{ 'menu-list__item__link--active': isListOpen }"
-        href="javascript:;"
-        @click="toggleOpen"
-      >
+      <a class="menu-list__item__link" href="javascript:;" @click="toggleOpen">
         <font-awesome-icon
           :icon="item.icon"
           class="menu-icon"
         ></font-awesome-icon>
-        <span>{{ item.name }}</span>
+        <span class="menu-list__item__link-text">{{ item.name }}</span>
         <font-awesome-icon
           icon="chevron-right"
           class="menu-arrow-down"
@@ -47,10 +42,6 @@ export default {
       default() {
         return {}
       },
-    },
-    active: {
-      type: String,
-      default: '',
     },
   },
   data() {
