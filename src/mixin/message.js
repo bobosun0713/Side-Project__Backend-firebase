@@ -1,9 +1,8 @@
 export const MessageDialog = {
   methods: {
     // 提次訊息;
-    MessageDialog(title, type, Meg, action) {
-      this.$notify({
-        title: title,
+    MessageDialog(type, Meg, action) {
+      this.$message({
         showClose: action,
         message: Meg,
         type: type,

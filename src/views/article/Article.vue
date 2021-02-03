@@ -171,9 +171,9 @@ export default {
             storageRef.child(`image/${time}-${i}`).delete()
           )
           collection.doc(id).delete()
-          this.MessageDialog('成功', 'success', '刪除成功!', false)
+          this.MessageDialog('success', '刪除成功!', false)
         })
-        .catch(() => this.MessageDialog('取消', 'info', '取消刪除!', false))
+        .catch(() => this.MessageDialog('info', '取消刪除!', false))
     },
 
     // 搜尋按鈕

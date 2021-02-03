@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     if (this.getUserInfo) {
-      this.MessageDialog('成功', 'success', '登入成功', false)
+      this.MessageDialog('success', '登入成功', false)
     }
   },
   methods: {

@@ -82,10 +82,10 @@ export default {
         .then(() => {
           this.$store.dispatch('signIn', User.currentUser.uid)
           this.$router.push({ path: '/' })
-          this.MessageDialog('成功', 'success', '登入成功', false)
+          this.MessageDialog('success', '登入成功', false)
         })
         .catch(() => {
-          this.MessageDialog('失敗', 'error', '登入失敗，再試一次！', false)
+          this.MessageDialog('error', '登入失敗，再試一次！', false)
         })
     },
   },
