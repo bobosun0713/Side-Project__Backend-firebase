@@ -44,12 +44,12 @@ export default {
         .then(() => {
           User.signOut().then(() => {
             this.$store.dispatch('signOut')
-            this.MessageDialog('success', '已登出', false)
+            this.MessageDialog('成功', 'success', '已登出', false)
             this.$router.push('/login')
           })
         })
         .catch(() => {
-          this.MessageDialog('warning', '已取消登出', false)
+          this.MessageDialog('取消', 'warning', '已取消登出', false)
         })
     },
     toggleOpen() {
