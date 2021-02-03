@@ -92,9 +92,8 @@
       <pagination
         :total-page="totalPage"
         :now-page="nowPage"
-        :par-page="perPage"
         :view-page="3"
-        @total-page-num="test"
+        @total-page-num="currentPage"
       ></pagination>
     </div>
   </div>
@@ -127,7 +126,7 @@ export default {
 
       // 分頁
       nowPage: 1,
-      perPage: 6,
+      perPage: 5,
     }
   },
   computed: {
@@ -135,8 +134,8 @@ export default {
     pageList() {
       let start = (this.nowPage - 1) * this.perPage
       return this.articleData
-        .slice(start, start + this.perPage)
         .filter((val) => val.title.match(this.searchTitle))
+        .slice(start, start + this.perPage)
     },
 
     // 總頁數 (判斷篩選前 或 篩選後 使用哪個陣列)
@@ -195,9 +194,8 @@ export default {
       }
     },
 
-    test(num) {
+    currentPage(num) {
       this.nowPage = num
-      console.log(num)
     },
   },
 }

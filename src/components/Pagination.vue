@@ -1,17 +1,20 @@
 <template>
   <div class="bo-pagination">
-    <button class="bo-pagination__button" type="button" @click="prevPage">
-      <font-awesome-icon
-        icon="angle-left"
-        class="pagination-icon"
-      ></font-awesome-icon>
-    </button>
+    <button
+      class="bo-pagination__button"
+      type="button"
+      @click="prevPage"
+    ></button>
     <!-- 左 -->
 
     <ul class="bo-pager">
-      <!-- <li v-if="nowPage > viewPage" class="bo-pager__number">1</li> -->
+      <template v-if="nowPage >= viewPage">
+        <li class="bo-pager__number" @click="clickPageNum(1)">1</li>
+        <li class="bo-pager__number bo-pager__number--quickprev"></li>
+      </template>
+
       <li
-        v-for="page in pagers"
+        v-for="page in pages"
         :key="page"
         class="bo-pager__number"
         :class="{ 'bo-pager__number--active': nowPage === page }"
@@ -19,18 +22,21 @@
       >
         {{ page }}
       </li>
-      <!-- <li v-if="nowPage !== totalPage" class="bo-pager__number">
-        {{ totalPage }}
-      </li> -->
+
+      <template v-if="nowPage >= 1 && nowPage < totalPage - 1">
+        <li class="bo-pager__number bo-pager__number--quicknext"></li>
+        <li class="bo-pager__number" @click="clickPageNum(totalPage)">
+          {{ totalPage }}
+        </li>
+      </template>
     </ul>
 
     <!-- 右 -->
-    <button class="bo-pagination__button" type="button" @click="nextPage">
-      <font-awesome-icon
-        icon="angle-right"
-        class="pagination-icon"
-      ></font-awesome-icon>
-    </button>
+    <button
+      class="bo-pagination__button "
+      type="button"
+      @click="nextPage"
+    ></button>
   </div>
 </template>
 
@@ -58,7 +64,7 @@ export default {
   },
   computed: {
     // 判斷起始值
-    starPage() {
+    startPage() {
       if (this.nowPage === 1) {
         // 當等於1時，避免顯示出現0，跟判斷else有相互關西。
         return 1
@@ -72,13 +78,13 @@ export default {
     },
 
     endPage() {
-      console.log('endPage =>', this.starPage + this.viewPage - 1)
-      return this.starPage + this.viewPage - 1
+      console.log('endPage =>', this.startPage + this.viewPage - 1)
+      return this.startPage + this.viewPage - 1
     },
 
-    pagers() {
+    pages() {
       let arrayNum = []
-      for (let i = this.starPage; i <= this.endPage; i++) {
+      for (let i = this.startPage; i <= this.endPage; i++) {
         arrayNum.push(i)
       }
       return arrayNum
@@ -90,9 +96,11 @@ export default {
       this.$emit('total-page-num', num)
     },
     prevPage() {
+      if (this.nowPage <= 1) return
       this.$emit('total-page-num', this.nowPage - 1)
     },
     nextPage() {
+      if (this.nowPage >= this.totalPage) return
       this.$emit('total-page-num', this.nowPage + 1)
     },
   },
@@ -103,32 +111,65 @@ export default {
 .bo-pagination {
   margin: 20px auto 0;
   width: 300px;
-  background-color: white;
   padding: 10px 20px;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   &__button {
     cursor: pointer;
-    width: 20px;
-    height: 20px;
-    position: relative;
     background-color: transparent;
     border: 0;
+
+    &:nth-of-type(1):before {
+      font-family: element-icons;
+      content: '\e6de';
+      display: block;
+    }
+    &:nth-of-type(2):before {
+      font-family: element-icons;
+      content: '\e6e0';
+      display: block;
+    }
+
+    &:hover {
+      color: map-get($theme-colors, light-blue);
+    }
   }
 }
 .bo-pager {
   color: #343a4c;
-  width: 55%;
+  width: 70%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 
   &__number {
-    font-size: 1rem;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
     cursor: pointer;
-    &--active {
-      color: map-get($theme-colors, error);
+    &--active,
+    &:hover {
+      color: map-get($theme-colors, light-blue);
+    }
+
+    // 快速上下頁
+    &--quickprev,
+    &--quicknext {
+      position: relative;
+      &::before {
+        font-family: element-icons;
+        content: '\e794';
+        position: absolute;
+        width: 100%;
+        margin: 0 auto;
+        display: block;
+        font-size: 12px;
+        line-height: 20px;
+      }
     }
   }
 }

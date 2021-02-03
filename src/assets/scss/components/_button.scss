@@ -3,11 +3,11 @@
   display: block;
   margin: 0 auto;
   width: 120px;
-
+  font-size: 14px;
   cursor: pointer;
   background-color: map-get($theme-colors, dark-blue);
   border: 0;
-  padding: 5px 10px;
+  padding: 10px 10px;
   border-radius: 5px;
   font-weight: 600;
   box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
@@ -17,31 +17,27 @@
     transform: translateY(0.5px);
     box-shadow: 0 0 0;
   }
-}
 
-.bo-button--login {
-  cursor: pointer;
-  border: 0;
-  padding: 10px 15px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 14px;
-  transition: transform, box-shadow 0.3s;
-  &:active {
-    transform: translateY(0.5px);
-    box-shadow: 0 0 0;
+  // 登入
+  &--login {
+    padding: 10px 15px;
+    border-radius: 20px;
+    &:active {
+      transform: translateY(0.5px);
+      box-shadow: 0 0 0;
+    }
   }
-}
 
-// color
-.bo-button--blue {
-  box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
-  background-color: map-get($theme-colors, light-blue);
-  color: map-get($theme-colors, "white");
-}
+  // ====== color
+  &--blue {
+    box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
+    background-color: map-get($theme-colors, light-blue);
+    color: map-get($theme-colors, 'white');
+  }
 
-.bo-button--dark-blue {
-  box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
-  background-color: map-get($theme-colors, dark-blue);
-  color: map-get($theme-colors, "white");
+  &--dark-blue {
+    box-shadow: 1px 1px 2px map-get($theme-colors, shadow);
+    background-color: map-get($theme-colors, dark-blue);
+    color: map-get($theme-colors, 'white');
+  }
 }
