@@ -147,7 +147,7 @@ export default {
       collection.doc(this.articleId).set(this.articleData)
       // close-loading
       this.loading.close()
-      this.MessageDialog('success', '新增成功', true)
+      this.MessageDialog('成功', 'success', '新增成功', true)
       this.$router.push('/article/list')
     },
 
@@ -195,7 +195,7 @@ export default {
       this.$router.push('/article/list')
       // close-loading
       this.loading.close()
-      this.MessageDialog('success', '修改成功', true)
+      this.MessageDialog('成功', 'success', '修改成功', true)
     },
 
     // 取得修改資料

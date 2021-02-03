@@ -101,7 +101,7 @@ export default {
         )
           .then(() => {
             this.addAdminDb()
-            this.MessageDialog('success', '帳號新增成成功', true)
+            this.MessageDialog('管理員', 'success', '帳號新增成成功', true)
             this.loading.close()
             this.$router.push('/admin/list')
           })
