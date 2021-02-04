@@ -12,7 +12,6 @@
             <th class="table-header__th">文章編號</th>
             <th class="table-header__th">刊登時間</th>
             <th class="table-header__th">文章標題</th>
-            <!-- <th class="table-theader__th">文章內容</th> -->
             <th class="table-header__th">文章圖片</th>
             <th class="table-header__th">操作</th>
           </tr>
@@ -27,10 +26,6 @@
             <td class="table-body__td">
               {{ item.title }}
             </td>
-            <!-- <td
-              class="table-body__td table-body__td__text"
-              v-html="item.content"
-            ></td> -->
             <td class="table-body__td">
               <img class="table-body__td__img" alt="" :src="item.imgUrl" />
             </td>
